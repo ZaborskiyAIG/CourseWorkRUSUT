@@ -2,6 +2,8 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping ext="property" type="PLAIN_TEXT" />
+      <mapping pattern="Factory" type="Properties" />
+      <mapping pattern="Factor" type="Properties" />
     </extensionMap>
   </component>
 </application>
