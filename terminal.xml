@@ -1,0 +1,7 @@
+<application>
+  <component name="TerminalOptionsProvider">
+    <envs>
+      <env key="Path" value="C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\zabor\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_231\jre\bin;C:\Users\zabor\AppData\Roaming\npm;" />
+    </envs>
+  </component>
+</application>
