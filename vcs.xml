@@ -10,6 +10,10 @@
           <option name="url" value="https://github.com/Krat12/SpringBootWitchJavaFX.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/caligula95/springwithoutxml.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="D:\Idea" />
