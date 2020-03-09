@@ -22,6 +22,10 @@
           <option name="url" value="https://github.com/lokeshgupta1981/spring-webmvc.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Ex3mS1ze/spring-reg-auth.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="D:\Idea" />
