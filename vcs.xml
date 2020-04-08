@@ -38,6 +38,10 @@
           <option name="url" value="http://github.com" />
           <option name="userName" value="ZaborskiyAIG" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Reinnarth/rusut.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="D:\Idea" />
