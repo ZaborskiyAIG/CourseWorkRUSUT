@@ -1,6 +1,12 @@
 package com.CourseWorkRusut.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "admin")
@@ -11,6 +17,9 @@ public class Admin extends User {
    // @Column(name = "Admin_id")
    // @GeneratedValue(strategy = GenerationType.IDENTITY)
    // private long adminId;
+
+    @Transient
+    private final String nameRole = "ROLE_ADMIN";
 
     @Column(name = "email")
     private String email;
@@ -36,5 +45,12 @@ public class Admin extends User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(nameRole));
+        return list;
     }
 }

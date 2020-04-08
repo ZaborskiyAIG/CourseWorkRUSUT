@@ -15,10 +15,10 @@ public class Specialty {
     @Column(name = "name_speciality")
     private String nameSpecialty;
 
-    @OneToMany(mappedBy = "specialty")
+    @OneToMany(mappedBy = "specialty", fetch=FetchType.LAZY)
     private List<Library> libraries;
 
-    @OneToMany(mappedBy = "specialty")
+    @OneToMany(mappedBy = "specialty", fetch=FetchType.LAZY)
     private List<StudyGroup> studyGroups;
 
     public long getSpecialtyId() {

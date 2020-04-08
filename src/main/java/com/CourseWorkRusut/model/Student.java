@@ -1,6 +1,11 @@
 package com.CourseWorkRusut.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -12,6 +17,9 @@ public class Student extends User {
    // @Column(name = "Student_id")
   //  @GeneratedValue(strategy = GenerationType.IDENTITY)
   //  private long studentId;
+
+    @Transient
+    private final String nameRole = "ROLE_STUDENT";
 
     @Column(name = "number_book")
     private String numberBook;
@@ -25,9 +33,6 @@ public class Student extends User {
 
     @OneToMany(mappedBy = "student", fetch=FetchType.LAZY)
     private List<Semester> semester;
-
-
-
 
     public String getNumberBook() {
         return numberBook;
@@ -43,5 +48,12 @@ public class Student extends User {
 
     public void setEntryYear(int entryYear) {
         this.entryYear = entryYear;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(nameRole));
+        return list;
     }
 }

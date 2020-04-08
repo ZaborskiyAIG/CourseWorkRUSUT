@@ -2,9 +2,12 @@ package com.CourseWorkRusut.config;
 
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,7 +19,13 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.CourseWorkRusut")
+@PropertySource("classpath:database.properties")
 public class HibernateConfig {
+
+    @Autowired
+    private Environment env;
+
+
 
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
@@ -30,7 +39,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"com.spring.hard.model"});
+        sessionFactory.setPackagesToScan("com.CourseWorkRusut.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -38,10 +47,16 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {  //environment инварамент считывает из проперти файла
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/user_role");
-        dataSource.setUsername("root");
-        dataSource.setPassword("12345");
+
+        dataSource.setDriverClassName(env.getProperty("driverClassName"));
+        dataSource.setUrl(env.getProperty("url"));
+        dataSource.setUsername(env.getProperty("name"));
+        dataSource.setPassword(env.getProperty("password"));
+
+       //dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+      // dataSource.setUrl("jdbc:mysql://localhost:3306/coursework");
+      // dataSource.setUsername("");
+     //  dataSource.setPassword("12345");
         return dataSource;
     }
 

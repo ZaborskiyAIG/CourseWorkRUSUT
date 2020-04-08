@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.controller;
 
 
+import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,11 +21,27 @@ public class TestController {
     @PostMapping(value = "/user")
     public ResponseEntity<User> getUser(@RequestBody User user) { //requestBody? чек поле consumer
 
+        System.out.println("0000000");
 
-    System.out.println(user.toString());
+
+
+      //  Student student = (Student) user;
+
+        //System.out.println(student.getEntryYear());
+       // System.out.println(user.get);
+
+    //System.out.println(user.toString());
 
 
    return new ResponseEntity<User>(user, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/users")
+    public ResponseEntity<User> registrationUser(@RequestBody User user) { //requestBody? чек поле consumer
+
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
 
 }

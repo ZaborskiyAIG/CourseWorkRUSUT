@@ -15,11 +15,11 @@ public class StudyGroup {
     @Column(name = "group_number")
     private String numberGroup;
 
-    @OneToMany(mappedBy = "studyGroup")
+    @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY)
     List<Student> students;
 
-    @OneToMany(mappedBy = "studyGroup" )
-    List<Subject> subjects;
+    @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY )
+    List<SubjectTeacherGroup> subjectTeacherGroups;
 
     @ManyToOne
     @JoinColumn(name = "speciality_id")

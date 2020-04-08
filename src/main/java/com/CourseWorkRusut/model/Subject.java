@@ -16,10 +16,10 @@ public class Subject {
     @Column(name = "name_subject")
     private String nameSubject;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", fetch=FetchType.LAZY)
     private List<Exam> exams;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", fetch=FetchType.LAZY)
     private List<SubjectTeacherGroup> subjectTeacherGroups;
 
 

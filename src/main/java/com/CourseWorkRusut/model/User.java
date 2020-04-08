@@ -1,12 +1,25 @@
 package com.CourseWorkRusut.model;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.util.Collection;
+
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="typeUser")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Student.class, name = "Student"),
+        @JsonSubTypes.Type(value = Teacher.class, name = "Teacher"),
+        @JsonSubTypes.Type(value = Admin.class, name = "Admin")
+})
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public abstract class User implements UserDetails {
 
     @Id
     @Column(name = "user_id")
@@ -32,11 +45,6 @@ public class User {
 
     }
 
-    public User(long id, String name, String surname) {
-        this.userId = id;
-        this.name = name;
-        this.surname = surname;
-    }
 
     public long getId() {
         return userId;
@@ -80,6 +88,36 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getUsername() {
+        return getLogin();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

@@ -1,8 +1,13 @@
 package com.CourseWorkRusut.config;
 
 
+import com.CourseWorkRusut.security.jwt.JwtConfigurer;
+import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
+import com.CourseWorkRusut.service.Impl.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,16 +19,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или WebSecurityConfiguration ?? чек разницу
 
-  //  @Autowired
- //   private ServiceUser serviceUser;
 
-  //  @Autowired
- //   private UserDetailsServiceImpl userDetailsService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    private UserDetailsServiceImpl userDetailsService;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public AppSecurityConfig(JwtTokenProvider jwtTokenProvider, UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userDetailsService = userDetailsService;
     }
+
+
+    // @Bean
+  //  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+  //      return new BCryptPasswordEncoder();
+  //  }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -38,10 +52,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
                 .antMatchers("/admin/**").hasRole("ADMIN")
               //  .antMatchers("/news").hasRole("USER")
                 //Доступ разрешен всем пользователям
-                .antMatchers("/user").permitAll()
+                .antMatchers("/login").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
+                .apply(new JwtConfigurer(jwtTokenProvider));
+
+                /*
                 //Настройка для входа в систему
                 .formLogin()
                 .loginPage("/login")
@@ -52,11 +69,19 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/user");
+
+                 */
     }
 
-   // @Autowired
-   /// protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-   //     auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-   // }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+  //  @Autowired
+  //  protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+  //      auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+  //  }
 
 }

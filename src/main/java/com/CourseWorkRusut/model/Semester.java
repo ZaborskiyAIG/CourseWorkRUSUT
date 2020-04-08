@@ -25,8 +25,8 @@ public class Semester {
     private List<Exam> exam;
 
     @ManyToOne
-    @JoinColumn (name="Student_id")
-    private List<Student> student;
+    @JoinColumn (name="student_id")
+    private Student student;
 
 
     public long getSemestrId() {
