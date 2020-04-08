@@ -13,11 +13,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "Teacher_id")
 public class Teacher extends User {
 
-
-  //  @Id
- //   @Column(name = "Teacher_id")
-  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  //  private long teacherId;
     @Transient
     private final String nameRole = "ROLE_TEACHER";
 
@@ -40,6 +35,14 @@ public class Teacher extends User {
     @OneToMany(mappedBy = "teacher")
     private List<SubjectTeacherGroup> subjectTeacherGroups;
 
+    @OneToMany(mappedBy = "teacher")
+    private List<Exam> exams;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<LearningActivities> learningActivities;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Internship> internships;
 
     public String getEmail() {
         return email;
@@ -47,6 +50,58 @@ public class Teacher extends User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNameRole() {
+        return nameRole;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
+    }
+
+    public List<ScienceDegree> getScienceDegrees() {
+        return scienceDegrees;
+    }
+
+    public void setScienceDegrees(List<ScienceDegree> scienceDegrees) {
+        this.scienceDegrees = scienceDegrees;
+    }
+
+    public List<SubjectTeacherGroup> getSubjectTeacherGroups() {
+        return subjectTeacherGroups;
+    }
+
+    public void setSubjectTeacherGroups(List<SubjectTeacherGroup> subjectTeacherGroups) {
+        this.subjectTeacherGroups = subjectTeacherGroups;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
+
+    public List<LearningActivities> getLearningActivities() {
+        return learningActivities;
+    }
+
+    public void setLearningActivities(List<LearningActivities> learningActivities) {
+        this.learningActivities = learningActivities;
+    }
+
+    public List<Internship> getInternships() {
+        return internships;
+    }
+
+    public void setInternships(List<Internship> internships) {
+        this.internships = internships;
     }
 
     @Override

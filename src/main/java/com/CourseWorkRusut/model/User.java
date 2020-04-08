@@ -41,10 +41,12 @@ public abstract class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
     public User(){
 
     }
-
 
     public long getId() {
         return userId;
@@ -88,6 +90,14 @@ public abstract class User implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @JsonIgnore

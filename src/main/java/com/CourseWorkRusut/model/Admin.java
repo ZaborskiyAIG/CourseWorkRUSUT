@@ -13,30 +13,14 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "Admin_id")
 public class Admin extends User {
 
-  //  @Id
-   // @Column(name = "Admin_id")
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // private long adminId;
-
     @Transient
     private final String nameRole = "ROLE_ADMIN";
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone")
     private String phone;
 
     public Admin() {
 
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhone() {

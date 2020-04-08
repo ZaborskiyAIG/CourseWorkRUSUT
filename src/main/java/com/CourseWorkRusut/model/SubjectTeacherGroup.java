@@ -23,4 +23,35 @@ public class SubjectTeacherGroup {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
+    public long getSubjectTeacherGroupId() {
+        return subjectTeacherGroupId;
+    }
+
+    public void setSubjectTeacherGroupId(long subjectTeacherGroupId) {
+        this.subjectTeacherGroupId = subjectTeacherGroupId;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public StudyGroup getStudyGroup() {
+        return studyGroup;
+    }
+
+    public void setStudyGroup(StudyGroup studyGroup) {
+        this.studyGroup = studyGroup;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 }

@@ -11,17 +11,9 @@ public class Internship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long examId;
 
-    @Column(name = "place_practicle")
-    private String placePracticle;
-
-    @Column(name = "internship_director")
-    private String internshipDirector;
-
- //   @Column(name = "mark")
-  //  private String mark; //вынести в отдельный класс
-
-   // @Column(name = "report")
-   // private byte[] report;
+    @ManyToOne
+    @JoinColumn(name = "Place_practice_id")
+    private PlacePractice placePractice;
 
     @Column(name = "internship_scientific_director")
     private String internshipScientificDirector;
@@ -29,6 +21,10 @@ public class Internship {
     @ManyToOne
     @JoinColumn(name = "Semester_id")
     private Semester semester;
+
+    @ManyToOne
+    @JoinColumn(name = "Teacher_id")
+    private Teacher teacher;
 
     @Embedded
     @AttributeOverrides({
@@ -45,20 +41,12 @@ public class Internship {
         this.examId = examId;
     }
 
-    public String getPlacePracticle() {
-        return placePracticle;
+    public PlacePractice getPlacePractice() {
+        return placePractice;
     }
 
-    public void setPlacePracticle(String placePracticle) {
-        this.placePracticle = placePracticle;
-    }
-
-    public String getInternshipDirector() {
-        return internshipDirector;
-    }
-
-    public void setInternshipDirector(String internshipDirector) {
-        this.internshipDirector = internshipDirector;
+    public void setPlacePracticle(PlacePractice placePracticle) {
+        this.placePractice = placePractice;
     }
 
     public String getInternshipScientificDirector() {
@@ -75,5 +63,13 @@ public class Internship {
 
     public void setSemester(Semester semester) {
         this.semester = semester;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

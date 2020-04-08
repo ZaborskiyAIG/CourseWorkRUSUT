@@ -11,9 +11,6 @@ public class LearningActivities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long learningActivitiesId;
 
-    @Column(name = "scientific_director")
-    private String scientificDirector;
-
     @ManyToOne
     @JoinColumn(name = "Semester_id")
     private Semester semester;
@@ -21,6 +18,10 @@ public class LearningActivities {
     @ManyToOne
     @JoinColumn(name = "learning_activities_type_id")
     private LearningActivitiesType learningActivitiesType;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     @Embedded
     @AttributeOverrides({
@@ -37,14 +38,6 @@ public class LearningActivities {
         this.learningActivitiesId = learningActivitiesId;
     }
 
-    public String getScientificDirector() {
-        return scientificDirector;
-    }
-
-    public void setScientificDirector(String scientificDirector) {
-        this.scientificDirector = scientificDirector;
-    }
-
     public Semester getSemester() {
         return semester;
     }
@@ -59,5 +52,13 @@ public class LearningActivities {
 
     public void setLearningActivitiesType(LearningActivitiesType learningActivitiesType) {
         this.learningActivitiesType = learningActivitiesType;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

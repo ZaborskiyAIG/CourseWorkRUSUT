@@ -28,12 +28,34 @@ public class Library {
     @JoinColumn(name = "Specialty_id")
     private Specialty specialty;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "author_library",
+            joinColumns = { @JoinColumn(name = "library_id") },
+            inverseJoinColumns = { @JoinColumn(name = "author_id")})
+    private List<Author> authors;
+
     public long getLibraryId() {
         return libraryId;
     }
 
     public void setLibraryId(long libraryId) {
         this.libraryId = libraryId;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public String getName() {

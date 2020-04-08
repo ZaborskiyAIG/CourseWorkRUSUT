@@ -29,6 +29,10 @@ public class Exam {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
+    @ManyToOne
+    @JoinColumn(name = "Teacher_id")
+    private Teacher teacher;
+
     public Exam(){
 
     }
@@ -79,5 +83,13 @@ public class Exam {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }
