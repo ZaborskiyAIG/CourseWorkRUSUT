@@ -69,7 +69,7 @@ public class AdminController {
         return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/counterUsers")  //перенести в другое место
+    @GetMapping(value = "/admin/counterUsers")
     public ResponseEntity<Map<String,Long>> counterUser() { //requestBody? HttpServletRequest? чек поле consumer
 
         Map<String,Long> map =  new HashMap<>();
@@ -78,7 +78,7 @@ public class AdminController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/allSpecialties")  //перенести в другое место
+    @GetMapping(value = "/admin/allSpecialties")
     public ResponseEntity<List<Specialty>> allSpecialties() { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(specialtyService.getAllSpecialty(), HttpStatus.OK);
     }
@@ -89,7 +89,7 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/getUser")  //перенести в другое место
+    @GetMapping(value = "/admin/getUser")
     public ResponseEntity<User> getUser(@RequestParam(value = "id") long id) { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
