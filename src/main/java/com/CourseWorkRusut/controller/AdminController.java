@@ -94,10 +94,10 @@ public class AdminController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/admin/allUsers/updateUser")
-    public ResponseEntity updateUsers(@RequestBody List<User> users){
-        return new ResponseEntity(HttpStatus.OK);
-    }
+   // @PostMapping(value = "/admin/allUsers/updateUser")
+   // public ResponseEntity updateUsers(@RequestBody List<User> users){
+   //     return new ResponseEntity(HttpStatus.OK);
+   // }
 
 
 }
