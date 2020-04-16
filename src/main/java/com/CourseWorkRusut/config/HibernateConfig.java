@@ -19,7 +19,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.CourseWorkRusut")
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:heroku.properties")
 public class HibernateConfig {
 
     @Autowired
