@@ -1,12 +1,19 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
+import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
+import com.CourseWorkRusut.service.StudyGroupService;
 import com.CourseWorkRusut.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,17 +22,28 @@ public class UserServiceImpl implements UserService {
 
     private UserDAO userDAO ;
 
+    private StudyGroupService studyGroupService;
+
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder,UserDAO userDAO ){
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
+        this.studyGroupService = studyGroupService;
     }
 
     @Override
     @Transactional
     public void register(User user) {
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDAO.register(user);
+    }
+
+
+    @Override
+    @Transactional
+    public void update(User user) {
+        userDAO.update(user);
     }
 
     @Override
@@ -33,5 +51,41 @@ public class UserServiceImpl implements UserService {
     public User getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
 
+    }
+
+    @Override
+    public User getUserById(long id) {
+        return userDAO.getUserById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Map<String,String>> getAllUser(String offset) {
+
+        List<User> users =  userDAO.getAllUser(offset);
+
+
+        List<Map<String,String>> userList = new ArrayList<>();
+
+        for(User user : users){
+            Map<String, String> userMap = new HashMap<>();
+            userMap.put("userId",String.valueOf(user.getId()));
+            userMap.put("name",user.getName());
+            userMap.put("surname",user.getSurname());
+            userMap.put("midlename",user.getMidlename());
+
+            if(user instanceof  Student) {
+            userMap.put("numberBook",String.valueOf (((Student) user).getNumberBook()));
+            }
+            userMap.put("role",String.valueOf(user.getAuthorities().iterator().next()));
+            userList.add(userMap);
+        }
+        return userList;
+    }
+
+    @Override
+    @Transactional
+    public Long contUsers() {
+        return userDAO.contUsers();
     }
 }

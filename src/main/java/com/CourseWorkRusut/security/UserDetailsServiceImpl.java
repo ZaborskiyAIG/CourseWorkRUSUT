@@ -1,4 +1,4 @@
-package com.CourseWorkRusut.service.Impl;
+package com.CourseWorkRusut.security;
 
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.UserService;
@@ -24,7 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userService.getUserByLogin(login);
-
+        System.out.println("retur user");
+        System.out.println(user.getLogin());
+        System.out.println(user.getPassword());
 
 
         if (user == null) {
@@ -32,17 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User with username: " + login + " not found");
         }
 
-        System.out.println("retur user");
 
-      //  StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-     //   for (StackTraceElement element : stackTraceElements)
-     //   {
-     //       System.out.println(element.getClassName() +"::"+element.getMethodName());
-   //     }
-
-
-       // return null;
-        //JwtUser jwtUser = JwtUserFactory.create(user);
+        System.out.println("return user");
         return user;
     }
 }

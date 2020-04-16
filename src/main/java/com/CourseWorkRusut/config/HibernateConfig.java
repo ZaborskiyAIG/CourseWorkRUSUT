@@ -66,8 +66,7 @@ public class HibernateConfig {
                 setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 setProperty("hibernate.show_sql", "true");
                 setProperty("hibernate.hbm2ddl.auto", "update");
-              //  setProperty("hibernate.current_session_context_class", "thread"); у спринга есть какаи-та совя реализация кюррент сессии, поэтому явно луше не ставить
-            }
+             }
         };
     }
 

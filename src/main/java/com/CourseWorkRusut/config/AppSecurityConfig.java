@@ -3,12 +3,11 @@ package com.CourseWorkRusut.config;
 
 import com.CourseWorkRusut.security.jwt.JwtConfigurer;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
-import com.CourseWorkRusut.service.Impl.UserDetailsServiceImpl;
+import com.CourseWorkRusut.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -43,9 +42,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
+                .cors().  //httpBasic почитать
+                and()
                 .csrf()
-                .disable()
-                .authorizeRequests()
+                    .disable()
+                .authorizeRequests()//.sessionManagement //почитать, впринцыпе узнать про сессии в секьюрности
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
@@ -76,7 +77,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        return super.authenticationManagerBean(); //можно сделать через this.au..., но тогда нужно использовать конфигГлобал, в чем разница?
     }
 
   //  @Autowired

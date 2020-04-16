@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -12,9 +13,6 @@ import java.util.List;
 @Table(name = "teacher")
 @PrimaryKeyJoinColumn(name = "Teacher_id")
 public class Teacher extends User {
-
-    @Transient
-    private final String nameRole = "ROLE_TEACHER";
 
     @Column(name = "email")
     private String email;
@@ -50,10 +48,6 @@ public class Teacher extends User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getNameRole() {
-        return nameRole;
     }
 
     public List<Position> getPositions() {
@@ -104,10 +98,4 @@ public class Teacher extends User {
         this.internships = internships;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority(nameRole));
-        return list;
-    }
 }

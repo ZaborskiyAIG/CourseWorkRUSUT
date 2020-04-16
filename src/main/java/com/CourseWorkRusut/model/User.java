@@ -5,21 +5,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="typeUser")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Student.class, name = "Student"),
         @JsonSubTypes.Type(value = Teacher.class, name = "Teacher"),
-        @JsonSubTypes.Type(value = Admin.class, name = "Admin")
+        @JsonSubTypes.Type(value = Admin.class, name = "Admin"),
+        @JsonSubTypes.Type(value = User.class, name = "User")
 })
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @Column(name = "user_id")
@@ -44,8 +48,19 @@ public abstract class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Transient
+    private String role;
+
     public User(){
 
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public long getId() {
@@ -134,6 +149,37 @@ public abstract class User implements UserDetails {
         this.password = password;
     }
 
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+
+//        if(this instanceof  Student)
+//           setRole("ROLE_USER");
+//
+//        if(this instanceof  Teacher)
+//            setRole("ROLE_TEACHER");
+//
+//        if(this instanceof  Teacher)
+//            setRole("ROLE_TEACHER");
+
+
+        if(this.getClass() == User.class)
+            setRole("ROLE_USER");
+
+        if(this.getClass() == Student.class)
+            setRole("ROLE_STUDENT");
+
+        if(this.getClass() == Teacher.class)
+            setRole("ROLE_TEACHER");
+
+        if(this.getClass() == Admin.class)
+            setRole("ROLE_ADMIN");
+
+        list.add(new SimpleGrantedAuthority(role));
+        return list;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -145,4 +191,6 @@ public abstract class User implements UserDetails {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+
 }

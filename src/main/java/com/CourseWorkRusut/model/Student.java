@@ -1,11 +1,14 @@
 package com.CourseWorkRusut.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,14 +21,11 @@ public class Student extends User {
   //  @GeneratedValue(strategy = GenerationType.IDENTITY)
   //  private long studentId;
 
-    @Transient
-    private final String nameRole = "ROLE_STUDENT";
-
     @Column(name = "number_book")
-    private String numberBook;
+    private long numberBook;
 
     @Column(name = "entry_year")
-    private int entryYear;
+    private LocalDate entryDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn (name="Group_id")
@@ -34,26 +34,45 @@ public class Student extends User {
     @OneToMany(mappedBy = "student", fetch=FetchType.LAZY)
     private List<Semester> semester;
 
-    public String getNumberBook() {
+    public long getNumberBook() {
         return numberBook;
     }
 
-    public void setNumberBook(String numberBook) {
+    public void setNumberBook(long numberBook) {
         this.numberBook = numberBook;
     }
 
-    public int getEntryYear() {
-        return entryYear;
+    public StudyGroup getStudyGroup() {
+        return studyGroup;
     }
 
-    public void setEntryYear(int entryYear) {
-        this.entryYear = entryYear;
+    public void setStudyGroup(StudyGroup studyGroup) {
+        this.studyGroup = studyGroup;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority(nameRole));
-        return list;
+    public List<Semester> getSemester() {
+        return semester;
     }
+
+    public void setSemester(List<Semester> semester) {
+        this.semester = semester;
+    }
+
+    public LocalDate getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(LocalDate entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    @JsonIgnore
+    public LocalDate getEntryYear() {
+        return entryDate;
+    }
+
+    public void setEntryYear(LocalDate entryYear) {
+        this.entryDate = entryYear;
+    }
+
 }

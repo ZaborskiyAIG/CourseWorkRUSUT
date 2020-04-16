@@ -25,7 +25,7 @@ public class JwtTokenProvider {
     private String secret = "jwtappdemo";
 
    // @Value("${jwt.token.expired}")
-    private long validityInMilliseconds = 3600000;
+    private long validityInMilliseconds = 36000000;
 
 
     @Autowired
@@ -46,13 +46,13 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", role);
 
-       // Date now = new Date();
-       // Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date now = new Date();
+       Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()//
                 .setClaims(claims)//
-                //.setIssuedAt(now)//
-               // .setExpiration(validity)//
+                .setIssuedAt(now)//
+                .setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secret)//
                 .compact();
     }
@@ -68,7 +68,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
