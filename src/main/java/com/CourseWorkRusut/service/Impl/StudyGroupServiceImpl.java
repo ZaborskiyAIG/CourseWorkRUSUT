@@ -32,7 +32,7 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 
     @Override
     @Transactional
-    public StudyGroup getStudyGroup(long specialtyId, String entryYear){
+    public StudyGroup getStudyGroup(Long specialtyId, String entryYear){
         List<StudyGroup> studyGroups =  studyGroupDAO.getAllStudyGroupBySpecialty(specialtyId);
 
         StudyGroup studyGroup;

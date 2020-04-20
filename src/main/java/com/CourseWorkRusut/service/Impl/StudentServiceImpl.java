@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public void generationNumberRecordBook(long specialtyId) {
+    public void generationNumberRecordBook(Long specialtyId) {
         List<Student> students =  studentDAO.getAllStudentWithoutRecordNumber();
         for (Student student : students) {
             student.setStudyGroup(studyGroupService.getStudyGroup(specialtyId, String.valueOf(student.getEntryYear().getYear())));

@@ -21,7 +21,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     @Transactional
-    public Specialty getSpecialtyById(long id) {
+    public Specialty getSpecialtyById(Long id) {
       return specialtyDAO.getSpecialtyById(id);
     }
 

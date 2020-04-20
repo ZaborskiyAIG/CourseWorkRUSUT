@@ -10,7 +10,7 @@ public class Specialty {
     @Id
     @Column(name = "Speciality_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long specialtyId;
+    private Long specialtyId;
 
     @Column(name = "name_speciality")
     private String nameSpecialty;

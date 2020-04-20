@@ -9,7 +9,7 @@ public class LearningActivities {
     @Id
     @Column(name = "learning_activities_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long learningActivitiesId;
+    private Long learningActivitiesId;
 
     @ManyToOne
     @JoinColumn(name = "Semester_id")

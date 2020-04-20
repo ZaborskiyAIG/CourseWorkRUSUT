@@ -11,7 +11,7 @@ public class Subject {
     @Id
     @Column(name = "Subject_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long subjectId;
+    private Long subjectId;
 
     @Column(name = "name_subject")
     private String nameSubject;

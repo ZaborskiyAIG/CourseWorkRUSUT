@@ -20,7 +20,7 @@ public class SpecialtyDAOImpl implements SpecialtyDAO {
     }
 
     @Override
-    public Specialty getSpecialtyById(long id) {
+    public Specialty getSpecialtyById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.load(Specialty.class,id);
 

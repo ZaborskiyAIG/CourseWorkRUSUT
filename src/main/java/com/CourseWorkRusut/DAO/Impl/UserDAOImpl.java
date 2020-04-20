@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(User.class,id);
     }
@@ -72,8 +72,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getStudentsByParameters(String offset, long groupId, long specialtyId) {
+    public List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
         Session session = this.sessionFactory.getCurrentSession();
+        int quantityUsersForPagination = 25;
 
 //        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 //        CriteriaQuery<Student> criteriaQuery =  criteriaBuilder.createQuery(Student.class);
@@ -84,10 +85,13 @@ public class UserDAOImpl implements UserDAO {
 //        query.setParameter(p, null);
 //        List<Student> results = query.list();
 
+
         Query<User> query = session.createQuery("select user from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", User.class);
-        query.setParameter("specialtyId", specialtyId);
-        query.setParameter("groupId", groupId);
+        query.setParameter("specialtyId", new Long(5));
+        query.setParameter("groupId", new Long(5));
         query.setParameter("types", Student.class);
+        query.setFirstResult(Integer.valueOf(offset));
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
         return query.list();
       }
 

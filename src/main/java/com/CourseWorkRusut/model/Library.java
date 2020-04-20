@@ -10,7 +10,7 @@ public class Library {
     @Id
     @Column(name = "library_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long libraryId;
+    private Long libraryId;
 
     @Column(name = "name")
     private String name;

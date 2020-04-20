@@ -9,7 +9,7 @@ public class SubjectTeacherGroup {
     @Id
     @Column(name = "subject_teacher_group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long subjectTeacherGroupId;
+    private Long subjectTeacherGroupId;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")

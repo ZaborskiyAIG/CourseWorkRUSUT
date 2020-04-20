@@ -12,13 +12,13 @@ public interface UserDAO {
 
     User getUserByLogin(String login);
 
-    User getUserById(long id);
+    User getUserById(Long id);
 
     User getUserByEmail(String email);
 
     List getAllUser(String offset);
 
-    List<User> getStudentsByParameters(String offset, long groupId, long specialtyId);
+    List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 
     Long contUsers();
 

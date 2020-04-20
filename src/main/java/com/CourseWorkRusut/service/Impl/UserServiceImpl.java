@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         return userDAO.getUserById(id);
     }
 
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<Map<String, String>> getStudentsByParameters(String offset, long groupId, long specialtyId) {
+    public List<Map<String, String>> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
         List<User> users = userDAO.getStudentsByParameters(offset, groupId, specialtyId);
 
         List<Map<String, String>> userList = new ArrayList<>();

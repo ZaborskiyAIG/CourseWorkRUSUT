@@ -9,7 +9,7 @@ public class Internship {
     @Id
     @Column(name = "internship_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long examId;
+    private Long examId;
 
     @ManyToOne
     @JoinColumn(name = "Place_practice_id")

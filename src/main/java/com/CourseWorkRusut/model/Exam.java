@@ -10,7 +10,7 @@ public class Exam {
     @Id
     @Column(name = "exam_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long examId;
+    private Long examId;
 
     @Column(name = "type")
     private String typeExam;

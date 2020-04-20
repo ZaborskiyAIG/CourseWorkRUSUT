@@ -16,13 +16,13 @@ public interface UserService {
 
     User getUserByLogin(String login);
 
-    User getUserById(long id);
+    User getUserById(Long id);
 
     User getUserByEmail(String email);
 
     List<Map<String,String>> getAllUser(String offset);
 
-    List<Map<String, String>> getStudentsByParameters(String offset, long groupId, long specialtyId);
+    List<Map<String, String>> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 
     Long contUsers();
 

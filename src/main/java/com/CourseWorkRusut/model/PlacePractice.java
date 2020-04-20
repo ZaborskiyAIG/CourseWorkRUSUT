@@ -9,7 +9,7 @@ public class PlacePractice {
     @Id
     @Column(name = "Place_practice_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long placePracticeId;
+    private Long placePracticeId;
 
     @Column(name = "company_name")
     private String companyName;

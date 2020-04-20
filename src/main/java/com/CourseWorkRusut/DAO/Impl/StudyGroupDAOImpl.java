@@ -31,7 +31,7 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
     }
 
     @Override
-    public List getAllStudyGroupBySpecialty(long specialtyId) {
+    public List getAllStudyGroupBySpecialty(Long specialtyId) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from StudyGroup where speciality_id=:speciality_id"); //потестить запросы на User user или тупо User
         query.setParameter("speciality_id", specialtyId);
@@ -48,7 +48,7 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
     }
 
     @Override
-    public StudyGroup getStudyGroupById(long id) {
+    public StudyGroup getStudyGroupById(Long id) {
         Session session = sessionFactory.getCurrentSession();
          return session.get(StudyGroup.class,id);
     }

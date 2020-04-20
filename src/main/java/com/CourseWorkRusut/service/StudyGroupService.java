@@ -4,7 +4,7 @@ import com.CourseWorkRusut.model.StudyGroup;
 
 public interface StudyGroupService {
 
-    StudyGroup getStudyGroup(long specialtyId,  String entryYear);
+    StudyGroup getStudyGroup(Long specialtyId,  String entryYear);
 
 
 }

@@ -9,7 +9,7 @@ public class LearningActivitiesType {
     @Id
     @Column(name = "learning_activities_type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long learningActivitiesTypeId;
+    private Long learningActivitiesTypeId;
 
     @Column(name = "learning_activities_name" )
     private String nameType;

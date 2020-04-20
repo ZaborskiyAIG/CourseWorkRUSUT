@@ -40,8 +40,8 @@ public class AdminController {
 
     @GetMapping(value = "/students")
     public ResponseEntity<List<Map<String,String>>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                                   @RequestParam(required = false) long specialtyId,
-                                                                   @RequestParam(required = false) long groupId) {
+                                                                   @RequestParam(required = false) Long specialtyId,
+                                                                   @RequestParam(required = false) Long groupId) {
         return new ResponseEntity<>(userService.getStudentsByParameters(offset, specialtyId, groupId), HttpStatus.OK);
     }
 

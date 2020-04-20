@@ -8,10 +8,10 @@ public interface StudyGroupDAO {
 
     long addStudyGroup(StudyGroup studyGroup);
 
-    List getAllStudyGroupBySpecialty(long specialtyId);
+    List getAllStudyGroupBySpecialty(Long specialtyId);
 
     long getCountStudentsInGroup(StudyGroup studyGroup);
 
-    StudyGroup getStudyGroupById(long id);
+    StudyGroup getStudyGroupById(Long id);
 
 }

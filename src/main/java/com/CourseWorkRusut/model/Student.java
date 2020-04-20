@@ -22,7 +22,7 @@ public class Student extends User {
   //  private long studentId;
 
     @Column(name = "number_book")
-    private long numberBook;
+    private Long numberBook;
 
 
     @Column(name = "entry_year")

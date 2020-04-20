@@ -14,7 +14,7 @@ public class StudyGroup {
     @Id
     @Column(name = "Group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long groupId;
+    private Long groupId;
 
     @Column(name = "group_number")
     private String numberGroup;

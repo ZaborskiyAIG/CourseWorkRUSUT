@@ -10,7 +10,7 @@ public class Semester {
     @Id
     @Column(name = "Semester_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long semestrId;
+    private Long semestrId;
 
     @Column(name = "number_semester")
     private String numberSemestr;
