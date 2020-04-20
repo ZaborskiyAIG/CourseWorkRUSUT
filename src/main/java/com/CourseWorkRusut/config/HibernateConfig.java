@@ -22,10 +22,12 @@ import java.util.Properties;
 @PropertySource("classpath:heroku.properties")
 public class HibernateConfig {
 
+    private final Environment env;   //разобрать environment
+
     @Autowired
-    private Environment env;
-
-
+    public HibernateConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
@@ -45,7 +47,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource() {  //environment инварамент считывает из проперти файла
+    public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
 
         dataSource.setDriverClassName(env.getProperty("driverClassName"));
@@ -53,10 +55,12 @@ public class HibernateConfig {
         dataSource.setUsername(env.getProperty("name"));
         dataSource.setPassword(env.getProperty("password"));
 
+        //<localhost database>
        //dataSource.setDriverClassName("com.mysql.jdbc.Driver");
       // dataSource.setUrl("jdbc:mysql://localhost:3306/coursework");
       // dataSource.setUsername("");
      //  dataSource.setPassword("12345");
+
         return dataSource;
     }
 

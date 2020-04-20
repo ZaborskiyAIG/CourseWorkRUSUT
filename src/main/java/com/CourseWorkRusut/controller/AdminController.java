@@ -12,12 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     private UserService userService;
@@ -34,43 +33,25 @@ public class AdminController {
         this.specialtyService = specialtyService;
     }
 
-    @PostMapping(value = "/admin/addUser")
-    public ResponseEntity addUser(@RequestBody User user) { //requestBody? HttpServletRequest? чек поле consumer
-
-        if(userService.getUserByLogin(user.getLogin())!=null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists"); //как лучше отправлять сообщение об ошибке, через json или боди?
-        }
-
-        userService.register(user);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/generationNumberRecordBook")
-    public ResponseEntity generationNumberRecordBook(Model model) {
-
-    //    studentService.generationNumberRecordBook();
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/admin/allUsers")  //перенести в другое место
-    public ResponseEntity<List<Map<String,String>>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
+    @GetMapping(value = "/users")
+    public ResponseEntity<List<Map<String,String>>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
         return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/allStudents")  //перенести в другое место
-    public ResponseEntity<List<Map<String,String>>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
+    @GetMapping(value = "/students")
+    public ResponseEntity<List<Map<String,String>>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                                   @RequestParam(required = false) long specialtyId,
+                                                                   @RequestParam(required = false) long groupId) {
+        return new ResponseEntity<>(userService.getStudentsByParameters(offset, specialtyId, groupId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/allTeacher")  //перенести в другое место
+    @GetMapping(value = "/teachers")
     public ResponseEntity<List<Map<String,String>>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/counterUsers")
-    public ResponseEntity<Map<String,Long>> counterUser() { //requestBody? HttpServletRequest? чек поле consumer
+    @GetMapping(value = "/counterUsers")
+    public ResponseEntity<Map<String,Long>> counterUser() {
 
         Map<String,Long> map =  new HashMap<>();
         map.put("counter",userService.contUsers());
@@ -78,26 +59,33 @@ public class AdminController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/allSpecialties")
-    public ResponseEntity<List<Specialty>> allSpecialties() { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(specialtyService.getAllSpecialty(), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/admin/allUsers/updateUser")
-    public ResponseEntity updateUser(@RequestBody User user){
+    @PostMapping(value = "/users/updateUser")
+    public ResponseEntity updateUser(@RequestBody User user ){
         userService.update(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/admin/getUser")
-    public ResponseEntity<User> getUser(@RequestParam(value = "id") long id) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    @PostMapping(value = "/users/updateUsers")
+    public ResponseEntity updateUsers(@RequestBody List<User> users){
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-   // @PostMapping(value = "/admin/allUsers/updateUser")
-   // public ResponseEntity updateUsers(@RequestBody List<User> users){
-   //     return new ResponseEntity(HttpStatus.OK);
-   // }
+
+
+    @PostMapping(value = "/addUser")
+    public ResponseEntity addUser(@RequestBody User user) {
+
+        if(userService.getUserByLogin(user.getLogin())!=null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists");
+        }
+        userService.register(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/specialties")
+    public ResponseEntity<List<Specialty>> allSpecialties() {
+        return new ResponseEntity<>(specialtyService.getAllSpecialty(), HttpStatus.OK);
+    }
 
 
 }

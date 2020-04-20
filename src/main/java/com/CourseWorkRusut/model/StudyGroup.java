@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -11,16 +12,18 @@ import java.util.List;
 public class StudyGroup {
 
     @Id
-    @Column(name = "study_group_id")
+    @Column(name = "Group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long groupId;
 
     @Column(name = "group_number")
     private String numberGroup;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY)
     List<Student> students;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY )
     List<SubjectTeacherGroup> subjectTeacherGroups;
 

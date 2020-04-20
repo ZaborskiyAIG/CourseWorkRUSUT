@@ -20,27 +20,14 @@ import java.util.List;
 @Service
 public class StudyGroupServiceImpl implements StudyGroupService {
 
+    private final StudyGroupDAO studyGroupDAO;
+
+    private final SpecialtyDAO specialtyDAO;
+
     @Autowired
-    private StudyGroupDAO studyGroupDAO;
-
-
-    @Autowired
-    private SpecialtyDAO specialtyDAO;
-
-    //группа будет генериться так *#-*порядковый_номер_группы* , где * это id специальности, #-последняя цифра этого года
-
-    public List<StudyGroup> generatedStudyGroup(List<Student> students) {
-       /* for (int i = 0; i < students.size(); i +=   ) {
-            List<StudyGroup> chunk = new ArrayList<>();
-            chunks.add(chunk);
-        }*/
-        while(!students.isEmpty()){
-         //   students.remove()
-        }
-
-
-
-        return null;
+    public StudyGroupServiceImpl(StudyGroupDAO studyGroupDAO, SpecialtyDAO specialtyDAO) {
+        this.studyGroupDAO = studyGroupDAO;
+        this.specialtyDAO = specialtyDAO;
     }
 
     @Override
@@ -65,6 +52,7 @@ public class StudyGroupServiceImpl implements StudyGroupService {
         return studyGroupDAO.getStudyGroupById(idNewStudyGroup) ;
     }
 
+    //группа будет генериться так *#-*порядковый_номер_группы* , где * это id специальности, #-последняя цифра этого года
     private String generatedNumberGroup(long specialtyId,String entryYear, int lastNumberGroup){   //над подумать как лучше сделать
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder

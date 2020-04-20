@@ -19,11 +19,12 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{
-               WebConfig.class,
+                WebConfig.class,
                 JwtTokenFilter.class
         };
     }
 
+    //посмотреь шо це таки?
     @Override
     protected String[] getServletMappings() {  //эт че за херня?
         return new String[]{"/"};

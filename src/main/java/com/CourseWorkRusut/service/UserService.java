@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
 
 import java.util.List;
@@ -11,11 +12,17 @@ public interface UserService {
 
     void update(User user);
 
+    void updateUsers(List<User> users);
+
     User getUserByLogin(String login);
 
     User getUserById(long id);
 
+    User getUserByEmail(String email);
+
     List<Map<String,String>> getAllUser(String offset);
+
+    List<Map<String, String>> getStudentsByParameters(String offset, long groupId, long specialtyId);
 
     Long contUsers();
 

@@ -22,20 +22,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String login)  { //проверить без throws
         User user = userService.getUserByLogin(login);
-        System.out.println("retur user");
-        System.out.println(user.getLogin());
-        System.out.println(user.getPassword());
-
 
         if (user == null) {
-            System.out.println("user null");
             throw new UsernameNotFoundException("User with username: " + login + " not found");
         }
 
-
-        System.out.println("return user");
         return user;
     }
 }

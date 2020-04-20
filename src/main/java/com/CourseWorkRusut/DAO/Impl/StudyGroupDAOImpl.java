@@ -15,8 +15,12 @@ import java.util.List;
 @Repository
 public class StudyGroupDAOImpl implements StudyGroupDAO {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public StudyGroupDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public long addStudyGroup(StudyGroup studyGroup) {
@@ -40,7 +44,7 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count(student.studyGroup) from Student student where student.studyGroup=:studyGroup", Student.class); //посмотреть че вообще за класс
         query.setParameter("studyGroup", studyGroup);
-        return (long) query.getSingleResult(); //попробовать сделать return на прямую
+        return (long) query.getSingleResult();
     }
 
     @Override

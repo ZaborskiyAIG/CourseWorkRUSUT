@@ -48,6 +48,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void updateUsers(List<User> users) {
+        for (User user:users) {
+            userDAO.update(user);
+        }
+    }
+
+    @Override
+    @Transactional
     public User getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
 
@@ -56,6 +64,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long id) {
         return userDAO.getUserById(id);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userDAO.getUserByEmail(email);
     }
 
     @Override
@@ -74,11 +87,32 @@ public class UserServiceImpl implements UserService {
             userMap.put("surname",user.getSurname());
             userMap.put("midlename",user.getMidlename());
 
-            if(user instanceof  Student) {
-            userMap.put("numberBook",String.valueOf (((Student) user).getNumberBook()));
-            }
             userMap.put("role",String.valueOf(user.getAuthorities().iterator().next()));
             userList.add(userMap);
+        }
+        return userList;
+    }
+
+    @Override
+    @Transactional
+    public List<Map<String, String>> getStudentsByParameters(String offset, long groupId, long specialtyId) {
+        List<User> users = userDAO.getStudentsByParameters(offset, groupId, specialtyId);
+
+        List<Map<String, String>> userList = new ArrayList<>();
+
+        for (User user : users) {
+            Map<String, String> userMap = new HashMap<>();
+            userMap.put("userId", String.valueOf(user.getId()));
+            userMap.put("name", user.getName());
+            userMap.put("surname", user.getSurname());
+            userMap.put("midlename", user.getMidlename());
+            userMap.put("numberBook", String.valueOf(((Student) user).getNumberBook()));
+            userMap.put("numberGroup", ((Student) user).getStudyGroup().getNumberGroup());
+            userMap.put("specialtyId", String.valueOf(specialtyId));
+            userMap.put("role", String.valueOf(user.getAuthorities().iterator().next()));
+
+            userList.add(userMap);
+
         }
         return userList;
     }

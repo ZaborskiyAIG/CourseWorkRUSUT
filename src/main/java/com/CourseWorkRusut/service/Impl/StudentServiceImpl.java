@@ -30,14 +30,10 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public void generationNumberRecordBook(long specialtyId) {
         List<Student> students =  studentDAO.getAllStudentWithoutRecordNumber();
-
-        System.out.println("///"+students.size());
-
         for (Student student : students) {
             student.setStudyGroup(studyGroupService.getStudyGroup(specialtyId, String.valueOf(student.getEntryYear().getYear())));
-            //System.out.println(iterator.next());
-        }
 
+        }
 
     }
 }

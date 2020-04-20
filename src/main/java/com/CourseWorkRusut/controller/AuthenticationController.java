@@ -45,10 +45,13 @@ public class AuthenticationController {
     @PostMapping(value = "/registration")
     public ResponseEntity registrationUser(@RequestBody User user) { //requestBody? HttpServletRequest? чек поле consumer
 
-        if(userService.getUserByLogin(user.getLogin())!=null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists"); //как лучше отправлять сообщение об ошибке, через json или боди?
+        if(userService.getUserByLogin(user.getLogin())!=null || userService.getUserByEmail(user.getEmail())!=null ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists");
         }
+
         userService.register(user);
+
+        //надо сделать авторизацию сразу после регистрации
 
         /*String token = jwtTokenProvider.createToken(user.getLogin(), Student.getNameRole());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
@@ -59,16 +62,12 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Map<Object, Object> response = new HashMap<>();
         response.put("role", Student.getNameRole());
+        response.put("token", token);*/
+        String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
+        // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        Map<String, String> response = new HashMap<>();
+        //  response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
         response.put("token", token);
-*/
-            String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
-           // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
-
-            Map<String, String> response = new HashMap<>();
-          //  response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
-            response.put("token", token);
-
-
         return new ResponseEntity<>(response, HttpStatus.OK);
      //   return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -77,7 +76,6 @@ public class AuthenticationController {
     public ResponseEntity loginUser(@RequestBody User user) {
         try {
             User validUser = userService.getUserByLogin(user.getLogin());
-
 
             if( validUser == null ){
                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect login");
@@ -95,9 +93,9 @@ public class AuthenticationController {
             response.put("token", token);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (AuthenticationException e){
+        } catch (AuthenticationException e){  //разобрать обработку ошибок в контроллере
             System.err.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error login");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
         }
     }
 }

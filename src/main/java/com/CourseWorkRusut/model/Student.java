@@ -24,6 +24,7 @@ public class Student extends User {
     @Column(name = "number_book")
     private long numberBook;
 
+
     @Column(name = "entry_year")
     private LocalDate entryDate = LocalDate.now();
 
@@ -31,6 +32,7 @@ public class Student extends User {
     @JoinColumn (name="Group_id")
     private StudyGroup studyGroup;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", fetch=FetchType.LAZY)
     private List<Semester> semester;
 

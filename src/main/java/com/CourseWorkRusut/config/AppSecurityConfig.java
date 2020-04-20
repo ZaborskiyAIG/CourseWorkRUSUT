@@ -42,36 +42,18 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .cors().  //httpBasic почитать
+                .cors().  //httpBasic и csrf почитать
                 and()
                 .csrf()
                     .disable()
                 .authorizeRequests()//.sessionManagement //почитать, впринцыпе узнать про сессии в секьюрности
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/registration").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").hasRole("ADMIN")
-              //  .antMatchers("/news").hasRole("USER")
-                //Доступ разрешен всем пользователям
-                .antMatchers("/login").permitAll()
-                //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/registration").not().fullyAuthenticated()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/login","/updateUser").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
 
-                /*
-                //Настройка для входа в систему
-                .formLogin()
-                .loginPage("/login")
-                //Перенарпавление на главную страницу после успешного входа
-                .defaultSuccessUrl("/user", true)
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/user");
-
-                 */
     }
 
     @Bean
