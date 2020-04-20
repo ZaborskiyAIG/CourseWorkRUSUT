@@ -119,6 +119,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Map<String, String>> getTeachersByParameters(String offset) {
+        return null;
+    }
+
+    @Override
     @Transactional
     public Long contUsers() {
         return userDAO.contUsers();

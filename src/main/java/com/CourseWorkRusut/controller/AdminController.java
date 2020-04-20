@@ -47,7 +47,7 @@ public class AdminController {
 
     @GetMapping(value = "/teachers")
     public ResponseEntity<List<Map<String,String>>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getTeachersByParameters(offset), HttpStatus.OK);
     }
 
     @GetMapping(value = "/counterUsers")
@@ -70,9 +70,9 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user")
-    public ResponseEntity<User> getUser(@RequestParam Long userId) {
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
 

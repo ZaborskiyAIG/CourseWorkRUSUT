@@ -3,6 +3,7 @@ package com.CourseWorkRusut.DAO;
 import com.CourseWorkRusut.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDAO {
 
@@ -19,6 +20,8 @@ public interface UserDAO {
     List getAllUser(String offset);
 
     List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+
+    List<Map<String, String>> getTeachersByParameters(String offset);
 
     Long contUsers();
 

@@ -23,6 +23,7 @@ public interface UserService {
     List<Map<String,String>> getAllUser(String offset);
 
     List<Map<String, String>> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+    List<Map<String, String>> getTeachersByParameters(String offset);
 
     Long contUsers();
 
