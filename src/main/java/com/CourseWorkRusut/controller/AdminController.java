@@ -42,7 +42,7 @@ public class AdminController {
     public ResponseEntity<List<Map<String,String>>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                                    @RequestParam(required = false) Long specialtyId,
                                                                    @RequestParam(required = false) Long groupId) {
-        return new ResponseEntity<>(userService.getStudentsByParameters(offset, specialtyId, groupId), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teachers")
@@ -70,6 +70,10 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/user")
+    public ResponseEntity<User> getUser(@RequestParam Long userId) {
+        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    }
 
 
     @PostMapping(value = "/addUser")

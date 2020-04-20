@@ -87,8 +87,8 @@ public class UserDAOImpl implements UserDAO {
 
 
         Query<User> query = session.createQuery("select user from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", User.class);
-        query.setParameter("specialtyId", specialtyId);
-        query.setParameter("groupId", groupId);
+        query.setParameter("specialtyId",specialtyId);
+        query.setParameter("groupId",groupId );
         query.setParameter("types", Student.class);
         query.setFirstResult(Integer.valueOf(offset));
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
