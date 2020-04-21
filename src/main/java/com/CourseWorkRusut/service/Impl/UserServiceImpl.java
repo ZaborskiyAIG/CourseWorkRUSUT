@@ -27,14 +27,13 @@ public class UserServiceImpl implements UserService {
 
     private StudyGroupService studyGroupService;
 
-    private UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService,UserMapper userMapper ){
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService ){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
         this.studyGroupService = studyGroupService;
-        this.userMapper =userMapper;
+
     }
 
     @Override
