@@ -1,7 +1,5 @@
 package com.CourseWorkRusut.controller;
 
-import com.CourseWorkRusut.DTO.UserDTO;
-import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.SpecialtyService;
