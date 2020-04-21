@@ -27,8 +27,6 @@ public class AdminController {
 
     private SpecialtyService specialtyService;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     public AdminController(UserService userService, StudentService studentService, SpecialtyService specialtyService) {
