@@ -1,9 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.mappers.StudentMapper;
-import com.CourseWorkRusut.mappers.UserMapper;
-import com.CourseWorkRusut.mappers.UserMapperImpl;
+
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.StudyGroupService;
