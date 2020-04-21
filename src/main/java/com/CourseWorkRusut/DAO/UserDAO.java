@@ -21,7 +21,7 @@ public interface UserDAO {
 
     List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 
-    List<Map<String, String>> getTeachersByParameters(String offset);
+    List<User> getTeachersByParameters(String offset);
 
     Long contUsers();
 

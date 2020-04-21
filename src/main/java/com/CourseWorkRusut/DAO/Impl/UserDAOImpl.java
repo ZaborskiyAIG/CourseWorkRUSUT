@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.model.Student;
+import com.CourseWorkRusut.model.Teacher;
 import com.CourseWorkRusut.model.User;
 
 import org.hibernate.Session;
@@ -94,6 +95,18 @@ public class UserDAOImpl implements UserDAO {
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
         return query.list();
       }
+
+    @Override
+    public List<User> getTeachersByParameters(String offset) {
+        Session session = this.sessionFactory.getCurrentSession();
+        int quantityUsersForPagination = 25;
+
+        Query query = session.createQuery(" select user from User user where type(user) in :types" );
+        query.setParameter("types", Teacher.class);
+        query.setFirstResult(Integer.valueOf(offset));
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+        return query.list();
+    }
 
     @Override
     public Long contUsers(){

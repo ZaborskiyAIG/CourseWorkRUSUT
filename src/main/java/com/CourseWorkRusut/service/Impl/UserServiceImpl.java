@@ -1,6 +1,9 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
+import com.CourseWorkRusut.mappers.StudentMapper;
+import com.CourseWorkRusut.mappers.UserMapper;
+import com.CourseWorkRusut.mappers.UserMapperImpl;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.StudyGroupService;
@@ -24,11 +27,14 @@ public class UserServiceImpl implements UserService {
 
     private StudyGroupService studyGroupService;
 
+    private UserMapper userMapper;
+
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService){
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService,UserMapper userMapper ){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
         this.studyGroupService = studyGroupService;
+        this.userMapper =userMapper;
     }
 
     @Override
@@ -62,11 +68,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userDAO.getUserById(id);
+    @Transactional
+    public Map<String, String> getUserById(Long id) {
+
+        User user = userDAO.getUserById(id);
+
+        Map<String, String> userMap = new HashMap<>();
+        userMap.put("userId", String.valueOf(user.getId()));
+        userMap.put("name", user.getName());
+        userMap.put("surname", user.getSurname());
+        userMap.put("midlename", user.getMidlename());
+        userMap.put("numberBook", String.valueOf(((Student) user).getNumberBook()));
+        userMap.put("numberGroup", ((Student) user).getStudyGroup().getNumberGroup());
+        userMap.put("nameSpecialty", String.valueOf( ((Student) user).getStudyGroup().getSpecialty().getSpecialtyId()));
+        userMap.put("role", String.valueOf(user.getAuthorities().iterator().next()));
+
+
+
+        return userMap;
+
     }
 
     @Override
+    @Transactional
     public User getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
     }
@@ -108,8 +132,8 @@ public class UserServiceImpl implements UserService {
             userMap.put("midlename", user.getMidlename());
             userMap.put("numberBook", String.valueOf(((Student) user).getNumberBook()));
             userMap.put("numberGroup", ((Student) user).getStudyGroup().getNumberGroup());
-            userMap.put("specialtyId", String.valueOf(specialtyId));
-            userMap.put("groupId", String.valueOf(groupId));
+            userMap.put("specialtyId", String.valueOf( ((Student) user).getStudyGroup().getSpecialty().getSpecialtyId()));
+            userMap.put("groupId", String.valueOf( ((Student) user).getStudyGroup().getGroupId()));
             userMap.put("role", String.valueOf(user.getAuthorities().iterator().next()));
 
             userList.add(userMap);
@@ -119,8 +143,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<Map<String, String>> getTeachersByParameters(String offset) {
-        return null;
+        List<User> users = userDAO.getTeachersByParameters(offset);
+
+        List<Map<String, String>> userList = new ArrayList<>();
+
+        for (User user : users) {
+            Map<String, String> userMap = new HashMap<>();
+            userMap.put("userId", String.valueOf(user.getId()));
+            userMap.put("name", user.getName());
+            userMap.put("surname", user.getSurname());
+            userMap.put("midlename", user.getMidlename());
+            userMap.put("email", user.getEmail());
+            userMap.put("namePosition", null);
+            userMap.put("nameScienceDegree", null);
+            userMap.put("phone",null);
+            userMap.put("role", String.valueOf(user.getAuthorities().iterator().next()));
+
+            userList.add(userMap);
+
+        }
+        return userList;
     }
 
     @Override

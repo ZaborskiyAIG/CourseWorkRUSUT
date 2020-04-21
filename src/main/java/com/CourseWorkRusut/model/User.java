@@ -154,16 +154,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
 
-//        if(this instanceof  Student)
-//           setRole("ROLE_USER");
-//
-//        if(this instanceof  Teacher)
-//            setRole("ROLE_TEACHER");
-//
-//        if(this instanceof  Teacher)
-//            setRole("ROLE_TEACHER");
-
-
         if(this.getClass() == User.class)
             setRole("ROLE_USER");
 

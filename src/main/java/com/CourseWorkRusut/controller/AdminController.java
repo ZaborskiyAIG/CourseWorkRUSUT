@@ -1,5 +1,7 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.SpecialtyService;
@@ -25,6 +27,8 @@ public class AdminController {
 
     private SpecialtyService specialtyService;
 
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     public AdminController(UserService userService, StudentService studentService, SpecialtyService specialtyService) {
@@ -71,7 +75,12 @@ public class AdminController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<Map<String,String>> getUser(@PathVariable Long id) {
+
+     //   System.out.println(userService.getUserById(id).getLogin());
+       // userMapper.userToUserDTO(userService.getUserById(id)
+
+
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 

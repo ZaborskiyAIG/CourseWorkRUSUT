@@ -16,7 +16,7 @@ public interface UserService {
 
     User getUserByLogin(String login);
 
-    User getUserById(Long id);
+    Map<String, String> getUserById(Long id);
 
     User getUserByEmail(String email);
 
