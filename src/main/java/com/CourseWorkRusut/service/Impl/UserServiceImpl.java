@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
         userMap.put("name", user.getName());
         userMap.put("surname", user.getSurname());
         userMap.put("midlename", user.getMidlename());
-        userMap.put("numberBook", String.valueOf(((Student) user).getNumberBook()));
-        userMap.put("numberGroup", ((Student) user).getStudyGroup().getNumberGroup());
-        userMap.put("nameSpecialty", String.valueOf( ((Student) user).getStudyGroup().getSpecialty().getSpecialtyId()));
+      //  userMap.put("numberBook", String.valueOf(((Student) user).getNumberBook()));
+      //  userMap.put("numberGroup", ((Student) user).getStudyGroup().getNumberGroup());
+      //  userMap.put("nameSpecialty", String.valueOf( ((Student) user).getStudyGroup().getSpecialty().getSpecialtyId()));
         userMap.put("role", String.valueOf(user.getAuthorities().iterator().next()));
 
 
