@@ -17,7 +17,7 @@ public interface UserDAO {
 
     User getUserByEmail(String email);
 
-    List getAllUser(String offset);
+    List<User> getAllUser(String offset);
 
     List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 

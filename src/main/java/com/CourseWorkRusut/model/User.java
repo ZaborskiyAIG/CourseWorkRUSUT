@@ -4,6 +4,7 @@ package com.CourseWorkRusut.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,6 +56,7 @@ public class User implements UserDetails {
 
     }
 
+
     public String getRole() {
         return role;
     }
@@ -63,12 +65,12 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public long getId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setId(long id) {
-        this.userId = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {

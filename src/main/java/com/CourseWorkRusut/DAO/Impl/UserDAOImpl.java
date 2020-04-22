@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO {  //save, update,merge,persist разобрать более подробно
 
     private SessionFactory sessionFactory;
 
@@ -101,7 +101,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = this.sessionFactory.getCurrentSession();
         int quantityUsersForPagination = 25;
 
-        Query query = session.createQuery(" select user from User user where type(user) in :types" );
+        Query<User> query = session.createQuery(" select user from User user where type(user) in :types",User.class );
         query.setParameter("types", Teacher.class);
         query.setFirstResult(Integer.valueOf(offset));
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
@@ -117,7 +117,6 @@ public class UserDAOImpl implements UserDAO {
 
 
     public List<User> getUsersByType(String forNameClass) throws ClassNotFoundException {
-
         Session session = this.sessionFactory.getCurrentSession();
          Query<User> query =  session.createQuery("from User user where type(user) in :types",User.class);
          query.setParameter("types", Class.forName(forNameClass));

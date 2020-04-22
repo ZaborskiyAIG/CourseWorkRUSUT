@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.SpecialtyService;
@@ -34,19 +35,19 @@ public class AdminController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<Map<String,String>>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
+    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
         return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<List<Map<String,String>>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                                    @RequestParam(required = false) Long specialtyId,
                                                                    @RequestParam(required = false) Long groupId) {
         return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teachers")
-    public ResponseEntity<List<Map<String,String>>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
+    public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(userService.getTeachersByParameters(offset), HttpStatus.OK);
     }
 
@@ -71,12 +72,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<Map<String,String>> getUser(@PathVariable Long id) {
-
-     //   System.out.println(userService.getUserById(id).getLogin());
-       // userMapper.userToUserDTO(userService.getUserById(id)
-
-
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 

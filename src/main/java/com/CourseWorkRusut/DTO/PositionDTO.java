@@ -1,0 +1,14 @@
+package com.CourseWorkRusut.DTO;
+
+public class PositionDTO {
+
+    private String namePosition;
+
+    public String getNamePosition() {
+        return namePosition;
+    }
+
+    public void setNamePosition(String namePosition) {
+        this.namePosition = namePosition;
+    }
+}

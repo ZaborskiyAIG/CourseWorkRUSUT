@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.User;
 
@@ -16,14 +17,14 @@ public interface UserService {
 
     User getUserByLogin(String login);
 
-    Map<String, String> getUserById(Long id);
+    UserDTO getUserById(Long id);
 
     User getUserByEmail(String email);
 
-    List<Map<String,String>> getAllUser(String offset);
+    List<UserDTO> getAllUser(String offset);
 
-    List<Map<String, String>> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
-    List<Map<String, String>> getTeachersByParameters(String offset);
+    List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+    List<UserDTO> getTeachersByParameters(String offset);
 
     Long contUsers();
 

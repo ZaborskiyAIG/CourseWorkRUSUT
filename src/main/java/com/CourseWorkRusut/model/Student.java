@@ -68,13 +68,7 @@ public class Student extends User {
         this.entryDate = entryDate;
     }
 
-    @JsonIgnore
-    public LocalDate getEntryYear() {
-        return entryDate;
+    public void setNumberBook(Long numberBook) {
+        this.numberBook = numberBook;
     }
-
-    public void setEntryYear(LocalDate entryYear) {
-        this.entryDate = entryYear;
-    }
-
 }
