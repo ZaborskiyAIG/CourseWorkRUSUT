@@ -49,7 +49,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     @Override
     public User getUserById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.load(User.class,id);
+        return session.get(User.class,id);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         query.setFirstResult(Integer.valueOf(offset));
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
         return query.list();
-      }
+    }
 
     @Override
     public List<User> getTeachersByParameters(String offset) {
@@ -117,8 +117,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         Session session = this.sessionFactory.getCurrentSession();
       return (Long) session.createQuery("Select count (user.userId) from User user").uniqueResult();
     }
-
-
 
     public List<User> getUsersByType(String forNameClass) throws ClassNotFoundException {
         Session session = this.sessionFactory.getCurrentSession();
