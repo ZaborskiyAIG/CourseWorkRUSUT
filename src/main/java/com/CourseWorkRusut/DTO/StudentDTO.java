@@ -29,6 +29,10 @@ public class StudentDTO extends UserDTO {
         this.entryDate = convertLocalDateToString(entryDate);
     }
 
+    public StudentDTO(){
+
+    }
+
     public Long getNumberBook() {
         return numberBook;
     }
