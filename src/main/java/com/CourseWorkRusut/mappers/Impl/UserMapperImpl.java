@@ -25,7 +25,7 @@ public class UserMapperImpl implements UserMapper {
     @Override
     public UserDTO userToUserDTO(User user) {
 
-         UserDTO userDto;
+        UserDTO userDto;
 
         if(user.getClass() == User.class){
             System.out.println("Us"+user.getUserId());

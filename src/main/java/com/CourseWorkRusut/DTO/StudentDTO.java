@@ -13,6 +13,13 @@ public class StudentDTO extends UserDTO {
 
     private String entryDate;
 
+    public StudentDTO(Long numberBook, String numberGroup, String nameSpecialty, String entryDate) {
+        this.numberBook = numberBook;
+        this.numberGroup = numberGroup;
+        this.nameSpecialty = nameSpecialty;
+        this.entryDate = entryDate;
+    }
+
     public Long getNumberBook() {
         return numberBook;
     }

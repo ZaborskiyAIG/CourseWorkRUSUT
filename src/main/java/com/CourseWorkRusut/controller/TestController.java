@@ -28,4 +28,10 @@ public class TestController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/s")
+    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
+        return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
+    }
+
+
 }

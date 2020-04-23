@@ -12,5 +12,11 @@ public class AdminDTO extends UserDTO {
         this.phone = phone;
     }
 
+    public AdminDTO() {
 
+    }
+
+    public AdminDTO(String phone) {
+        this.phone = phone;
+    }
 }

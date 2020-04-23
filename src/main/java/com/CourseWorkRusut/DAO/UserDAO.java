@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.DAO;
 
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface UserDAO {
 
     User getUserByEmail(String email);
 
-    List<User> getAllUser(String offset);
+    List<UserDTO> getAllUser(String offset);
 
     List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 

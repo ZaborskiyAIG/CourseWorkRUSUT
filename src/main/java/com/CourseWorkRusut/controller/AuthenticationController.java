@@ -58,7 +58,8 @@ public class AuthenticationController {
         Map<Object, Object> response = new HashMap<>();
         response.put("role", Student.getNameRole());
         response.put("token", token);*/
-        String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
+        //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
+        String token = jwtTokenProvider.createToken(user.getLogin(), user.getRole());
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
         Map<String, String> response = new HashMap<>();
         //  response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
@@ -80,11 +81,12 @@ public class AuthenticationController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect password");
             }
 
-            String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(validUser.getAuthorities().iterator().next()));
+            //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(validUser.getAuthorities().iterator().next()));
+            String token = jwtTokenProvider.createToken(user.getLogin(), validUser.getRole());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 
             Map<String, String> response = new HashMap<>();
-            response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
+            response.put("role", validUser.getRole());
             response.put("token", token);
 
             return new ResponseEntity<>(response, HttpStatus.OK);

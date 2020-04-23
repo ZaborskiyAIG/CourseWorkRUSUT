@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.Teacher;
 import com.CourseWorkRusut.model.User;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserDAOImpl implements UserDAO {  //save, update,merge,persist разобрать более подробно
-
+public class UserDAOImpl implements UserDAO {   //save, update,merge,persist разобрать более подробно
+                                                //jpa constructor, для сложных ResultTrasformer
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -61,16 +62,30 @@ public class UserDAOImpl implements UserDAO {  //save, update,merge,persist ра
     }
 
     @Override
-    public List<User> getAllUser(String offset) {
+    public List<UserDTO> getAllUser(String offset) {
         int quantityUsersForPagination = 25;
 
         Session session = this.sessionFactory.getCurrentSession();
-        Query<User> selectQuery = session.createQuery("From User", User.class);
+        Query<UserDTO> selectQuery = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user where type(user) in :types", UserDTO.class);
+        selectQuery.setParameter("types", User.class);
+        //  Query<User> selectQuery = session.createQuery(" From User", User.class);
         selectQuery.setFirstResult(Integer.valueOf(offset));
         selectQuery.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
 
         return selectQuery.list();
     }
+
+//    @Override
+//    public List<User> getUserDTO(String offset) {
+//        int quantityUsersForPagination = 25;
+//
+//        Session session = this.sessionFactory.getCurrentSession();
+//        Query<User> selectQuery = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user", User.class);
+//        selectQuery.setFirstResult(Integer.valueOf(offset));
+//        selectQuery.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+//
+//        return selectQuery.list();
+//    }
 
     @Override
     public List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {

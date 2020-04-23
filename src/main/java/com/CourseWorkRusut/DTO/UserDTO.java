@@ -24,6 +24,17 @@ public class UserDTO {
 
     private String role;
 
+    public UserDTO(Long userId, String name, String surname, String midlename, String email) {
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.midlename = midlename;
+        this.email = email;
+    }
+
+    public UserDTO(){
+
+    }
 
     public Long getUserId() {
         return userId;
