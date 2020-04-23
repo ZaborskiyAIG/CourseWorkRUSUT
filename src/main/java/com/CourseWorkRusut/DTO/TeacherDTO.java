@@ -22,8 +22,8 @@ public class TeacherDTO extends UserDTO {
 
     public TeacherDTO(List<PositionDTO> positions, List<ScienceDegreeDTO> scienceDegrees) {
         this.positions = positions;
-        this.namePositions = convertPositionsInNamePositions(positions);
-        this.nameScienceDegrees = convertScienceDegreesInNameScienceDegrees(scienceDegrees);
+        this.namePositions = convertPositionsToNamePositions(positions);
+        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
         this.scienceDegrees = scienceDegrees;
     }
 
@@ -34,7 +34,7 @@ public class TeacherDTO extends UserDTO {
 
     public void setNamePositions(List<PositionDTO> positions) {
         this.positions = positions;
-        this.namePositions = convertPositionsInNamePositions(positions);
+        this.namePositions = convertPositionsToNamePositions(positions);
     }
 
     public List<ScienceDegreeDTO> getScienceDegrees() {
@@ -43,7 +43,7 @@ public class TeacherDTO extends UserDTO {
 
     public void setNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
         this.scienceDegrees = scienceDegrees;
-       this.nameScienceDegrees = convertScienceDegreesInNameScienceDegrees(scienceDegrees);
+       this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
     }
 
     public List<String> getNamePositions() {
@@ -54,7 +54,7 @@ public class TeacherDTO extends UserDTO {
         return nameScienceDegrees;
     }
 
-    private List<String> convertPositionsInNamePositions(List<PositionDTO> positions){ //говнокод, пофиксить
+    private List<String> convertPositionsToNamePositions(List<PositionDTO> positions){ //говнокод, пофиксить
         List<String> namePositions = new ArrayList<>();
         for(PositionDTO positionDTO : positions){
             namePositions.add(positionDTO.getNamePosition());
@@ -62,7 +62,7 @@ public class TeacherDTO extends UserDTO {
         return namePositions;
     }
 
-    private List<String> convertScienceDegreesInNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees){ //говнокод, пофиксить
+    private List<String> convertScienceDegreesToNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees){ //говнокод, пофиксить
         List<String> nameScienceDegrees = new ArrayList<>();
         for(ScienceDegreeDTO scienceDegreeDTO : scienceDegrees){
             nameScienceDegrees.add(scienceDegreeDTO.getNameScienceDegree());

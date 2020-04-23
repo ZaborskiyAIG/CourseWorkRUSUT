@@ -29,8 +29,10 @@ public class TestController {
     }
 
     @GetMapping(value = "/s")
-    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
-        return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                        @RequestParam(required = false) Long specialtyId,
+                                                        @RequestParam(required = false) Long groupId) {
+        return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
     }
 
 

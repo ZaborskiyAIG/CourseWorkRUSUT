@@ -49,7 +49,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     @Override
     public User getUserById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.get(User.class,id);
+        return session.load(User.class,id);
     }
 
     @Override
@@ -66,29 +66,17 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         int quantityUsersForPagination = 25;
 
         Session session = this.sessionFactory.getCurrentSession();
-        Query<UserDTO> selectQuery = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user where type(user) in :types", UserDTO.class);
-        selectQuery.setParameter("types", User.class);
-        //  Query<User> selectQuery = session.createQuery(" From User", User.class);
-        selectQuery.setFirstResult(Integer.valueOf(offset));
-        selectQuery.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+        Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user where type(user) in :types", UserDTO.class);
+        query.setParameter("types", User.class);
+        query.setFirstResult(Integer.valueOf(offset));
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
 
-        return selectQuery.list();
+        return query.list();
     }
 
-//    @Override
-//    public List<User> getUserDTO(String offset) {
-//        int quantityUsersForPagination = 25;
-//
-//        Session session = this.sessionFactory.getCurrentSession();
-//        Query<User> selectQuery = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user", User.class);
-//        selectQuery.setFirstResult(Integer.valueOf(offset));
-//        selectQuery.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
-//
-//        return selectQuery.list();
-//    }
 
     @Override
-    public List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
+    public List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
         Session session = this.sessionFactory.getCurrentSession();
         int quantityUsersForPagination = 25;
 
@@ -102,7 +90,9 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
 //        List<Student> results = query.list();
 
 
-        Query<User> query = session.createQuery("select user from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", User.class);
+      //  Query<User> query = session.createQuery("select user from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", User.class);
+        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, user.name, user.surname, user.midlename, user.email, user.numberBook, user.studyGroup.numberGroup, user.studyGroup.specialty.nameSpecialty, user.entryDate) from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", UserDTO.class);
+
         query.setParameter("specialtyId",specialtyId);
         query.setParameter("groupId",groupId );
         query.setParameter("types", Student.class);
@@ -115,7 +105,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     public List<User> getTeachersByParameters(String offset) {
         Session session = this.sessionFactory.getCurrentSession();
         int quantityUsersForPagination = 25;
-
         Query<User> query = session.createQuery(" select user from User user where type(user) in :types",User.class );
         query.setParameter("types", Teacher.class);
         query.setFirstResult(Integer.valueOf(offset));

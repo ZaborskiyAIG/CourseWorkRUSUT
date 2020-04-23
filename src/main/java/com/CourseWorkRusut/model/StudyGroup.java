@@ -21,11 +21,11 @@ public class StudyGroup {
 
     @JsonIgnore
     @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY)
-    List<Student> students;
+    private List<Student> students;
 
     @JsonIgnore
     @OneToMany(mappedBy = "studyGroup", fetch=FetchType.LAZY )
-    List<SubjectTeacherGroup> subjectTeacherGroups;
+    private List<SubjectTeacherGroup> subjectTeacherGroups;
 
     @ManyToOne
     @JoinColumn(name = "speciality_id")

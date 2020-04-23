@@ -20,7 +20,7 @@ public interface UserDAO {
 
     List<UserDTO> getAllUser(String offset);
 
-    List<User> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+    List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 
     List<User> getTeachersByParameters(String offset);
 
