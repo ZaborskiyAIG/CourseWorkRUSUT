@@ -1,5 +1,7 @@
 package com.CourseWorkRusut.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,39 @@ public class TeacherDTO extends UserDTO {
 
     private List<String> nameScienceDegrees = new ArrayList<>();
 
+    @JsonIgnore
+    private List<PositionDTO> positions = new ArrayList<>();
+
+    @JsonIgnore
+    private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
+
     public TeacherDTO() {
+    }
+
+    public TeacherDTO(List<PositionDTO> positions, List<ScienceDegreeDTO> scienceDegrees) {
+        this.positions = positions;
+        this.namePositions = convertPositionsToNamePositions(positions);
+        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
+        this.scienceDegrees = scienceDegrees;
+    }
+
+    public List<PositionDTO> getPositions() {
+        return positions;
+    }
+
+
+    public void setNamePositions(List<PositionDTO> positions) {
+        this.positions = positions;
+        this.namePositions = convertPositionsToNamePositions(positions);
+    }
+
+    public List<ScienceDegreeDTO> getScienceDegrees() {
+        return scienceDegrees;
+    }
+
+    public void setNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
+        this.scienceDegrees = scienceDegrees;
+       this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
     }
 
     public List<String> getNamePositions() {
@@ -20,17 +54,20 @@ public class TeacherDTO extends UserDTO {
         return nameScienceDegrees;
     }
 
-    public void setNamePositions(List<PositionDTO> namePositions) {
-        for(PositionDTO positionDTO : namePositions){
-            this.namePositions.add(positionDTO.getNamePosition());
+    private List<String> convertPositionsToNamePositions(List<PositionDTO> positions){ //говнокод, пофиксить
+        List<String> namePositions = new ArrayList<>();
+        for(PositionDTO positionDTO : positions){
+            namePositions.add(positionDTO.getNamePosition());
         }
+        return namePositions;
     }
 
-    public void setNameScienceDegrees(List<ScienceDegreeDTO> nameScienceDegrees) {
-        for (ScienceDegreeDTO scienceDegreeDTO : nameScienceDegrees) {
-            this.nameScienceDegrees.add(scienceDegreeDTO.getNameScienceDegree());
+    private List<String> convertScienceDegreesToNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees){ //говнокод, пофиксить
+        List<String> nameScienceDegrees = new ArrayList<>();
+        for(ScienceDegreeDTO scienceDegreeDTO : scienceDegrees){
+            nameScienceDegrees.add(scienceDegreeDTO.getNameScienceDegree());
         }
+        return nameScienceDegrees;
     }
-
 
 }

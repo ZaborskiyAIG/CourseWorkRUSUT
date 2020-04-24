@@ -53,7 +53,7 @@ public class User implements UserDetails {
     private String role;
 
     public User(){
-
+        getAuthorities(); //говнокод
     }
 
 
@@ -170,18 +170,6 @@ public class User implements UserDetails {
 
         list.add(new SimpleGrantedAuthority(role));
         return list;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", midlename='" + midlename + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
 

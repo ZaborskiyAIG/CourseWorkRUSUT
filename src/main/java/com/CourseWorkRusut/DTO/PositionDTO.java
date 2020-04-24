@@ -11,4 +11,11 @@ public class PositionDTO {
     public void setNamePosition(String namePosition) {
         this.namePosition = namePosition;
     }
+
+    public PositionDTO(String namePosition) {
+        this.namePosition = namePosition;
+    }
+
+    public PositionDTO() {
+    }
 }

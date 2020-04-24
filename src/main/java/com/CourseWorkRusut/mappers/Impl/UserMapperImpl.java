@@ -14,18 +14,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapperImpl implements UserMapper {
 
-    @Autowired
-    StudentMapper studentMapper;
+    private StudentMapper studentMapper;
+
+    private TeacherMapper teacherMapper;
 
     @Autowired
-    TeacherMapper teacherMapper;
-
-
+    public UserMapperImpl(StudentMapper studentMapper, TeacherMapper teacherMapper) {
+        this.studentMapper = studentMapper;
+        this.teacherMapper = teacherMapper;
+    }
 
     @Override
     public UserDTO userToUserDTO(User user) {
 
-         UserDTO userDto;
+        UserDTO userDto;
 
         if(user.getClass() == User.class){
             System.out.println("Us"+user.getUserId());

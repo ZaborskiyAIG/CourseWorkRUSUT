@@ -83,27 +83,27 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public List<UserDTO> getAllUser(String offset) {
-        List<User> users =  userDAO.getAllUser(offset);
+        List<UserDTO> users =  userDAO.getAllUser(offset);
 
-        List<UserDTO> userDTOS = new ArrayList<>();
+      //  List<UserDTO> userDTOS = new ArrayList<>();
 
-        for(User user : users){
-            userDTOS.add(userMapper.userToUserDTO(user));
-        }
-        return userDTOS;
+      //  for(User user : users){
+      //      userDTOS.add(userMapper.userToUserDTO(user));
+      //  }
+        return users;
     }
 
     @Override
     @Transactional
     public List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
-        List<User> users = userDAO.getStudentsByParameters(offset, groupId, specialtyId);
+        List<UserDTO> users = userDAO.getStudentsByParameters(offset, groupId, specialtyId);
 
-        List<UserDTO> userDTOS = new ArrayList<>();
+       // List<UserDTO> userDTOS = new ArrayList<>();
 
-        for (User user : users) {
-            userDTOS.add(userMapper.userToUserDTO(user));
-        }
-        return userDTOS;
+       // for (User user : users) {
+       //     userDTOS.add(userMapper.userToUserDTO(user));
+       // }
+        return users;
     }
 
     @Override

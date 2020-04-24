@@ -13,6 +13,26 @@ public class StudentDTO extends UserDTO {
 
     private String entryDate;
 
+    public StudentDTO(Long userId,  //некрасиво, пофиксить бы
+                      String name,
+                      String surname,
+                      String midlename,
+                      String email,
+                      Long numberBook,
+                      String numberGroup,
+                      String nameSpecialty,
+                      LocalDate entryDate) {
+        super(userId,name,surname,midlename,email);
+        this.numberBook = numberBook;
+        this.numberGroup = numberGroup;
+        this.nameSpecialty = nameSpecialty;
+        this.entryDate = convertLocalDateToString(entryDate);
+    }
+
+    public StudentDTO(){
+
+    }
+
     public Long getNumberBook() {
         return numberBook;
     }
@@ -42,7 +62,11 @@ public class StudentDTO extends UserDTO {
     }
 
     public void setEntryDate(LocalDate entryDate) {
+        this.entryDate = convertLocalDateToString(entryDate);
+    }
+
+    private String convertLocalDateToString(LocalDate entryDate){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.entryDate = entryDate.format(formatter);
+        return entryDate.format(formatter);
     }
 }
