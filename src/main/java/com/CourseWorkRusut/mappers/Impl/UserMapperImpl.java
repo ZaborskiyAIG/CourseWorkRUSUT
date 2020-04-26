@@ -33,7 +33,7 @@ public class UserMapperImpl implements UserMapper {
             System.out.println("Us"+user.getUserId());
             userDto = new UserDTO();
             userDto.setName(user.getName());
-            userDto.setMidlename(user.getMidlename());
+            userDto.setMiddlename(user.getMiddlename());
             userDto.setSurname(user.getSurname());
             userDto.setEmail(user.getEmail());
             userDto.setRole(user.getRole());
