@@ -76,7 +76,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         int quantityUsersForPagination = 25;
 
         Session session = this.sessionFactory.getCurrentSession();
-        Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.midlename,user.email) From User user where type(user) in :types", UserDTO.class);
+        Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.middlename,user.email) From User user where type(user) in :types", UserDTO.class);
         query.setParameter("types", User.class);
         query.setFirstResult(Integer.valueOf(offset));
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);

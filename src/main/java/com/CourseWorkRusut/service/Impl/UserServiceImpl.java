@@ -56,22 +56,14 @@ public class UserServiceImpl implements UserService {
     public void update(UserDTO userDTO) {
       User user = userDAO.getUserById(userDTO.getUserId());
 
-     //   System.out.println("работаем"+userDTO.getUserId());
-
-     //   User user = userDAO.getStudentById(userDTO.getUserId());
-     //   User user = userDAO.getUserById(userDTO.getUserId());
-     //   System.out.println("работаем1");
-
-    //    System.out.println(user.getClass() == Student.class);
-
-        user.setName(userDTO.getName());
-        user.setMiddlename(userDTO.getMiddlename());
-        user.setSurname(userDTO.getSurname());
-        user.setEmail(userDTO.getEmail());
-
         if(userDTO.getClass() == UserDTO.class){
-            User student = new Student();
-            student = user;
+            User userStudent = new Student();               //сделать метод копирования пропертей
+
+            userStudent.setName(userDTO.getName());       //сделать метод по установке апдейта
+            userStudent.setMiddlename(userDTO.getMiddlename());
+            userStudent.setSurname(userDTO.getSurname());
+            userStudent.setEmail(userDTO.getEmail());
+
 
            StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(((StudentDTO)userDTO).getNameSpecialty(),((StudentDTO)userDTO).getEntryDate());
            ((Student)user).setStudyGroup(studyGroup);
