@@ -1,7 +1,9 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.model.StudyGroup;
+
 public interface StudentService {
 
-    void generationNumberRecordBook(Long specialtyId);
+    String generationNumberStudyBook(String entryDate, StudyGroup studyGroup);
 
 }

@@ -1,39 +1,37 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.StudentDAO;
-import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.service.StudentService;
 import com.CourseWorkRusut.service.StudyGroupService;
-import com.CourseWorkRusut.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
-import java.util.List;
-
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private StudentDAO studentDAO;
 
     private StudyGroupService studyGroupService;
 
     @Autowired
-    public StudentServiceImpl(StudentDAO studentDAO) {
-        this.studentDAO = studentDAO;
+    public StudentServiceImpl( StudyGroupService studyGroupService) {
+        this.studyGroupService = studyGroupService;
     }
 
 
     @Override
     @Transactional
-    public void generationNumberRecordBook(Long specialtyId) {
-        List<Student> students =  studentDAO.getAllStudentWithoutRecordNumber();
-        for (Student student : students) {
-            student.setStudyGroup(studyGroupService.getStudyGroup(specialtyId, String.valueOf(student.getEntryDate().getYear())));
+    public String generationNumberStudyBook(String entryDate, StudyGroup studyGroup) {
 
-        }
+       Long number = studyGroupService.getCountStudentsInGroup(studyGroup) +1;
+       String numberStudent =   number  < 10 ? "0"+number : String.valueOf(number);
+
+
+        String numberStudyBook = entryDate.substring(entryDate.length()-4) +
+                "0" +
+                studyGroup.getNumberGroup().charAt(studyGroup.getNumberGroup().length()-1) +
+                numberStudent;
+        return numberStudyBook;
 
     }
 }

@@ -22,7 +22,7 @@ public class Student extends User {
   //  private long studentId;
 
     @Column(name = "number_book")
-    private Long numberBook;
+    private String numberBook;
 
 
     @Column(name = "entry_year")
@@ -36,11 +36,11 @@ public class Student extends User {
     @OneToMany(mappedBy = "student", fetch=FetchType.LAZY)
     private List<Semester> semester;
 
-    public long getNumberBook() {
+    public String getNumberBook() {
         return numberBook;
     }
 
-    public void setNumberBook(long numberBook) {
+    public void setNumberBook(String numberBook) {
         this.numberBook = numberBook;
     }
 
@@ -68,7 +68,5 @@ public class Student extends User {
         this.entryDate = entryDate;
     }
 
-    public void setNumberBook(Long numberBook) {
-        this.numberBook = numberBook;
-    }
+
 }

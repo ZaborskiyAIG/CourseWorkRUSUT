@@ -18,17 +18,17 @@ public class UserDTO {
 
     private String surname;
 
-    private String midlename;
+    private String middlename;
 
     private String email;
 
     private String role;
 
-    public UserDTO(Long userId, String name, String surname, String midlename, String email) {
+    public UserDTO(Long userId, String name, String surname, String middlename, String email) {
         this.userId = userId;
         this.name = name;
         this.surname = surname;
-        this.midlename = midlename;
+        this.middlename = middlename;
         this.email = email;
     }
 
@@ -60,12 +60,12 @@ public class UserDTO {
         this.surname = surname;
     }
 
-    public String getMidlename() {
-        return midlename;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMidlename(String midlename) {
-        this.midlename = midlename;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
     public String getEmail() {

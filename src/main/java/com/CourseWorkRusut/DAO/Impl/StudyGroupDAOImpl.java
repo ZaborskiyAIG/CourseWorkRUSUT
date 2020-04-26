@@ -23,34 +23,39 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
     }
 
     @Override
-    public long addStudyGroup(StudyGroup studyGroup) {
+    public Long addStudyGroup(StudyGroup studyGroup) {
         Session session = sessionFactory.getCurrentSession();
-
-       return (long) session.save(studyGroup);
-
+        return (long) session.save(studyGroup);
     }
 
     @Override
-    public List getAllStudyGroupBySpecialty(Long specialtyId) {
+    public List<StudyGroup> getAllStudyGroupByNameSpecialty(String nameSpecialty) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from StudyGroup where speciality_id=:speciality_id"); //потестить запросы на User user или тупо User
-        query.setParameter("speciality_id", specialtyId);
+        Query<StudyGroup> query = session.createQuery(" from StudyGroup studyGroup where studyGroup.specialty.nameSpecialty =:nameSpecialty", StudyGroup.class);
+        query.setParameter("nameSpecialty", nameSpecialty);
         return query.list();
-
     }
 
     @Override
-    public long getCountStudentsInGroup(StudyGroup studyGroup){
+    public Long getCountStudentsInGroup(String numberGroup){
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count(student.studyGroup) from Student student where student.studyGroup=:studyGroup", Student.class); //посмотреть че вообще за класс
-        query.setParameter("studyGroup", studyGroup);
-        return (long) query.getSingleResult();
+        Query query = session.createQuery("select count(student.studyGroup) from Student student where student.studyGroup.numberGroup =:numberGroup"); //посмотреть че вообще за класс
+        query.setParameter("numberGroup", numberGroup);
+        return (Long) query.getSingleResult();
     }
 
     @Override
     public StudyGroup getStudyGroupById(Long id) {
         Session session = sessionFactory.getCurrentSession();
          return session.get(StudyGroup.class,id);
+    }
+
+    @Override
+    public StudyGroup getStudyGroupByNumberGroup(String numberGroup) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<StudyGroup> query = session.createQuery("from StudyGroup studyGroup ",StudyGroup.class);
+
+        return query.uniqueResult();
     }
 
 }

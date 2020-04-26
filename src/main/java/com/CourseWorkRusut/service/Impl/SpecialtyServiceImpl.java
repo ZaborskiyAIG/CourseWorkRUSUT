@@ -27,6 +27,12 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     @Transactional
+    public Specialty getSpecialtyByName(String nameSpecialty) {
+        return specialtyDAO.getSpecialtyByName(nameSpecialty);
+    }
+
+    @Override
+    @Transactional
     public List<Specialty> getAllSpecialty() {
         return specialtyDAO.getAllSpecialty();
     }

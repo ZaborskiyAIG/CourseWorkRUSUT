@@ -1,11 +1,13 @@
 package com.CourseWorkRusut.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class StudentDTO extends UserDTO {
 
-    private Long numberBook;
+    private String numberBook;
 
     private String numberGroup;
 
@@ -13,16 +15,20 @@ public class StudentDTO extends UserDTO {
 
     private String entryDate;
 
+    @JsonIgnore
+    private LocalDate date;
+
     public StudentDTO(Long userId,  //некрасиво, пофиксить бы
                       String name,
                       String surname,
-                      String midlename,
+                      String middlename,
                       String email,
-                      Long numberBook,
+                      String numberBook,
                       String numberGroup,
                       String nameSpecialty,
                       LocalDate entryDate) {
-        super(userId,name,surname,midlename,email);
+        super(userId,name,surname,middlename,email);
+
         this.numberBook = numberBook;
         this.numberGroup = numberGroup;
         this.nameSpecialty = nameSpecialty;
@@ -33,11 +39,11 @@ public class StudentDTO extends UserDTO {
 
     }
 
-    public Long getNumberBook() {
+    public String getNumberBook() {
         return numberBook;
     }
 
-    public void setNumberBook(Long numberBook) {
+    public void setNumberBook(String numberBook) {
         this.numberBook = numberBook;
     }
 
@@ -65,7 +71,7 @@ public class StudentDTO extends UserDTO {
         this.entryDate = convertLocalDateToString(entryDate);
     }
 
-    private String convertLocalDateToString(LocalDate entryDate){
+    private String convertLocalDateToString(LocalDate entryDate){  //сделать декоратор, перенести это в другое место
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return entryDate.format(formatter);
     }

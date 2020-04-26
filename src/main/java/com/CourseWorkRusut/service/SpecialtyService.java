@@ -8,5 +8,7 @@ public interface SpecialtyService {
 
     Specialty getSpecialtyById(Long id);
 
+    Specialty getSpecialtyByName(String nameSpecialty);
+
     List<Specialty> getAllSpecialty();
 }

@@ -20,19 +20,25 @@ public class TestController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/s/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+//    @GetMapping(value = "/s/{id}")
+//    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+//
+//
+//
+//        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+//    }
+//
+//    @GetMapping(value = "/s")
+//    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+//                                                        @RequestParam(required = false) Long specialtyId,
+//                                                        @RequestParam(required = false) Long groupId) {
+//        return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
+//    }
 
-
-
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/s")
-    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                        @RequestParam(required = false) Long specialtyId,
-                                                        @RequestParam(required = false) Long groupId) {
-        return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
+    @PostMapping(value = "/s")
+    public ResponseEntity updateUser(@RequestBody UserDTO userDTO ){
+        userService.update(userDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

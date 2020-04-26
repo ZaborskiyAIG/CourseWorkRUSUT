@@ -53,6 +53,16 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     }
 
     @Override
+    public Student getStudentById(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<Student> query = session.createQuery(" select user from User user where (type(user) in :types) and (user.userId=:id)  ",Student.class );
+        query.setParameter("types", User.class);
+        query.setParameter("id", id);
+        return query.uniqueResult();
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("from User where email=:email");

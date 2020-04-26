@@ -54,7 +54,7 @@ public class TeacherDTO extends UserDTO {
         return nameScienceDegrees;
     }
 
-    private List<String> convertPositionsToNamePositions(List<PositionDTO> positions){ //говнокод, пофиксить
+    private List<String> convertPositionsToNamePositions(List<PositionDTO> positions){ //говнокод, пофиксить, чекнуть декоратор
         List<String> namePositions = new ArrayList<>();
         for(PositionDTO positionDTO : positions){
             namePositions.add(positionDTO.getNamePosition());

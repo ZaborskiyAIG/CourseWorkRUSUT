@@ -8,6 +8,8 @@ public interface SpecialtyDAO {
 
     Specialty getSpecialtyById(Long id);
 
+    Specialty getSpecialtyByName(String nameSpecialty);
+
     List<Specialty> getAllSpecialty();
 
 }

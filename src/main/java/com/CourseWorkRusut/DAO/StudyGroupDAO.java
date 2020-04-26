@@ -6,12 +6,13 @@ import java.util.List;
 
 public interface StudyGroupDAO {
 
-    long addStudyGroup(StudyGroup studyGroup);
+    Long addStudyGroup(StudyGroup studyGroup);
 
-    List getAllStudyGroupBySpecialty(Long specialtyId);
+    List<StudyGroup> getAllStudyGroupByNameSpecialty(String nameSpecialty);
 
-    long getCountStudentsInGroup(StudyGroup studyGroup);
+    Long getCountStudentsInGroup(String numberGroup);
 
     StudyGroup getStudyGroupById(Long id);
 
+    StudyGroup getStudyGroupByNumberGroup(String numberGroup);
 }

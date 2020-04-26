@@ -38,7 +38,7 @@ public class User implements UserDetails {
     private String surname;
 
     @Column(name = "midlename")
-    private String midlename;
+    private String middlename;
 
     @Column(name = "login")
     private String login;
@@ -89,12 +89,12 @@ public class User implements UserDetails {
         this.surname = surname;
     }
 
-    public String getMidlename() {
-        return midlename;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMidlename(String midlename) {
-        this.midlename = midlename;
+    public void setMiddlename(String midlename) {
+        this.middlename = midlename;
     }
 
     public String getLogin() {

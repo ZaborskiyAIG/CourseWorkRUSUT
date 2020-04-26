@@ -4,13 +4,11 @@ import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.SpecialtyService;
-import com.CourseWorkRusut.service.StudentService;
 import com.CourseWorkRusut.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -22,15 +20,12 @@ public class AdminController {
 
     private UserService userService;
 
-    private StudentService studentService;
-
     private SpecialtyService specialtyService;
 
 
     @Autowired
-    public AdminController(UserService userService, StudentService studentService, SpecialtyService specialtyService) {
+    public AdminController(UserService userService, SpecialtyService specialtyService) {
         this.userService = userService;
-        this.studentService = studentService;
         this.specialtyService = specialtyService;
     }
 
@@ -61,8 +56,8 @@ public class AdminController {
     }
 
     @PostMapping(value = "/users/updateUser")
-    public ResponseEntity updateUser(@RequestBody User user ){
-        userService.update(user);
+    public ResponseEntity updateUser(@RequestBody UserDTO userDTO ){
+        userService.update(userDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
