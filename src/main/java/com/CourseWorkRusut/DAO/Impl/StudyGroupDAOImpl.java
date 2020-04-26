@@ -53,8 +53,8 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
     @Override
     public StudyGroup getStudyGroupByNumberGroup(String numberGroup) {
         Session session = sessionFactory.getCurrentSession();
-        Query<StudyGroup> query = session.createQuery("from StudyGroup studyGroup ",StudyGroup.class);
-
+        Query<StudyGroup> query = session.createQuery("from StudyGroup studyGroup where studyGroup.numberGroup = : numberGroup ",StudyGroup.class);
+        query.setParameter("numberGroup", numberGroup);
         return query.uniqueResult();
     }
 

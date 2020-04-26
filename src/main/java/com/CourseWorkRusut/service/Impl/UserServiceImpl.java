@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +57,14 @@ public class UserServiceImpl implements UserService {
     public void update(UserDTO userDTO) {
       User user = userDAO.getUserById(userDTO.getUserId());
 
-        if(userDTO.getClass() == UserDTO.class){
-            User userStudent = new Student();               //сделать метод копирования пропертей
+        System.out.println(userDTO.getClass() == StudentDTO.class);
+        System.out.println(userDTO.getClass() == UserDTO.class);
+        Student userStudent = new Student();
+        if(user.getClass() == User.class){
+                         //сделать метод копирования пропертей
+                            //сделать апдейт юзера, а потом сейв студента и будет заебато
 
+            userStudent.setUserId(user.getUserId());
             userStudent.setName(userDTO.getName());       //сделать метод по установке апдейта
             userStudent.setMiddlename(userDTO.getMiddlename());
             userStudent.setSurname(userDTO.getSurname());
@@ -66,16 +72,21 @@ public class UserServiceImpl implements UserService {
 
 
            StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(((StudentDTO)userDTO).getNameSpecialty(),((StudentDTO)userDTO).getEntryDate());
-           ((Student)user).setStudyGroup(studyGroup);
+           userStudent.setStudyGroup(studyGroup);
 
-           ((Student)user).setNumberBook(studentService.generationNumberStudyBook(((StudentDTO)userDTO).getEntryDate(), ((Student)user).getStudyGroup() ));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+           userStudent.setNumberBook(studentService.generationNumberStudyBook(   userStudent.getEntryDate().format(formatter) , userStudent.getStudyGroup() ));
         }
 
-      if(userDTO.getClass() == StudentDTO.class){
-          ((Student)user).setStudyGroup(studyGroupService.getStudyGroupByNumberGroup(((StudentDTO)userDTO).getNumberGroup()));
-      }
+    //  if(userDTO.getClass() == StudentDTO.class){
+   //       System.out.println("устанавливаем группу");
+     //     userStudent.setStudyGroup(studyGroupService.getStudyGroupByNumberGroup(((StudentDTO)userDTO).getNumberGroup()));
+     // }
 
-   //   userDAO.update(user);
+        System.out.println("idЖ"+userStudent.getUserId());
+
+      userDAO.update (userStudent);
     }
 
     @Override

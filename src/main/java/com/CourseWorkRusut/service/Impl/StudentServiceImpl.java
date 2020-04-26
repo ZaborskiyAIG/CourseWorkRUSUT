@@ -23,6 +23,8 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public String generationNumberStudyBook(String entryDate, StudyGroup studyGroup) {
 
+        System.out.println("А?"+entryDate);
+
        Long number = studyGroupService.getCountStudentsInGroup(studyGroup) +1;
        String numberStudent =   number  < 10 ? "0"+number : String.valueOf(number);
 
