@@ -117,11 +117,27 @@ public class AdminController {
             specialtyList.add(specialtyObject);
         }
 
-        List<String> list = new ArrayList<String>();
-        list.add("User");
-        list.add("Student");
-        list.add("Teacher");
-        list.add("Admin");
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+        Map<String, Object> roleObject = new HashMap<>();
+            roleObject.put("nameRole","ROLE_STUDENT"  );
+            roleObject.put("typeUser","Student");
+        list.add(roleObject);
+
+        Map<String, Object> roleObject1 = new HashMap<>();
+        roleObject1.put("nameRole","ROLE_USER"  );
+        roleObject1.put("typeUser","User");
+        list.add(roleObject1);
+
+        Map<String, Object> roleObject2 = new HashMap<>();
+            roleObject.put("nameRole","ROLE_TEACHER"  );
+            roleObject.put("typeUser","Teacher");
+        list.add(roleObject2);
+
+        Map<String, Object> roleObject3 = new HashMap<>();
+            roleObject.put("nameRole","ROLE_ADMIN"  );
+            roleObject.put("typeUser","Admin");
+        list.add(roleObject3);
 
         response.put("specialty",specialtyList );
         response.put("typeUser", list);
