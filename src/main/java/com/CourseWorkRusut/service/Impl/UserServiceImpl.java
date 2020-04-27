@@ -13,8 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -24,8 +23,6 @@ public class UserServiceImpl implements UserService {
 
     private UserDAO userDAO ;
 
-    private StudyGroupService studyGroupService;
-
     private UserMapper userMapper;
 
     @Autowired
@@ -34,15 +31,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RoleService roleService;
 
-    @Autowired
-    PositionScienceDegreeService positionScienceDegreeService;
+    private TeacherService teacherService;
 
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService, UserMapper userMapper){
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO,  UserMapper userMapper, TeacherService teacherService){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
-        this.studyGroupService = studyGroupService;
         this.userMapper = userMapper;
+        this.teacherService = teacherService;
     }
 
     @Override
@@ -54,47 +50,6 @@ public class UserServiceImpl implements UserService {
         userDAO.save(user);
     }
 
-    @Transactional
-    User updateStudent( Student student){  //перенести в сервис студента
-        if(student.getNumberBook() ==null){
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String entryYear = student.getEntryDate().format(formatter) ;
-
-            String nameSpecialty = student.getStudyGroup().getSpecialty().getNameSpecialty();
-
-            StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(nameSpecialty, entryYear);
-            student.setStudyGroup(studyGroup);
-
-            student.setNumberBook(studentService.generationNumberStudyBook(entryYear, student.getStudyGroup()));
-
-            return student;
-        }
-
-        StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
-        student.setStudyGroup(studyGroup);
-
-        return student;
-    }
-
-    @Transactional
-    User updateTeacher( Teacher teacher){  //перенести в сервис студента
-
-            List<String> namePositions = new ArrayList<>();
-            for(Position position : teacher.getPositions()){
-                namePositions.add(position.getNamePosition());
-            }
-
-            List<String> nameScienceDegrees = new ArrayList<>();
-            for(ScienceDegree scienceDegree : teacher.getScienceDegrees()){
-                nameScienceDegrees.add(scienceDegree.getNameScienceDegree());
-            }
-
-        teacher.setPositions(positionScienceDegreeService.getPositionsByByName(namePositions));
-        teacher.setScienceDegrees(positionScienceDegreeService.getScienceDegreeByByName(nameScienceDegrees));
-
-        return teacher;
-    }
 
     @Override
     @Transactional
@@ -111,22 +66,17 @@ public class UserServiceImpl implements UserService {
         }
 
         if(userDTO.getClass() == StudentDTO.class) {
-          modifiedUser = updateStudent((Student) user);
+          modifiedUser = studentService.updateStudent((Student) user);
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
-            modifiedUser = updateTeacher((Teacher) user);
+            modifiedUser = teacherService.updateTeacher((Teacher) user);
         }
 
         userDAO.save(modifiedUser);
         return modifiedUser;
     }
 
-    @Override
-    @Transactional
-    public void updateUsers(List<User> users) {
-
-    }
 
     @Override
     @Transactional
@@ -140,7 +90,6 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long id) {
         User user = userDAO.getUserById(id);
         return userMapper.userToUserDTO(user);
-
     }
 
     @Override
@@ -155,24 +104,6 @@ public class UserServiceImpl implements UserService {
         return userDAO.getAllUser(offset);
     }
 
-    @Override
-    @Transactional
-    public List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
-        return userDAO.getStudentsByParameters(offset, groupId, specialtyId);
-    }
-
-    @Override
-    @Transactional
-    public List<UserDTO> getTeachersByParameters(String offset) {
-        List<User> users = userDAO.getTeachersByParameters(offset);
-
-        List<UserDTO> userDTOS = new ArrayList<>();
-
-        for (User user : users) {
-            userDTOS.add(userMapper.userToUserDTO(user));
-        }
-        return userDTOS;
-    }
 
     @Override
     @Transactional

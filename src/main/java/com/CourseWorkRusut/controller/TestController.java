@@ -56,36 +56,7 @@ public class TestController {
 //        return new ResponseEntity(HttpStatus.OK);
 //    }
 
-    @GetMapping(value = "/s")
-    public ResponseEntity<Map<String,Object>> get() { //переделать
 
-        Map<String, Object> map = new HashMap<>();
-
-        List<String> list = new ArrayList<>();
-
-
-        map.put("role",roleService.getAllRoles());
-        map.put("positions",positionScienceDegreeService.getAllPositions());
-        map.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
-
-
-        List<String> specialty = specialtyService.getAllSpecialty();
-
-        List newList = new ArrayList();
-
-        for(String spec: specialty){
-            Map mapp = new HashMap();
-            mapp.put("numberGroup",studyGroupService.getAllStudyGroupByNameSpecialty(spec));
-            mapp.put("nameSpecialty",spec);
-            newList.add(mapp);
-        }
-
-
-
-        map.put("specialty",newList );
-
-        return new ResponseEntity<>(map, HttpStatus.OK); //переделать
-    }
 
 
 }

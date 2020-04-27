@@ -33,7 +33,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     @Override
     public void update(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-       // session.flush();
         session.update(user);
     }
 

@@ -1,7 +1,6 @@
 package com.CourseWorkRusut.controller;
 
 import com.CourseWorkRusut.DTO.UserDTO;
-import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 
@@ -30,6 +29,11 @@ public class AdminController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    TeacherService teacherService ;
+
+    @Autowired
+    StudentService studentService ;
 
     @Autowired
     public AdminController(UserService userService, SpecialtyService specialtyService) {
@@ -46,12 +50,12 @@ public class AdminController {
     public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                                    @RequestParam(required = false) Long specialtyId,
                                                                    @RequestParam(required = false) Long groupId) {
-        return new ResponseEntity<>(userService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teachers")
     public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(userService.getTeachersByParameters(offset), HttpStatus.OK);
+        return new ResponseEntity<>(teacherService.getTeachersByParameters(offset), HttpStatus.OK);
     }
 
 
@@ -65,7 +69,7 @@ public class AdminController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/users/updateUser")
+    @PutMapping(value = "/users/updateUser")
     public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO ){
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
@@ -75,13 +79,14 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
 
-    @PostMapping(value = "/addUser")
+  /*  @PostMapping(value = "/addUser")
     public ResponseEntity addUser(@RequestBody User user) {
 
         if(userService.getUserByLogin(user.getLogin())!=null){
@@ -90,31 +95,33 @@ public class AdminController {
 
         userService.register(user);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping(value = "/classifiers")
     public ResponseEntity<Map<String,Object>> get() { //переделать
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
 
-        map.put("role",roleService.getAllRoles());
-        map.put("positions",positionScienceDegreeService.getAllPositions());
-        map.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
+        response.put("role",roleService.getAllRoles());
+        response.put("positions",positionScienceDegreeService.getAllPositions());
+        response.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
 
 
         List<String> specialty = specialtyService.getAllSpecialty();
-        List newList = new ArrayList();
+        List<Map<String, Object>> specialtyList = new ArrayList<>();
 
         for(String spec: specialty){
-            Map mapp = new HashMap();
-            mapp.put("numberGroup",studyGroupService.getAllStudyGroupByNameSpecialty(spec));
-            mapp.put("nameSpecialty",spec);
-            newList.add(mapp);
+            Map<String, Object> specialtyObject = new HashMap<>();
+
+            specialtyObject.put("numberGroup",studyGroupService.getAllStudyGroupByNameSpecialty(spec));
+            specialtyObject.put("nameSpecialty",spec);
+
+            specialtyList.add(specialtyObject);
         }
 
-        map.put("specialty",newList );
+        response.put("specialty",specialtyList );
 
-        return new ResponseEntity<>(map, HttpStatus.OK); //переделать
+        return new ResponseEntity<>(response, HttpStatus.OK); //переделать
     }
 
 
