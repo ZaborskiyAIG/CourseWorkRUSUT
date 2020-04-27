@@ -79,12 +79,10 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
-
 
   /*  @PostMapping(value = "/addUser")
     public ResponseEntity addUser(@RequestBody User user) {
@@ -119,7 +117,14 @@ public class AdminController {
             specialtyList.add(specialtyObject);
         }
 
+        List<String> list = new ArrayList<String>();
+        list.add("User");
+        list.add("Student");
+        list.add("Teacher");
+        list.add("Admin");
+
         response.put("specialty",specialtyList );
+        response.put("typeUser", list);
 
         return new ResponseEntity<>(response, HttpStatus.OK); //переделать
     }
