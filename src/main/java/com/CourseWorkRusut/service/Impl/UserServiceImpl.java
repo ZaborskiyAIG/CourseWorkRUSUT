@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
         teacher.setPositions(positionScienceDegreeService.getPositionsByByName(namePositions));
         teacher.setScienceDegrees(positionScienceDegreeService.getScienceDegreeByByName(nameScienceDegrees));
 
-        return null;
+        return teacher;
     }
 
     @Override
