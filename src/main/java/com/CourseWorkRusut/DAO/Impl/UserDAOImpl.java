@@ -40,6 +40,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     public void delete(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.delete(user);
+        session.flush();
     }
 
 
