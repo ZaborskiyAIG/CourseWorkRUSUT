@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         User modifiedUser =  userMapper.userDTOToUser(userDTO);
         modifiedUser.setLogin(user.getLogin());
         modifiedUser.setPassword(user.getPassword());
+        modifiedUser.setUserId(null);
 
         if(user.getClass()==User.class){
             userDAO.delete(user);
