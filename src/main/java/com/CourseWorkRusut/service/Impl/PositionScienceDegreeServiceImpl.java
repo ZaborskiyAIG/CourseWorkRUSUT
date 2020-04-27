@@ -31,4 +31,14 @@ public class PositionScienceDegreeServiceImpl implements PositionScienceDegreeSe
     public List<String> getAllScienceDegree() {
      return positionScienceDegreeDAO.getAllScienceDegree();
     }
+
+    @Override
+    public List<Position> getPositionsByByName(List<String> namePosition) {
+        return positionScienceDegreeDAO.getPositionsByByName(namePosition);
+    }
+
+    @Override
+    public List<ScienceDegree> getScienceDegreeByByName(List<String> nameScienceDegree) {
+        return  positionScienceDegreeDAO.getScienceDegreeByByName(nameScienceDegree);
+    }
 }

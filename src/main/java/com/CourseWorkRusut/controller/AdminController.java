@@ -66,9 +66,8 @@ public class AdminController {
     }
 
     @PostMapping(value = "/users/updateUser")
-    public ResponseEntity updateUser(@RequestBody UserDTO userDTO ){
-        userService.update(userDTO);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO ){
+        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
     @PostMapping(value = "/users/updateUsers")
@@ -98,16 +97,12 @@ public class AdminController {
 
         Map<String, Object> map = new HashMap<>();
 
-        List<String> list = new ArrayList<>();
-
-
         map.put("role",roleService.getAllRoles());
         map.put("positions",positionScienceDegreeService.getAllPositions());
         map.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
 
 
         List<String> specialty = specialtyService.getAllSpecialty();
-
         List newList = new ArrayList();
 
         for(String spec: specialty){
@@ -116,8 +111,6 @@ public class AdminController {
             mapp.put("nameSpecialty",spec);
             newList.add(mapp);
         }
-
-
 
         map.put("specialty",newList );
 

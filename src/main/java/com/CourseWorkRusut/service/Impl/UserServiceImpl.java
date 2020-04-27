@@ -2,16 +2,11 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.TeacherDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.UserMapper;
-import com.CourseWorkRusut.model.Role;
-import com.CourseWorkRusut.model.Student;
-import com.CourseWorkRusut.model.StudyGroup;
-import com.CourseWorkRusut.model.User;
-import com.CourseWorkRusut.service.RoleService;
-import com.CourseWorkRusut.service.StudentService;
-import com.CourseWorkRusut.service.StudyGroupService;
-import com.CourseWorkRusut.service.UserService;
+import com.CourseWorkRusut.model.*;
+import com.CourseWorkRusut.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,6 +35,9 @@ public class UserServiceImpl implements UserService {
     RoleService roleService;
 
     @Autowired
+    PositionScienceDegreeService positionScienceDegreeService;
+
+    @Autowired
     public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService, UserMapper userMapper){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
@@ -56,13 +54,8 @@ public class UserServiceImpl implements UserService {
         userDAO.save(user);
     }
 
-    private User updateStudent(UserDTO userDTO, User user){  //перенести в сервис студента
-
-        Student student = (Student) userMapper.userDTOToUser(userDTO);
-
-        student.setLogin(user.getLogin());
-        student.setPassword(user.getPassword());
-
+    @Transactional
+    User updateStudent( Student student){  //перенести в сервис студента
         if(student.getNumberBook() ==null){
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -84,56 +77,49 @@ public class UserServiceImpl implements UserService {
         return student;
     }
 
+    @Transactional
+    User updateTeacher( Teacher teacher){  //перенести в сервис студента
 
+            List<String> namePositions = new ArrayList<>();
+            for(Position position : teacher.getPositions()){
+                namePositions.add(position.getNamePosition());
+            }
 
+            List<String> nameScienceDegrees = new ArrayList<>();
+            for(ScienceDegree scienceDegree : teacher.getScienceDegrees()){
+                nameScienceDegrees.add(scienceDegree.getNameScienceDegree());
+            }
+
+        teacher.setPositions(positionScienceDegreeService.getPositionsByByName(namePositions));
+        teacher.setScienceDegrees(positionScienceDegreeService.getScienceDegreeByByName(nameScienceDegrees));
+
+        return null;
+    }
 
     @Override
     @Transactional
-    public void update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
-
+    public User update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
 
         User user = userDAO.getUserById(userDTO.getUserId());
+
+        User modifiedUser =  userMapper.userDTOToUser(userDTO);
+        modifiedUser.setLogin(user.getLogin());
+        modifiedUser.setPassword(user.getPassword());
 
         if(user.getClass()==User.class){
             userDAO.delete(user);
         }
 
-
-
-        User modifiedUser = null;
-
         if(userDTO.getClass() == StudentDTO.class) {
-          modifiedUser = updateStudent(userDTO, user);
+          modifiedUser = updateStudent((Student) user);
+        }
+
+        if(userDTO.getClass() == TeacherDTO.class) {
+            modifiedUser = updateTeacher((Teacher) user);
         }
 
         userDAO.save(modifiedUser);
-
-      //  user.setUserId(userDTO.getUserId());
-
-
-       // if(user.getClass() == User.class){
-                         //сделать метод копирования пропертей
-
-        //    userStudent.setUserId(user.getUserId());
-        //    userStudent.setName(userDTO.getName());       //сделать метод по установке апдейта
-        //    userStudent.setMiddlename(userDTO.getMiddlename());
-        //    userStudent.setSurname(userDTO.getSurname());
-        //    userStudent.setEmail(userDTO.getEmail());
-
-
-
-         //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-         //   }
-
-    //  if(userDTO.getClass() == StudentDTO.class){
-   //       System.out.println("устанавливаем группу");
-     //     userStudent.setStudyGroup(studyGroupService.getStudyGroupByNumberGroup(((StudentDTO)userDTO).getNumberGroup()));
-     // }
-
-      //  System.out.println("idЖ"+userStudent.getUserId());
-
-    //  userDAO.update (userStudent);
+        return modifiedUser;
     }
 
     @Override

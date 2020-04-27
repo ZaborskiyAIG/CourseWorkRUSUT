@@ -11,7 +11,7 @@ public interface UserService {
 
     void register(User user);
 
-    void update(UserDTO userDTO);
+    User update(UserDTO userDTO);
 
     void updateUsers(List<User> users);
 
