@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
+    public UserDTO update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
 
         User user = userDAO.getUserById(userDTO.getUserId());
 
@@ -61,6 +61,8 @@ public class UserServiceImpl implements UserService {
         modifiedUser.setLogin(user.getLogin());
         modifiedUser.setPassword(user.getPassword());
         modifiedUser.setUserId(null);
+        modifiedUser.setRole(roleService.getRoleByByName(userDTO.getNameRole()));
+
 
         if(user.getClass()==User.class){
             userDAO.delete(user);
@@ -75,7 +77,10 @@ public class UserServiceImpl implements UserService {
         }
 
         userDAO.save(modifiedUser);
-        return modifiedUser;
+
+
+
+        return userMapper.userToUserDTO(modifiedUser);
     }
 
 

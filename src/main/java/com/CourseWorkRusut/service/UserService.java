@@ -11,7 +11,7 @@ public interface UserService {
 
     void register(User user);
 
-    User update(UserDTO userDTO);
+    UserDTO update(UserDTO userDTO);
 
     User getUserByLogin(String login);
 
