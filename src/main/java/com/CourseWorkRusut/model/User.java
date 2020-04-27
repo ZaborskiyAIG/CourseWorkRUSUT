@@ -49,19 +49,20 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Transient
-    private String role;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private Role role;
 
     public User(){
-        getAuthorities(); //говнокод
+
     }
 
-
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -156,19 +157,21 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
 
-        if(this.getClass() == User.class)
-            setRole("ROLE_USER");
+//        if(this.getClass() == User.class)
+//            setRole("ROLE_USER");
+//
+//        if(this.getClass() == Student.class)
+//            setRole("ROLE_STUDENT");
+//
+//        if(this.getClass() == Teacher.class)
+//            setRole("ROLE_TEACHER");
+//
+//        if(this.getClass() == Admin.class)
+//            setRole("ROLE_ADMIN");
 
-        if(this.getClass() == Student.class)
-            setRole("ROLE_STUDENT");
 
-        if(this.getClass() == Teacher.class)
-            setRole("ROLE_TEACHER");
 
-        if(this.getClass() == Admin.class)
-            setRole("ROLE_ADMIN");
-
-        list.add(new SimpleGrantedAuthority(role));
+        list.add(new SimpleGrantedAuthority(getRole().getNameRole()));
         return list;
     }
 

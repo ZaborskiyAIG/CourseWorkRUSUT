@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.model.Role;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
 import com.CourseWorkRusut.service.UserService;
@@ -59,7 +60,7 @@ public class AuthenticationController {
         response.put("role", Student.getNameRole());
         response.put("token", token);*/
         //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
-        String token = jwtTokenProvider.createToken(user.getLogin(), user.getRole());
+        String token = jwtTokenProvider.createToken(user.getLogin(), user.getRole().getNameRole());
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
         Map<String, String> response = new HashMap<>();
         //  response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
@@ -82,11 +83,11 @@ public class AuthenticationController {
             }
 
             //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(validUser.getAuthorities().iterator().next()));
-            String token = jwtTokenProvider.createToken(user.getLogin(), validUser.getRole());
+            String token = jwtTokenProvider.createToken(user.getLogin(), validUser.getRole().getNameRole());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 
             Map<String, String> response = new HashMap<>();
-            response.put("role", validUser.getRole());
+            response.put("role", validUser.getRole().getNameRole());
             response.put("token", token);
 
             return new ResponseEntity<>(response, HttpStatus.OK);

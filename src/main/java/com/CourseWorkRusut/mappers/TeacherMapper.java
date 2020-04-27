@@ -15,9 +15,9 @@ public interface TeacherMapper {
     TeacherDTO teacherToTeacherDTO(Teacher teacher);
 
 
- //   @Mappings({
- //           @Mapping(target="namePositions", source = "teacher.positions"),
- //           @Mapping(target="nameScienceDegrees", source = "teacher.scienceDegrees")})
+    @Mappings({
+            @Mapping(target="positions", source = "dto.positions"),
+            @Mapping(target="scienceDegrees", source = "dto.scienceDegrees")})
     Teacher teacherDTOToTeacher(TeacherDTO dto);
 
 }

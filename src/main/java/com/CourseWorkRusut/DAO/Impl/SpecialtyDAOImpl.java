@@ -37,9 +37,9 @@ public class SpecialtyDAOImpl implements SpecialtyDAO {
     }
 
     @Override
-    public List<Specialty> getAllSpecialty() {
+    public List<String> getAllSpecialty() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Specialty", Specialty.class).list();
+        return session.createQuery("select specialty.nameSpecialty  FROM Specialty specialty ", String.class).list();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.CourseWorkRusut.mappers.Impl;
 
+import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.TeacherDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.StudentMapper;
 import com.CourseWorkRusut.mappers.TeacherMapper;
@@ -54,14 +56,35 @@ public class UserMapperImpl implements UserMapper {
         }
        // if(user.getClass() == Admin.class)
 
-
-
-
         return null;
     }
 
     @Override
     public User userDTOToUser(UserDTO dto) {
+        User user;
+
+        if(dto.getClass() == UserDTO.class){
+            user = new User();
+            user.setName(dto.getName());
+            user.setMiddlename(dto.getMiddlename());
+            user.setSurname(dto.getSurname());
+            user.setEmail(dto.getEmail());
+            user.setRole(dto.getRole());
+            user.setUserId(dto.getUserId());
+            return user;
+        }
+
+        if(dto.getClass() == StudentDTO.class) {
+
+            user = studentMapper.studentDTOToStudent((StudentDTO) dto);
+            return user;
+        }
+        if(dto.getClass() == TeacherDTO.class) {
+            user = teacherMapper.teacherDTOToTeacher((TeacherDTO) dto);
+            return user;
+        }
+        // if(user.getClass() == Admin.class)
+
         return null;
     }
 }

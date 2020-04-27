@@ -25,16 +25,22 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     }
 
     @Override
-    public void register(User user) {
+    public void save(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.save(user);
+        session.saveOrUpdate(user);
     }
 
     @Override
     public void update(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.save(user);
-       // session.update(user);
+       // session.flush();
+        session.update(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.delete(user);
     }
 
 
@@ -53,15 +59,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         return session.get(User.class,id);
     }
 
-    @Override
-    public Student getStudentById(Long id) {
-        Session session = this.sessionFactory.getCurrentSession();
-
-        Query<Student> query = session.createQuery(" select user from User user where (type(user) in :types) and (user.userId=:id)  ",Student.class );
-        query.setParameter("types", User.class);
-        query.setParameter("id", id);
-        return query.uniqueResult();
-    }
 
     @Override
     public User getUserByEmail(String email) {

@@ -29,9 +29,9 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
     }
 
     @Override
-    public List<StudyGroup> getAllStudyGroupByNameSpecialty(String nameSpecialty) {
+    public List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty) {
         Session session = sessionFactory.getCurrentSession();
-        Query<StudyGroup> query = session.createQuery(" from StudyGroup studyGroup where studyGroup.specialty.nameSpecialty =:nameSpecialty", StudyGroup.class);
+        Query<String> query = session.createQuery(" select studyGroup.numberGroup from StudyGroup studyGroup where studyGroup.specialty.nameSpecialty =:nameSpecialty", String.class);
         query.setParameter("nameSpecialty", nameSpecialty);
         return query.list();
     }

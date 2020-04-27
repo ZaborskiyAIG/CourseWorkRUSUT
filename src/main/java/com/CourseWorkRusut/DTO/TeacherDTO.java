@@ -31,15 +31,24 @@ public class TeacherDTO extends UserDTO {
         return positions;
     }
 
+    public void setPositions(List<PositionDTO> positions) {
+        this.positions = positions;
+    }
+
+    public List<ScienceDegreeDTO> getScienceDegrees() {
+        return scienceDegrees;
+    }
+
+    public void setScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
+        this.scienceDegrees = scienceDegrees;
+    }
 
     public void setNamePositions(List<PositionDTO> positions) {
         this.positions = positions;
         this.namePositions = convertPositionsToNamePositions(positions);
     }
 
-    public List<ScienceDegreeDTO> getScienceDegrees() {
-        return scienceDegrees;
-    }
+
 
     public void setNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
         this.scienceDegrees = scienceDegrees;

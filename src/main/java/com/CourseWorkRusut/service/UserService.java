@@ -21,11 +21,14 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    Long contUsers();
+
     List<UserDTO> getAllUser(String offset);
 
     List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+
     List<UserDTO> getTeachersByParameters(String offset);
 
-    Long contUsers();
+
 
 }

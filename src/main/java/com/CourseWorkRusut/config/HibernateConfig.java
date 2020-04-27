@@ -64,12 +64,13 @@ public class HibernateConfig {
         return dataSource;
     }
 
-    Properties hibernateProperties() {
+    private Properties hibernateProperties() {
         return new Properties() {
             {
                 setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 setProperty("hibernate.show_sql", "true");
                 setProperty("hibernate.hbm2ddl.auto", "update");
+                setProperty("hibernate.format_sql", "true");
              }
         };
     }

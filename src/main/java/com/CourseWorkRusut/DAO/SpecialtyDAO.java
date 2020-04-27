@@ -10,6 +10,6 @@ public interface SpecialtyDAO {
 
     Specialty getSpecialtyByName(String nameSpecialty);
 
-    List<Specialty> getAllSpecialty();
+    List<String> getAllSpecialty();
 
 }

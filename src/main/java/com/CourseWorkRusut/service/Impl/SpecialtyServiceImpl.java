@@ -33,7 +33,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     @Transactional
-    public List<Specialty> getAllSpecialty() {
+    public List<String> getAllSpecialty() {
         return specialtyDAO.getAllSpecialty();
     }
 }

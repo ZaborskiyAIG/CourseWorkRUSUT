@@ -8,7 +8,7 @@ public interface StudyGroupDAO {
 
     Long addStudyGroup(StudyGroup studyGroup);
 
-    List<StudyGroup> getAllStudyGroupByNameSpecialty(String nameSpecialty);
+    List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty);
 
     Long getCountStudentsInGroup(String numberGroup);
 

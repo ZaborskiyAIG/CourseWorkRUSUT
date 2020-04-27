@@ -3,8 +3,7 @@ package com.CourseWorkRusut.controller;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
-import com.CourseWorkRusut.service.SpecialtyService;
-import com.CourseWorkRusut.service.UserService;
+import com.CourseWorkRusut.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,15 @@ public class AdminController {
     private UserService userService;
 
     private SpecialtyService specialtyService;
+
+    @Autowired
+    PositionScienceDegreeService positionScienceDegreeService;
+
+    @Autowired
+    StudyGroupService studyGroupService;
+
+    @Autowired
+    RoleService roleService;
 
 
     @Autowired
@@ -45,6 +53,8 @@ public class AdminController {
     public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(userService.getTeachersByParameters(offset), HttpStatus.OK);
     }
+
+
 
     @GetMapping(value = "/counterUsers")
     public ResponseEntity<Map<String,Long>> counterUser() {
@@ -78,13 +88,40 @@ public class AdminController {
         if(userService.getUserByLogin(user.getLogin())!=null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists");
         }
+
         userService.register(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/specialties")
-    public ResponseEntity<List<Specialty>> allSpecialties() {
-        return new ResponseEntity<>(specialtyService.getAllSpecialty(), HttpStatus.OK);
+    @GetMapping(value = "/classifiers")
+    public ResponseEntity<Map<String,Object>> get() { //переделать
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<String> list = new ArrayList<>();
+
+
+        map.put("role",roleService.getAllRoles());
+        map.put("positions",positionScienceDegreeService.getAllPositions());
+        map.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
+
+
+        List<String> specialty = specialtyService.getAllSpecialty();
+
+        List newList = new ArrayList();
+
+        for(String spec: specialty){
+            Map mapp = new HashMap();
+            mapp.put("numberGroup",studyGroupService.getAllStudyGroupByNameSpecialty(spec));
+            mapp.put("nameSpecialty",spec);
+            newList.add(mapp);
+        }
+
+
+
+        map.put("specialty",newList );
+
+        return new ResponseEntity<>(map, HttpStatus.OK); //переделать
     }
 
 

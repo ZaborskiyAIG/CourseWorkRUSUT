@@ -25,9 +25,9 @@ public class StudentServiceImpl implements StudentService {
 
         System.out.println("А?"+entryDate);
 
-       Long number = studyGroupService.getCountStudentsInGroup(studyGroup) +1;
-       String numberStudent =   number  < 10 ? "0"+number : String.valueOf(number);
+        Long number = studyGroupService.getCountStudentsInGroup(studyGroup) +1;
 
+        String numberStudent = number < 10 ? "0"+number : String.valueOf(number);
 
         String numberStudyBook = entryDate.substring(entryDate.length()-4) +
                 "0" +

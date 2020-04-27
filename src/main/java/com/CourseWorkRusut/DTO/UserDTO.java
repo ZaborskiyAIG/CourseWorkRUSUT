@@ -1,5 +1,7 @@
 package com.CourseWorkRusut.DTO;
 
+import com.CourseWorkRusut.model.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -22,7 +24,10 @@ public class UserDTO {
 
     private String email;
 
-    private String role;
+    @JsonIgnore
+    private Role role;
+
+    private String nameRole;
 
     public UserDTO(Long userId, String name, String surname, String middlename, String email) {
         this.userId = userId;
@@ -76,11 +81,20 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
+        setNameRole(role.getNameRole());
         this.role = role;
+    }
+
+    public String getNameRole() {
+        return nameRole;
+    }
+
+    private void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
 }

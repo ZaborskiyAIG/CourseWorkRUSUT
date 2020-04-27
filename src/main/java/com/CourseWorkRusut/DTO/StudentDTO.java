@@ -36,7 +36,6 @@ public class StudentDTO extends UserDTO {
     }
 
     public StudentDTO(){
-
     }
 
     public String getNumberBook() {

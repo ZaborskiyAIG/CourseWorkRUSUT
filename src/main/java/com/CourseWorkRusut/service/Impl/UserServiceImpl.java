@@ -1,13 +1,14 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
-
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.UserMapper;
+import com.CourseWorkRusut.model.Role;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.model.User;
+import com.CourseWorkRusut.service.RoleService;
 import com.CourseWorkRusut.service.StudentService;
 import com.CourseWorkRusut.service.StudyGroupService;
 import com.CourseWorkRusut.service.UserService;
@@ -33,7 +34,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
-    private StudentService studentService;
+    StudentService studentService;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, StudyGroupService studyGroupService, UserMapper userMapper){
@@ -46,55 +50,96 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(User user) {
-
+        Role role = roleService.getRoleByByName("ROLE_USER");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userDAO.register(user);
+        user.setRole(role);
+        userDAO.save(user);
     }
+
+    private User updateStudent(UserDTO userDTO, User user){  //перенести в сервис студента
+
+        Student student = (Student) userMapper.userDTOToUser(userDTO);
+
+        student.setLogin(user.getLogin());
+        student.setPassword(user.getPassword());
+
+        if(student.getNumberBook() ==null){
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String entryYear = student.getEntryDate().format(formatter) ;
+
+            String nameSpecialty = student.getStudyGroup().getSpecialty().getNameSpecialty();
+
+            StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(nameSpecialty, entryYear);
+            student.setStudyGroup(studyGroup);
+
+            student.setNumberBook(studentService.generationNumberStudyBook(entryYear, student.getStudyGroup()));
+
+            return student;
+        }
+
+        StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
+        student.setStudyGroup(studyGroup);
+
+        return student;
+    }
+
+
 
 
     @Override
     @Transactional
-    public void update(UserDTO userDTO) {
-      User user = userDAO.getUserById(userDTO.getUserId());
-
-        System.out.println(userDTO.getClass() == StudentDTO.class);
-        System.out.println(userDTO.getClass() == UserDTO.class);
-        Student userStudent = new Student();
-        if(user.getClass() == User.class){
-                         //сделать метод копирования пропертей
-                            //сделать апдейт юзера, а потом сейв студента и будет заебато
-
-            userStudent.setUserId(user.getUserId());
-            userStudent.setName(userDTO.getName());       //сделать метод по установке апдейта
-            userStudent.setMiddlename(userDTO.getMiddlename());
-            userStudent.setSurname(userDTO.getSurname());
-            userStudent.setEmail(userDTO.getEmail());
+    public void update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
 
 
-           StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(((StudentDTO)userDTO).getNameSpecialty(),((StudentDTO)userDTO).getEntryDate());
-           userStudent.setStudyGroup(studyGroup);
+        User user = userDAO.getUserById(userDTO.getUserId());
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-           userStudent.setNumberBook(studentService.generationNumberStudyBook(   userStudent.getEntryDate().format(formatter) , userStudent.getStudyGroup() ));
+        if(user.getClass()==User.class){
+            userDAO.delete(user);
         }
+
+
+
+        User modifiedUser = null;
+
+        if(userDTO.getClass() == StudentDTO.class) {
+          modifiedUser = updateStudent(userDTO, user);
+        }
+
+        userDAO.save(modifiedUser);
+
+      //  user.setUserId(userDTO.getUserId());
+
+
+       // if(user.getClass() == User.class){
+                         //сделать метод копирования пропертей
+
+        //    userStudent.setUserId(user.getUserId());
+        //    userStudent.setName(userDTO.getName());       //сделать метод по установке апдейта
+        //    userStudent.setMiddlename(userDTO.getMiddlename());
+        //    userStudent.setSurname(userDTO.getSurname());
+        //    userStudent.setEmail(userDTO.getEmail());
+
+
+
+         //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+         //   }
 
     //  if(userDTO.getClass() == StudentDTO.class){
    //       System.out.println("устанавливаем группу");
      //     userStudent.setStudyGroup(studyGroupService.getStudyGroupByNumberGroup(((StudentDTO)userDTO).getNumberGroup()));
      // }
 
-        System.out.println("idЖ"+userStudent.getUserId());
+      //  System.out.println("idЖ"+userStudent.getUserId());
 
-      userDAO.update (userStudent);
+    //  userDAO.update (userStudent);
     }
 
     @Override
     @Transactional
     public void updateUsers(List<User> users) {
-        for (User user:users) {
-            userDAO.update(user);
-        }
+
     }
 
     @Override
