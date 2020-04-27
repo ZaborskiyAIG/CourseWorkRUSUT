@@ -130,13 +130,13 @@ public class AdminController {
         list.add(roleObject1);
 
         Map<String, Object> roleObject2 = new HashMap<>();
-            roleObject.put("nameRole","ROLE_TEACHER"  );
-            roleObject.put("typeUser","Teacher");
+        roleObject2.put("nameRole","ROLE_TEACHER"  );
+        roleObject2.put("typeUser","Teacher");
         list.add(roleObject2);
 
         Map<String, Object> roleObject3 = new HashMap<>();
-            roleObject.put("nameRole","ROLE_ADMIN"  );
-            roleObject.put("typeUser","Admin");
+        roleObject3.put("nameRole","ROLE_ADMIN"  );
+        roleObject3.put("typeUser","Admin");
         list.add(roleObject3);
 
         response.put("specialty",specialtyList );
