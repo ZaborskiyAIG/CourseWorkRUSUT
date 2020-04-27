@@ -70,7 +70,7 @@ public class AdminController {
     }
 
     @PutMapping(value = "/users/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO ){
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
