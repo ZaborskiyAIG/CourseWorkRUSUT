@@ -69,11 +69,11 @@ public class UserServiceImpl implements UserService {
         }
 
         if(userDTO.getClass() == StudentDTO.class) {
-          modifiedUser = studentService.updateStudent((Student) user);
+          modifiedUser = studentService.updateStudent((Student) modifiedUser);
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
-            modifiedUser = teacherService.updateTeacher((Teacher) user);
+            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
         }
 
         userDAO.save(modifiedUser);
