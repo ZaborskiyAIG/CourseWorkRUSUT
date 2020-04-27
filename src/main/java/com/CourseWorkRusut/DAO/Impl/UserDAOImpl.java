@@ -41,6 +41,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         Session session = this.sessionFactory.getCurrentSession();
         session.delete(user);
         session.flush();
+        session.clear();
     }
 
 
