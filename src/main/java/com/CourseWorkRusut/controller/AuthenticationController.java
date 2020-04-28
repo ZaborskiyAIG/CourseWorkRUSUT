@@ -87,7 +87,7 @@ public class AuthenticationController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 
             Map<String, String> response = new HashMap<>();
-            response.put("role", validUser.getRole().getNameRole());
+            response.put("nameRole", validUser.getRole().getNameRole());
             response.put("token", token);
 
             return new ResponseEntity<>(response, HttpStatus.OK);

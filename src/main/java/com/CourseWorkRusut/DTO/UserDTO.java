@@ -3,14 +3,15 @@ package com.CourseWorkRusut.DTO;
 import com.CourseWorkRusut.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="typeUser")
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property="nameRole", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = StudentDTO.class, name = "Student"),
-        @JsonSubTypes.Type(value = TeacherDTO.class, name = "Teacher"),
-        @JsonSubTypes.Type(value = AdminDTO.class, name = "Admin"),
-        @JsonSubTypes.Type(value = UserDTO.class, name = "User")
+        @JsonSubTypes.Type(value = StudentDTO.class, name = "ROLE_STUDENT"),
+        @JsonSubTypes.Type(value = TeacherDTO.class, name = "ROLE_TEACHER"),
+        @JsonSubTypes.Type(value = AdminDTO.class, name = "ROLE_ADMIN"),
+        @JsonSubTypes.Type(value = UserDTO.class, name = "ROLE_USER")
 })
 public class UserDTO {
 
@@ -27,6 +28,7 @@ public class UserDTO {
     @JsonIgnore
     private Role role;
 
+    @JsonTypeId
     private String nameRole;
 
     public UserDTO(Long userId, String name, String surname, String middlename, String email) {
@@ -90,11 +92,12 @@ public class UserDTO {
         this.role = role;
     }
 
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
+    }
+
     public String getNameRole() {
         return nameRole;
     }
 
-    private void setNameRole(String nameRole) {
-        this.nameRole = nameRole;
-    }
 }

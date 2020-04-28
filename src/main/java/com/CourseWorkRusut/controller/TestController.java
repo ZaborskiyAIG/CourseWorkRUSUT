@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.controller;
 
 
+import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
@@ -56,7 +57,15 @@ public class TestController {
 //        return new ResponseEntity(HttpStatus.OK);
 //    }
 
+    @PutMapping(value = "/s")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
 
+        System.out.println(userDTO.getClass() == StudentDTO.class);
+        System.out.println(userDTO.getClass() == UserDTO.class);
+        System.out.println("role"+userDTO.getNameRole());
+
+        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
+    }
 
 
 }

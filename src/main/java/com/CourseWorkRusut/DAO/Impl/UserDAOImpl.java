@@ -28,6 +28,7 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     public void save(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.saveOrUpdate(user);
+
     }
 
     @Override
@@ -87,17 +88,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         Session session = this.sessionFactory.getCurrentSession();
         int quantityUsersForPagination = 25;
 
-//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-//        CriteriaQuery<Student> criteriaQuery =  criteriaBuilder.createQuery(Student.class);
-//        Root<Student> userRoot = criteriaQuery.from(Student.class);
-//        ParameterExpression<Long> p = criteriaBuilder.parameter(Long.class);
-//        criteriaQuery.select(userRoot).where(criteriaBuilder.equal(userRoot.get("studyGroup").get("specialty").get("specialtyId"), p));
-//        Query<Student> query = session.createQuery(criteriaQuery);
-//        query.setParameter(p, null);
-//        List<Student> results = query.list();
-
-
-      //  Query<User> query = session.createQuery("select user from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", User.class);
         Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, user.name, user.surname, user.middlename, user.email, user.numberBook, user.studyGroup.numberGroup, user.studyGroup.specialty.nameSpecialty, user.entryDate) from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", UserDTO.class);
 
         query.setParameter("specialtyId",specialtyId);

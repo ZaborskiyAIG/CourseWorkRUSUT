@@ -14,13 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="typeUser")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Student.class, name = "Student"),
-        @JsonSubTypes.Type(value = Teacher.class, name = "Teacher"),
-        @JsonSubTypes.Type(value = Admin.class, name = "Admin"),
-        @JsonSubTypes.Type(value = User.class, name = "User")
-})
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -51,7 +44,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "role_Id")
     private Role role;
 
     public User(){
@@ -156,21 +149,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
-
-//        if(this.getClass() == User.class)
-//            setRole("ROLE_USER");
-//
-//        if(this.getClass() == Student.class)
-//            setRole("ROLE_STUDENT");
-//
-//        if(this.getClass() == Teacher.class)
-//            setRole("ROLE_TEACHER");
-//
-//        if(this.getClass() == Admin.class)
-//            setRole("ROLE_ADMIN");
-
-
-
         list.add(new SimpleGrantedAuthority(getRole().getNameRole()));
         return list;
     }
