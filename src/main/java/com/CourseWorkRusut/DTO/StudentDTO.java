@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public class StudentDTO extends UserDTO {
 
     private String nameSpecialty;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String entryDate;
 
     @JsonIgnore
