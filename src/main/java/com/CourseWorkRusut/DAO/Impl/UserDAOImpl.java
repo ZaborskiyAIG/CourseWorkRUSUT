@@ -19,6 +19,9 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
                                                 //jpa constructor, для сложных ResultTrasformer
     private SessionFactory sessionFactory;
 
+    private final int quantityUsersForPagination = 25;
+
+
     @Autowired
     public UserDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -34,13 +37,14 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
     @Override
     public void update(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.update(user);
+        session.merge(user);
     }
 
     @Override
     public void delete(User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.delete(user);
+
     }
 
 
@@ -71,10 +75,9 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
 
     @Override
     public List<UserDTO> getAllUser(String offset) {
-        int quantityUsersForPagination = 25;
 
         Session session = this.sessionFactory.getCurrentSession();
-        Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.middlename,user.email) From User user where type(user) in :types", UserDTO.class);
+        Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.middlename,user.email, user.role.nameRole) From User user where type(user) in :types", UserDTO.class);
         query.setParameter("types", User.class);
         query.setFirstResult(Integer.valueOf(offset));
         query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
@@ -86,9 +89,8 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
     @Override
     public List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
         Session session = this.sessionFactory.getCurrentSession();
-        int quantityUsersForPagination = 25;
 
-        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, user.name, user.surname, user.middlename, user.email, user.numberBook, user.studyGroup.numberGroup, user.studyGroup.specialty.nameSpecialty, user.entryDate) from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", UserDTO.class);
+        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, user.name, user.surname, user.middlename, user.email, user.numberBook, user.studyGroup.numberGroup, user.studyGroup.specialty.nameSpecialty, user.entryDate, user.role.nameRole) from User user where (type(user) in :types) and (:specialtyId is null or user.studyGroup.specialty.specialtyId = :specialtyId) and (:groupId is null or user.studyGroup.groupId = :groupId) ", UserDTO.class);
 
         query.setParameter("specialtyId",specialtyId);
         query.setParameter("groupId",groupId );
@@ -101,7 +103,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
     @Override
     public List<User> getTeachersByParameters(String offset) {
         Session session = this.sessionFactory.getCurrentSession();
-        int quantityUsersForPagination = 25;
         Query<User> query = session.createQuery(" select user from User user where type(user) in :types",User.class );
         query.setParameter("types", Teacher.class);
         query.setFirstResult(Integer.valueOf(offset));

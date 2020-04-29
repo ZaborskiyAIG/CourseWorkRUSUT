@@ -26,8 +26,9 @@ public class StudentDTO extends UserDTO {
                       String numberBook,
                       String numberGroup,
                       String nameSpecialty,
-                      LocalDate entryDate) {
-        super(userId,name,surname,middlename,email);
+                      LocalDate entryDate,
+                      String nameRole) {
+        super(userId,name,surname,middlename,email, nameRole);
 
         this.numberBook = numberBook;
         this.numberGroup = numberGroup;

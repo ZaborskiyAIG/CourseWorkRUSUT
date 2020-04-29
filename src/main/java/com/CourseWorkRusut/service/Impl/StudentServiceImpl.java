@@ -20,19 +20,21 @@ public class StudentServiceImpl implements StudentService {
 
     private StudyGroupService studyGroupService;
 
-    @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    public StudentServiceImpl( StudyGroupService studyGroupService) {
+    public StudentServiceImpl(StudyGroupService studyGroupService, UserDAO userDAO) {
         this.studyGroupService = studyGroupService;
+        this.userDAO = userDAO;
     }
 
     @Override
     @Transactional
-    public User updateStudent(Student student){
-        if(student.getNumberBook() ==null){
+    public User updateStudent(Student student, User user){
 
+
+        if(student.getNumberBook() ==null){
+            System.out.println("11");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String entryYear = student.getEntryDate().format(formatter) ;
 
@@ -45,6 +47,9 @@ public class StudentServiceImpl implements StudentService {
 
             return student;
         }
+
+
+        System.out.println(student.getStudyGroup().getNumberGroup());
 
         StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
         student.setStudyGroup(studyGroup);

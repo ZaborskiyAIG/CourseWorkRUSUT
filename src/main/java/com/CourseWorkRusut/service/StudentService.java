@@ -11,7 +11,7 @@ public interface StudentService {
 
    // String generationNumberStudyBook(String entryDate, StudyGroup studyGroup);
 
-    User updateStudent(Student student);
+    User updateStudent(Student student, User user);
 
     List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
 

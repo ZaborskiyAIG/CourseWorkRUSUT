@@ -20,25 +20,25 @@ public class AdminController {
 
     private SpecialtyService specialtyService;
 
-    @Autowired
-    PositionScienceDegreeService positionScienceDegreeService;
+    private PositionScienceDegreeService positionScienceDegreeService;
+
+    private StudyGroupService studyGroupService;
+
+    private RoleService roleService;
+
+    private TeacherService teacherService ;
+
+    private StudentService studentService ;
 
     @Autowired
-    StudyGroupService studyGroupService;
-
-    @Autowired
-    RoleService roleService;
-
-    @Autowired
-    TeacherService teacherService ;
-
-    @Autowired
-    StudentService studentService ;
-
-    @Autowired
-    public AdminController(UserService userService, SpecialtyService specialtyService) {
+    public AdminController(UserService userService, SpecialtyService specialtyService, PositionScienceDegreeService positionScienceDegreeService, StudyGroupService studyGroupService, RoleService roleService, TeacherService teacherService, StudentService studentService) {
         this.userService = userService;
         this.specialtyService = specialtyService;
+        this.positionScienceDegreeService = positionScienceDegreeService;
+        this.studyGroupService = studyGroupService;
+        this.roleService = roleService;
+        this.teacherService = teacherService;
+        this.studentService = studentService;
     }
 
     @GetMapping(value = "/users")
@@ -57,8 +57,6 @@ public class AdminController {
     public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
         return new ResponseEntity<>(teacherService.getTeachersByParameters(offset), HttpStatus.OK);
     }
-
-
 
     @GetMapping(value = "/counterUsers")
     public ResponseEntity<Map<String,Long>> counterUser() {
@@ -84,21 +82,20 @@ public class AdminController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-  /*  @PostMapping(value = "/addUser")
-    public ResponseEntity addUser(@RequestBody User user) {
+    @PutMapping(value = "/user/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
 
-        if(userService.getUserByLogin(user.getLogin())!=null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists");
-        }
+        User user = new User();  //пофиксить
+        user.setUserId(id);
 
-        userService.register(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
+        userService.delete(user);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping(value = "/classifiers")
-    public ResponseEntity<Map<String,Object>> get() { //переделать
+    public ResponseEntity<Map<String,List>> get() { //переделать
 
-        Map<String, Object> response = new HashMap<>();
+        Map<String, List> response = new HashMap<>();
 
         response.put("role",roleService.getAllRoles());
         response.put("positions",positionScienceDegreeService.getAllPositions());
@@ -116,31 +113,8 @@ public class AdminController {
 
             specialtyList.add(specialtyObject);
         }
+        response.put("specialty",specialtyList);
 
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-
-        Map<String, Object> roleObject = new HashMap<>();
-            roleObject.put("nameRole","ROLE_STUDENT"  );
-            roleObject.put("typeUser","Student");
-        list.add(roleObject);
-
-        Map<String, Object> roleObject1 = new HashMap<>();
-        roleObject1.put("nameRole","ROLE_USER"  );
-        roleObject1.put("typeUser","User");
-        list.add(roleObject1);
-
-        Map<String, Object> roleObject2 = new HashMap<>();
-        roleObject2.put("nameRole","ROLE_TEACHER"  );
-        roleObject2.put("typeUser","Teacher");
-        list.add(roleObject2);
-
-        Map<String, Object> roleObject3 = new HashMap<>();
-        roleObject3.put("nameRole","ROLE_ADMIN"  );
-        roleObject3.put("typeUser","Admin");
-        list.add(roleObject3);
-
-        response.put("specialty",specialtyList );
-        response.put("typeUser", list);
 
         return new ResponseEntity<>(response, HttpStatus.OK); //переделать
     }

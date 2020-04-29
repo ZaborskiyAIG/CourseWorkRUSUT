@@ -31,12 +31,13 @@ public class UserDTO {
     @JsonTypeId
     private String nameRole;
 
-    public UserDTO(Long userId, String name, String surname, String middlename, String email) {
+    public UserDTO(Long userId, String name, String surname, String middlename, String email, String nameRole) {
         this.userId = userId;
         this.name = name;
         this.surname = surname;
         this.middlename = middlename;
         this.email = email;
+        this.nameRole = nameRole;
     }
 
     public UserDTO(){

@@ -1,6 +1,9 @@
 package com.CourseWorkRusut.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,11 +18,9 @@ public class Library {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "author")
-    private String author;
-
-    //@Column(name = "data")
-    //private Date data
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "data")
+    private LocalDate data = LocalDate.now();  //проверить как создается LocalDate
 
     @Column(name = "book")
     private byte[] book;
@@ -66,14 +67,6 @@ public class Library {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public byte[] getBook() {
         return book;
     }
@@ -82,13 +75,13 @@ public class Library {
         this.book = book;
     }
 
-    /*public void setData(??? data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public ??? getData() {
+    public LocalDate getData() {
         return data;
-    }*/
+    }
 
 
 }

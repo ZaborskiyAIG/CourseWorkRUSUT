@@ -15,6 +15,8 @@ public interface UserService {
 
     User getUserByLogin(String login);
 
+    void delete(User user);
+
     UserDTO getUserById(Long id);
 
     User getUserByEmail(String email);
@@ -22,11 +24,6 @@ public interface UserService {
     Long contUsers();
 
     List<UserDTO> getAllUser(String offset);
-
-
-
-
-
 
 
 }

@@ -25,20 +25,20 @@ public class UserServiceImpl implements UserService {
 
     private UserMapper userMapper;
 
-    @Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
-    @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     private TeacherService teacherService;
 
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO,  UserMapper userMapper, TeacherService teacherService){
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, UserMapper userMapper, TeacherService teacherService, StudentService studentService, RoleService roleService){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
         this.userMapper = userMapper;
         this.teacherService = teacherService;
+        this.studentService = studentService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -55,30 +55,28 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
 
-        User user = userDAO.getUserById(userDTO.getUserId());
-
+        User user = userDAO.getUserById(userDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
+                                                                    //либо сохраняет модифайнд, либо обновляет юзера, надо пофиксить
         User modifiedUser =  userMapper.userDTOToUser(userDTO);
-        modifiedUser.setLogin(user.getLogin());
+        modifiedUser.setLogin(user.getLogin());                     //предпологается, что вместе с модифайндом придет намббербук, надо проверить
         modifiedUser.setPassword(user.getPassword());
-        modifiedUser.setUserId(null);
-        modifiedUser.setRole(roleService.getRoleByByName(userDTO.getNameRole()));
-
-
-        if(user.getClass()==User.class){
-            userDAO.delete(user);
-        }
+        modifiedUser.setRole(roleService.getRoleByByName(userDTO.getNameRole())); //чекнуть почему именно так
 
         if(userDTO.getClass() == StudentDTO.class) {
-          modifiedUser = studentService.updateStudent((Student) modifiedUser);
+         modifiedUser = studentService.updateStudent((Student) modifiedUser, user);
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
             modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
         }
 
-        userDAO.save(modifiedUser);
+        if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
+            userDAO.delete(user);
+            modifiedUser.setUserId(null); //говнокод
+            userDAO.save(modifiedUser);
+        }
 
-
+        userDAO.update(modifiedUser);
 
         return userMapper.userToUserDTO(modifiedUser);
     }
@@ -89,6 +87,12 @@ public class UserServiceImpl implements UserService {
     public User getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
 
+    }
+
+    @Override
+    @Transactional
+    public void delete(User user) {
+        userDAO.delete(user);
     }
 
     @Override

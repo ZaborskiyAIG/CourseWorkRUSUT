@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,7 +25,7 @@ public class Student extends User {
     @Column(name = "number_book")
     private String numberBook;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "entry_year")
     private LocalDate entryDate = LocalDate.now();
 

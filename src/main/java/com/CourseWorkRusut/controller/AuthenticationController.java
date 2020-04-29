@@ -82,15 +82,16 @@ public class AuthenticationController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect password");
             }
 
-            //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(validUser.getAuthorities().iterator().next()));
             String token = jwtTokenProvider.createToken(user.getLogin(), validUser.getRole().getNameRole());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 
             Map<String, String> response = new HashMap<>();
+
             response.put("nameRole", validUser.getRole().getNameRole());
             response.put("token", token);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
+
         } catch (AuthenticationException e){  //разобрать обработку ошибок в контроллере
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");

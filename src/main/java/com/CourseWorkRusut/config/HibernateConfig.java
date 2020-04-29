@@ -12,6 +12,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -64,6 +66,7 @@ public class HibernateConfig {
         return dataSource;
     }
 
+
     private Properties hibernateProperties() {
         return new Properties() {
             {
@@ -73,6 +76,13 @@ public class HibernateConfig {
                 setProperty("hibernate.format_sql", "true");
              }
         };
+    }
+
+    @Bean(name = "multipartResolver")                   //пока так
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(1000000);
+        return multipartResolver;
     }
 
 }
