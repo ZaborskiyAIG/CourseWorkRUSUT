@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 
     private String convertRoles(String nameRole){
         if(nameRole.equals("students") || nameRole.equals("student"))
-            return "ROLE_STUDENTS";
+            return "ROLE_STUDENT";
 
         if(nameRole.equals("teachers") || nameRole.equals("teacher"))
             return "ROLE_TEACHER";
