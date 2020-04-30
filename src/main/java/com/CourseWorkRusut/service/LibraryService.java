@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.model.Library;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface LibraryService {
 
    void updateLibrary(Library library);
 
-   List<Library> getAllLibrary();
+   List<LibraryDTO> getAllLibrary(String offset);
 }

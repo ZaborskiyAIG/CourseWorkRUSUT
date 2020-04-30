@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Long contUsers() {
-        return userDAO.contUsers();
+    public Long contUsers(String nameRole) {
+        return userDAO.contUsers(nameRole);
     }
 }

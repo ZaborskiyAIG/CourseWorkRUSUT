@@ -10,10 +10,10 @@ public class Semester {
     @Id
     @Column(name = "Semester_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long semestrId;
+    private Long semesterId;
 
     @Column(name = "number_semester")
-    private String numberSemestr;
+    private String numberSemester;
 
     @OneToMany(mappedBy ="semester", fetch=FetchType.LAZY)
     private List<LearningActivities> learningActivities;
@@ -29,19 +29,19 @@ public class Semester {
     private Student student;
 
 
-    public long getSemestrId() {
-        return semestrId;
+    public long getSemesterId() {
+        return semesterId;
     }
 
-    public void setSemestrId(long semestrId) {
-        this.semestrId = semestrId;
+    public void setSemesterId(long semestrId) {
+        this.semesterId = semestrId;
     }
 
-    public String getNumberSemestr() {
-        return numberSemestr;
+    public String getNumberSemester() {
+        return numberSemester;
     }
 
-    public void setNumberSemestr(String numberSemestr) {
-        this.numberSemestr = numberSemestr;
+    public void setNumberSemester(String numberSemestr) {
+        this.numberSemester = numberSemestr;
     }
 }

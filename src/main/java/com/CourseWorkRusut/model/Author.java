@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "author")
@@ -50,5 +51,21 @@ public class Author {
 
     public void setMidlename(String midlename) {
         this.midlename = midlename;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(authorId, author.authorId) &&
+                Objects.equals(name, author.name) &&
+                Objects.equals(surname, author.surname) &&
+                Objects.equals(midlename, author.midlename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(authorId, name, surname, midlename);
     }
 }

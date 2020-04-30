@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.DTO;
 
 
+import java.util.Objects;
 
 public class AuthorDTO {
 
@@ -42,5 +43,22 @@ public class AuthorDTO {
 
     public void setMidlename(String midlename) {
         this.midlename = midlename;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthorDTO authorDTO = (AuthorDTO) o;
+        return Objects.equals(authorId, authorDTO.authorId) &&
+                Objects.equals(name, authorDTO.name) &&
+                Objects.equals(surname, authorDTO.surname) &&
+                Objects.equals(midlename, authorDTO.midlename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(authorId, name, surname, midlename);
     }
 }

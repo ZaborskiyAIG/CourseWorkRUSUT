@@ -21,7 +21,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    Long contUsers();
+    Long contUsers(String nameRole);
 
     List<UserDTO> getAllUser(String offset);
 

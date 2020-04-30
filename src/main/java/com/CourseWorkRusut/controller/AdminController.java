@@ -59,10 +59,10 @@ public class AdminController {
     }
 
     @GetMapping(value = "/counterUsers")
-    public ResponseEntity<Map<String,Long>> counterUser() {
+    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
 
         Map<String,Long> map =  new HashMap<>();
-        map.put("counter",userService.contUsers());
+        map.put("counter",userService.contUsers(nameRole));
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
@@ -85,7 +85,7 @@ public class AdminController {
     @PutMapping(value = "/user/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
 
-        User user = new User();  //пофиксить
+        User user = new User();  //пофиксить, опустить формирование модели представления на слой ниже
         user.setUserId(id);
 
         userService.delete(user);
@@ -93,7 +93,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/classifiers")
-    public ResponseEntity<Map<String,List>> get() { //переделать
+    public ResponseEntity<Map<String,List>> get() { //переделать, опустить ниже, спросить у Игоря?
 
         Map<String, List> response = new HashMap<>();
 

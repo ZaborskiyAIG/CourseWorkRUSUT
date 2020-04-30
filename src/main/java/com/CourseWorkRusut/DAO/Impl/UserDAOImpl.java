@@ -111,9 +111,11 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     }
 
     @Override
-    public Long contUsers(){
+    public Long contUsers(String nameRole){
         Session session = this.sessionFactory.getCurrentSession();
-      return (Long) session.createQuery("Select count (user.userId) from User user").uniqueResult();
+        Query query = session.createQuery("Select count (user.userId) from User user where user.role.nameRole=:nameRole");
+        query.setParameter("nameRole",nameRole);
+        return (Long)  query.uniqueResult();
     }
 
     public List<User> getUsersByType(String forNameClass) throws ClassNotFoundException {

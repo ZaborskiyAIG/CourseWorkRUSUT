@@ -1,6 +1,5 @@
 package com.CourseWorkRusut.DAO;
 
-import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.model.Library;
 
 import java.util.List;
@@ -11,6 +10,6 @@ public interface LibraryDAO {
 
     void updateLibrary(Library library);
 
-    List<LibraryDTO> getAllLibrary(String offset);
+    List getAllLibrary(String offset);
 
 }

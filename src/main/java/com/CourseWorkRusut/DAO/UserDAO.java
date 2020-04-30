@@ -27,6 +27,6 @@ public interface UserDAO {
 
     List<User> getTeachersByParameters(String offset);
 
-    Long contUsers();
+    Long contUsers(String nameRole);
 
 }

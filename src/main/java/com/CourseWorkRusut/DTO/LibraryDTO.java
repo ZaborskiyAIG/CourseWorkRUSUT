@@ -1,11 +1,16 @@
 package com.CourseWorkRusut.DTO;
 
+import com.CourseWorkRusut.model.Library;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
-public class LibraryDTO {
+public class LibraryDTO  {
+
+
+
     private Long libraryId;
 
     private String name;
@@ -13,20 +18,20 @@ public class LibraryDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
 
-    private byte[] book;
+  //  private byte[] book;
 
-    private List<AuthorDTO> authors;
+    private List<String> authors;
 
     public LibraryDTO() {
 
     }
 
-    public LibraryDTO(Long libraryId, String name, LocalDate data, byte[] book, List<AuthorDTO> authors) {
+    public LibraryDTO(Long libraryId, String name, LocalDate data, List<String> authors) {
         this.libraryId = libraryId;
         this.name = name;
         this.data = data;
-        this.book = book;
         this.authors = authors;
+
     }
 
     public Long getLibraryId() {
@@ -53,19 +58,36 @@ public class LibraryDTO {
         this.data = data;
     }
 
-    public byte[] getBook() {
-        return book;
-    }
+   // public byte[] getBook() {
+  //      return book;
+ //   }
 
-    public void setBook(byte[] book) {
-        this.book = book;
-    }
+   // public void setBook(byte[] book) {
+  //      this.book = book;
+   // }
 
-    public List<AuthorDTO> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<AuthorDTO> authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LibraryDTO that = (LibraryDTO) o;
+        return Objects.equals(libraryId, that.libraryId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(data, that.data) &&
+                Objects.equals(authors, that.authors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libraryId, name, data, authors);
     }
 }
