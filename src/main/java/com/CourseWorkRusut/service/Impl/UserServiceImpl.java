@@ -118,6 +118,21 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Long contUsers(String nameRole) {
+        nameRole = convertRoles(nameRole);
         return userDAO.contUsers(nameRole);
     }
+
+    private String convertRoles(String nameRole){
+        if(nameRole.equals("students") || nameRole.equals("student"))
+            return "ROLE_STUDENTS";
+
+        if(nameRole.equals("teachers") || nameRole.equals("teacher"))
+            return "ROLE_TEACHER";
+
+        if(nameRole.equals("admins") || nameRole.equals("admin"))
+            return "ROLE_ADMIN";
+
+        return "ROLE_USER";
+    }
+
 }
