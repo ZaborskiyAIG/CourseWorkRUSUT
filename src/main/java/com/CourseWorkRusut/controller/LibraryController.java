@@ -1,6 +1,8 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
+import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,9 +28,13 @@ public class LibraryController {
     @Autowired
     private LibraryService libraryService;
 
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private InternshipService internshipService;
 
-    @PostMapping(value = "/s",produces = "application/pdf")
+    @PostMapping(value = "/s/s",produces = "application/pdf")
     public ResponseEntity<InputStreamResource> updateUser(@RequestParam MultipartFile file) throws IOException {
 
         HttpHeaders headers = new HttpHeaders();
@@ -59,5 +65,11 @@ public class LibraryController {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }
 
+
+
+    @GetMapping(value = "/s")
+    public ResponseEntity<List<User>> searc(@RequestParam(value = "search" )String search)  {
+        return new ResponseEntity<>(userService.searchUsers(search), HttpStatus.OK);
+    }
 
 }

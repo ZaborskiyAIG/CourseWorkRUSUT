@@ -22,6 +22,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.CourseWorkRusut")
 @PropertySource("classpath:heroku.properties")
+//@PropertySource("classpath:database.properties")
 public class HibernateConfig {
 
     private final Environment env;   //разобрать environment

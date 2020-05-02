@@ -114,7 +114,6 @@ public class UserServiceImpl implements UserService {
         return userDAO.getAllUser(offset);
     }
 
-
     @Override
     @Transactional
     public Long contUsers(String nameRole) {
@@ -133,6 +132,29 @@ public class UserServiceImpl implements UserService {
             return "ROLE_ADMIN";
 
         return "ROLE_USER";
+    }
+
+    @Override
+    @Transactional
+    public List<User> searchUsers(String search) {
+//        String[] words = search.split(" ");
+//
+//        for(int i = 0; i<words.length; i++)
+//            words[i] = "%"+words[i]+"%";
+
+//        if(words.length == 1){
+//           return userDAO.searchUsersByOneWord(words[0]);
+//        }
+//
+//        if(words.length == 2){
+//            return userDAO.searchUsersByTwoWord(words);
+//        }
+//
+//        if(words.length >= 3){
+//            return userDAO.searchUsersByWords(words);
+//        }
+
+        return userDAO.searchUsersByWords(search);
     }
 
 }

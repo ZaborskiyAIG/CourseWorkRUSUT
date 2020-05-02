@@ -9,7 +9,7 @@ public class LearningActivities {
     @Id
     @Column(name = "learning_activities_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long learningActivitiesId;
+    private Long learningId;
 
     @ManyToOne
     @JoinColumn(name = "Semester_id")
@@ -28,14 +28,22 @@ public class LearningActivities {
             @AttributeOverride( name = "report", column = @Column(name = "report")),
             @AttributeOverride( name = "mark", column = @Column(name = "mark")),
     })
-    EmbeddableLearningInternship embeddableLearningInternship;
+    private EmbeddableLearningInternship embeddableLearningInternship;
 
-    public long getLearningActivitiesId() {
-        return learningActivitiesId;
+    public Long getLearningId() {
+        return learningId;
     }
 
-    public void setLearningActivitiesId(long learningActivitiesId) {
-        this.learningActivitiesId = learningActivitiesId;
+    public void setLearningId(Long learningId) {
+        this.learningId = learningId;
+    }
+
+    public EmbeddableLearningInternship getEmbeddableLearningInternship() {
+        return embeddableLearningInternship;
+    }
+
+    public void setEmbeddableLearningInternship(EmbeddableLearningInternship embeddableLearningInternship) {
+        this.embeddableLearningInternship = embeddableLearningInternship;
     }
 
     public Semester getSemester() {

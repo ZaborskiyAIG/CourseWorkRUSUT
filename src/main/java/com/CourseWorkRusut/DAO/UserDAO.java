@@ -23,10 +23,12 @@ public interface UserDAO {
 
     List<UserDTO> getAllUser(String offset);
 
-    List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+    List<UserDTO> getStudentsByParameters(String offset, String group, String specialty);
 
     List<User> getTeachersByParameters(String offset);
 
     Long contUsers(String nameRole);
+
+    List<User> searchUsersByWords(String words);
 
 }

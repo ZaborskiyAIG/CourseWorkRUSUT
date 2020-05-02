@@ -25,5 +25,6 @@ public interface UserService {
 
     List<UserDTO> getAllUser(String offset);
 
+    List<User> searchUsers(String search);
 
 }

@@ -17,28 +17,33 @@ public class Teacher extends User {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "teacher_science_degree",
             joinColumns = { @JoinColumn(name = "teacher_id") },
             inverseJoinColumns = { @JoinColumn(name = "position_id")})
     private List<Position> positions;
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "teacher_science_degree",
             joinColumns = { @JoinColumn(name = "teacher_id") },
             inverseJoinColumns = { @JoinColumn(name = "science_degree_id")})
     private List<ScienceDegree> scienceDegrees;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private List<SubjectTeacherGroup> subjectTeacherGroups;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private List<Exam> exams;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private List<LearningActivities> learningActivities;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private List<Internship> internships;
 

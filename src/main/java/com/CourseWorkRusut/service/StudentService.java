@@ -13,6 +13,6 @@ public interface StudentService {
 
     User updateStudent(Student student, User user);
 
-    List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId);
+    List<UserDTO> getStudentsByParameters(String offset, String group, String specialty);
 
 }

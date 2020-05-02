@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
@@ -31,6 +32,9 @@ public class AdminController {
     private StudentService studentService ;
 
     @Autowired
+    InternshipService internshipService;
+
+    @Autowired
     public AdminController(UserService userService, SpecialtyService specialtyService, PositionScienceDegreeService positionScienceDegreeService, StudyGroupService studyGroupService, RoleService roleService, TeacherService teacherService, StudentService studentService) {
         this.userService = userService;
         this.specialtyService = specialtyService;
@@ -48,9 +52,9 @@ public class AdminController {
 
     @GetMapping(value = "/students")
     public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                                   @RequestParam(required = false) Long specialtyId,
-                                                                   @RequestParam(required = false) Long groupId) {
-        return new ResponseEntity<>(studentService.getStudentsByParameters(offset, groupId, specialtyId), HttpStatus.OK);
+                                                                   @RequestParam(required = false) String specialty,
+                                                                   @RequestParam(required = false) String group) {
+        return new ResponseEntity<>(studentService.getStudentsByParameters(offset, group, specialty), HttpStatus.OK);
     }
 
     @GetMapping(value = "/teachers")
@@ -118,6 +122,17 @@ public class AdminController {
 
         return new ResponseEntity<>(response, HttpStatus.OK); //переделать
     }
+
+
+
+
+    @GetMapping(value = "/internships")
+    public ResponseEntity<List<InternshipDTO>> getInternships()  {
+        return new ResponseEntity<>(internshipService.getAllInternships(), HttpStatus.OK);
+    }
+
+
+
 
 
 }

@@ -78,8 +78,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public List<UserDTO> getStudentsByParameters(String offset, Long groupId, Long specialtyId) {
-        return userDAO.getStudentsByParameters(offset, groupId, specialtyId);
+    public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
+        return userDAO.getStudentsByParameters(offset, group, specialty);
     }
 
 }

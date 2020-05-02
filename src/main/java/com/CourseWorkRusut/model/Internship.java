@@ -9,7 +9,7 @@ public class Internship {
     @Id
     @Column(name = "internship_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long examId;
+    private Long internshipId;
 
     @ManyToOne
     @JoinColumn(name = "Place_practice_id")
@@ -31,22 +31,22 @@ public class Internship {
             @AttributeOverride( name = "report", column = @Column(name = "report")),
             @AttributeOverride( name = "mark", column = @Column(name = "mark")),
     })
-    EmbeddableLearningInternship embeddableLearningInternship;
+    private EmbeddableLearningInternship embeddableLearningInternship;
 
-    public long getExamId() {
-        return examId;
+    public Long getInternshipId() {
+        return internshipId;
     }
 
-    public void setExamId(long examId) {
-        this.examId = examId;
+    public void setInternshipId(Long internshipId) {
+        this.internshipId = internshipId;
+    }
+
+    public void setPlacePractice(PlacePractice placePractice) {
+        this.placePractice = placePractice;
     }
 
     public PlacePractice getPlacePractice() {
         return placePractice;
-    }
-
-    public void setPlacePracticle(PlacePractice placePracticle) {
-        this.placePractice = placePractice;
     }
 
     public String getInternshipScientificDirector() {
@@ -72,4 +72,14 @@ public class Internship {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    public EmbeddableLearningInternship getEmbeddableLearningInternship() {
+        return embeddableLearningInternship;
+    }
+
+    public void setEmbeddableLearningInternship(EmbeddableLearningInternship embeddableLearningInternship) {
+        this.embeddableLearningInternship = embeddableLearningInternship;
+    }
+
+
 }
