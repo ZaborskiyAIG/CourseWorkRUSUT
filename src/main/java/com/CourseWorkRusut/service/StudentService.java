@@ -15,4 +15,6 @@ public interface StudentService {
 
     List<UserDTO> getStudentsByParameters(String offset, String group, String specialty);
 
+    List<UserDTO> searchStudentByFullName(String search);
+
 }

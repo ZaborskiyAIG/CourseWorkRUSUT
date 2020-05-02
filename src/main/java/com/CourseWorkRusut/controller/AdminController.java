@@ -3,6 +3,7 @@ package com.CourseWorkRusut.controller;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 
@@ -50,15 +51,34 @@ public class AdminController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset) {
-        return new ResponseEntity<>(userService.getAllUser(offset), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                    @RequestParam(required = false) String search ) {
+        List<UserDTO> userDTOS;
+        if(search!=null){
+            userDTOS = userService.searchUsers(search);  //изменить наименование метода
+        } else {
+            userDTOS = userService.getAllUser(offset);
+        }
+
+        return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
+
+
 
     @GetMapping(value = "/students")
     public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                                   @RequestParam(required = false) String specialty,
-                                                                   @RequestParam(required = false) String group) {
-        return new ResponseEntity<>(studentService.getStudentsByParameters(offset, group, specialty), HttpStatus.OK);
+                                                        @RequestParam(required = false) String specialty,
+                                                        @RequestParam(required = false) String group,
+                                                        @RequestParam(required = false) String search) {
+
+        List<UserDTO> userDTOS;
+        if(search!=null){
+            userDTOS = studentService.searchStudentByFullName(search);
+        } else {
+            userDTOS = studentService.getStudentsByParameters(offset, group, specialty);
+        }
+
+        return new ResponseEntity<>( userDTOS, HttpStatus.OK);
     }
 
     @GetMapping(value = "/teachers")

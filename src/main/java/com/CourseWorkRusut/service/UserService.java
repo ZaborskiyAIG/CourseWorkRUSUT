@@ -13,18 +13,18 @@ public interface UserService {
 
     UserDTO update(UserDTO userDTO);
 
-    User getUserByLogin(String login);
-
-    void delete(User user);
+    User getUserByLogin(String login);  //подгружать только юзера и его роль
 
     UserDTO getUserById(Long id);
 
-    User getUserByEmail(String email);
+    User getUserByEmail(String email); //подумать можно ли вернуть тру/фолс если есть такой емэйл
+
+    void delete(User user);
 
     Long contUsers(String nameRole);
 
     List<UserDTO> getAllUser(String offset);
 
-    List<User> searchUsers(String search);
+    List<UserDTO> searchUsers(String search);
 
 }

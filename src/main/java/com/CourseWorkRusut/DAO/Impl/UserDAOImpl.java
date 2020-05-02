@@ -91,7 +91,15 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
         Session session = this.sessionFactory.getCurrentSession();
 
-        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, user.name, user.surname, user.middlename, user.email, user.numberBook, user.studyGroup.numberGroup, user.studyGroup.specialty.nameSpecialty, user.entryDate, user.role.nameRole) from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
+        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, " +
+                                                                                                    "user.name, " +
+                                                                                                    "user.surname, " +
+                                                                                                    "user.middlename, " +
+                                                                                                    "user.email, user.numberBook, " +
+                                                                                                    "user.studyGroup.numberGroup, " +
+                                                                                                    "user.studyGroup.specialty.nameSpecialty, " +
+                                                                                                    "user.entryDate, user.role.nameRole) " +
+                "from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
 
         query.setParameter("specialty",group);
         query.setParameter("group",specialty );
@@ -119,45 +127,22 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
         return (Long)  query.uniqueResult();
     }
 
-//    @Override
-//    public List<User> searchUsersByWords(String words) {
-//        Session session = this.sessionFactory.getCurrentSession();
-//        Query query = session.createQuery("from User user join fetch user.role where (CONCAT(user.name,' ',user.surname,' ',user.middlename) LIKE :words) or " +
-//                                                                                        "(CONCAT(user.name,' ',user.middlename,' ',user.surname) LIKE :words) or " +
-//                                                                                        "(CONCAT(user.surname,' ',user.middlename,' ',user.name) LIKE :words) or" +
-//                                                                                        "(CONCAT(user.surname,' ',user.name,' ',user.middlename) LIKE :words) or" +
-//                                                                                        "(CONCAT(user.middlename,' ',user.name,' ',user.surname) LIKE :words) or" +
-//                                                                                        "(CONCAT(user.middlename,' ',user.surname,' ',user.name) LIKE :words)");
-//        query.setParameter("words","%"+words+"%");
-//
-//        return query.list();
-//    }
-
-//    @Override
-//    public List<User> searchUsersByWords(String words) {
-//        Session session = this.sessionFactory.getCurrentSession();
-//        NativeQuery query = session.createNativeQuery("select *, 1 as clazz_, from user user left outer join student s on user.user_id = s.Student_id where (CONCAT(user.name,' ',user.surname,' ',user.midlename) LIKE :words) or " +
-//                "(CONCAT(user.name,' ',user.midlename,' ',user.surname) LIKE :words) or " +
-//                "(CONCAT(user.surname,' ',user.midlename,' ',user.name) LIKE :words) or" +
-//                "(CONCAT(user.surname,' ',user.name,' ',user.midlename) LIKE :words) or" +
-//                "(CONCAT(user.midlename,' ',user.name,' ',user.surname) LIKE :words) or" +
-//                "(CONCAT(user.midlename,' ',user.surname,' ',user.name) LIKE :words)");
-//        query.addEntity(User.class);
-//        query.setParameter("words","%"+words+"%");
-//
-//        return query.list();
-//    }
-
     @Override
-    public List<User> searchUsersByWords(String words) {
+    public List<UserDTO> searchUsersByWords(String words) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createSQLQuery("select user.*, s.*, 1 as clazz_ from user user left outer join student s on user.user_id = s.Student_id where concat_wc(user.name,' ',user.surname,' ',user.midlename) LIKE :words ");
-       // query.addEntity(Student.class);
-       // query.addEntity(User.class);
-      query.setParameter("words","%"+words+"%");
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name, user.surname, user.middlename, user.email, user.role.nameRole) " +
+                "from User user join fetch user.role where (type(user) in :types) and " +
+                "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
+                "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
+                "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +
+                "(concat(user.surname,' ',user.name,' ',IFNULL(user.middlename,'')) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.name,' ',user.surname) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.surname,' ',user.name) LIKE :words) )");
+
+        query.setParameter("words","%"+words+"%");
+        query.setParameter("types", User.class);
 
         return query.list();
     }
-
 
 }

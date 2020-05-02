@@ -18,8 +18,8 @@ public class Author {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "midlename")
-    private String midlename;
+    @Column(name = "middlename")
+    private String middlename;
 
     public long getAuthorId() {
         return authorId;
@@ -45,12 +45,12 @@ public class Author {
         this.surname = surname;
     }
 
-    public String getMidlename() {
-        return midlename;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMidlename(String midlename) {
-        this.midlename = midlename;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
     @Override
@@ -61,11 +61,11 @@ public class Author {
         return Objects.equals(authorId, author.authorId) &&
                 Objects.equals(name, author.name) &&
                 Objects.equals(surname, author.surname) &&
-                Objects.equals(midlename, author.midlename);
+                Objects.equals(middlename, author.middlename);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, name, surname, midlename);
+        return Objects.hash(authorId, name, surname, middlename);
     }
 }

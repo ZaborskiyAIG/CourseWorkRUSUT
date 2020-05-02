@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
+import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
@@ -21,6 +22,9 @@ public class StudentServiceImpl implements StudentService {
     private StudyGroupService studyGroupService;
 
     private UserDAO userDAO;
+
+    @Autowired
+    private StudentDAO studentDAO;
 
     @Autowired
     public StudentServiceImpl(StudyGroupService studyGroupService, UserDAO userDAO) {
@@ -82,4 +86,9 @@ public class StudentServiceImpl implements StudentService {
         return userDAO.getStudentsByParameters(offset, group, specialty);
     }
 
+    @Override
+    @Transactional
+    public List<UserDTO> searchStudentByFullName(String search) {
+       return studentDAO.searchStudentByFullName(search);
+    }
 }

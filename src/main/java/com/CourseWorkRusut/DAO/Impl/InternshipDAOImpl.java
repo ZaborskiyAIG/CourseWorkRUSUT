@@ -30,17 +30,18 @@ public class InternshipDAOImpl implements InternshipDAO {
     public List<InternshipDTO> getAllInternships() {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(
-                "select" +
-                        " internship.internshipId," +
-                        " internship.internshipScientificDirector," +
-                        " internship.semester.numberSemester," +
-                        " internship.teacher.name," +
-                        "internship.teacher.surname," +
-                        "internship.teacher.middlename," +
-                        "internship.embeddableLearningInternship.mark," +
-                        "internship.semester.student.userId," +
-                        " internship.placePractice.placePracticeId," +
-                        " internship.embeddableLearningInternship.topic From Internship internship ")
+                "select " +
+                        "internship.internshipId, " +
+                        "internship.internshipScientificDirector, " +
+                        "internship.semester.numberSemester, " +
+                        "internship.teacher.name, " +
+                        "internship.teacher.surname, " +
+                        "internship.teacher.middlename, " +
+                        "internship.embeddableLearningInternship.mark, " +
+                        "internship.semester.student.userId, " +
+                        "internship.placePractice.placePracticeId, " +
+                        "internship.embeddableLearningInternship.topic " +
+                        "From Internship internship ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 

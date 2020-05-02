@@ -2,6 +2,7 @@ package com.CourseWorkRusut.controller;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,18 +59,10 @@ public class LibraryController {
     }
 
 
-
-
     @GetMapping(value = "/s/lib")
     public ResponseEntity<List<LibraryDTO>> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }
 
-
-
-    @GetMapping(value = "/s")
-    public ResponseEntity<List<User>> searc(@RequestParam(value = "search" )String search)  {
-        return new ResponseEntity<>(userService.searchUsers(search), HttpStatus.OK);
-    }
 
 }

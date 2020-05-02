@@ -1,16 +1,15 @@
 package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.LibraryDAO;
-import com.CourseWorkRusut.DTO.AuthorDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.model.Author;
 import com.CourseWorkRusut.model.Library;
-import org.hibernate.Criteria;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
-import org.hibernate.transform.Transformers;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,8 +46,8 @@ public class LibraryDAOImpl implements LibraryDAO {
     public List<LibraryDTO> getAllLibrary(String offset) {                                  //пощупать select, в палне колекций,  select library.name, library.authors, авторы не работают, потому что коллекция
         Session session = this.sessionFactory.getCurrentSession();                          //попробоавать определить явно, как в тырнете советуют with element property reference, illegal attempt to dereference collection ключевые слова ошибки
         Query query = session.createQuery(                                                  //делает копии, похоже нужен все таки set
-                "select library From Library library join fetch library.authors aut")   //дуплитакаты это проблема manyToMany? эх, проверить бы на остальных
-        .unwrap(Query.class)                                                          //попробовать с переопределнной set и иквл в модели проверить ЗАНОГО
+                "select library From Library library join fetch library.authors aut")    //дуплитакаты это проблема manyToMany? эх, проверить бы на остальных
+        .unwrap(Query.class)                                                                //попробовать с переопределнной set и иквл в модели проверить ЗАНОГО
         .setResultTransformer(new ResultTransformer() {
 
             Set<LibraryDTO> set = new LinkedHashSet<>();
@@ -60,8 +59,13 @@ public class LibraryDAOImpl implements LibraryDAO {
                 LocalDate localDate = ((Library)objects[0]).getData();
 
                 List<String> list = new ArrayList<>();
-                for(Author author: ((Library)objects[0]).getAuthors())
-                list.add(author.getName()+" "+author.getSurname()+" "+author.getMidlename());
+                for(Author author: ((Library)objects[0]).getAuthors()) {
+
+                    if (author.getMiddlename() == null)
+                        author.setMiddlename("");
+
+                    list.add(author.getSurname() +" " + author.getName() + " " + author.getMiddlename());
+                }
 
                 LibraryDTO libraryDTO = new LibraryDTO(id,name,localDate,list);
 
@@ -81,16 +85,6 @@ public class LibraryDAOImpl implements LibraryDAO {
 
         return query.getResultList();
     }
-
-//    @Override
-//    public List<Library> getAllLibrary(String offset) {
-//        Session session = this.sessionFactory.getCurrentSession(); //переделать на transform или как он там
-//        Query<Library> query = session.createQuery("  From Library library join fetch library.authors", Library.class);
-//        query.setFirstResult(Integer.valueOf(offset));
-//        query.setMaxResults(Integer.valueOf(offset)+25);
-//
-//        return query.list();
-//    }
 }
 
 

@@ -136,24 +136,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<User> searchUsers(String search) {
-//        String[] words = search.split(" ");
-//
-//        for(int i = 0; i<words.length; i++)
-//            words[i] = "%"+words[i]+"%";
-
-//        if(words.length == 1){
-//           return userDAO.searchUsersByOneWord(words[0]);
-//        }
-//
-//        if(words.length == 2){
-//            return userDAO.searchUsersByTwoWord(words);
-//        }
-//
-//        if(words.length >= 3){
-//            return userDAO.searchUsersByWords(words);
-//        }
-
+    public List<UserDTO> searchUsers(String search) {
         return userDAO.searchUsersByWords(search);
     }
 
