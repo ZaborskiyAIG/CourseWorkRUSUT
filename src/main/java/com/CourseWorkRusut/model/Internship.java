@@ -30,6 +30,7 @@ public class Internship {
     @AttributeOverrides({
             @AttributeOverride( name = "report", column = @Column(name = "report")),
             @AttributeOverride( name = "mark", column = @Column(name = "mark")),
+            @AttributeOverride( name = "topic", column = @Column(name = "topic")),
     })
     private EmbeddableLearningInternship embeddableLearningInternship;
 
