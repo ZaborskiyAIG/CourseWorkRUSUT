@@ -33,7 +33,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                         "learningActivities.teacher.middlename," +
                         "learningActivities.embeddableLearningInternship.mark," +
                         "learningActivities.semester.student.userId, " +
-                        "learningActivities.topic   From LearningActivities learningActivities ")
+                        "learningActivities.embeddableLearningInternship.topic   From LearningActivities learningActivities ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
