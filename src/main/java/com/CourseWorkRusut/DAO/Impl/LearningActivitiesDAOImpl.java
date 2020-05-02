@@ -46,8 +46,8 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                                 (String)objects[1],
                                 (String)objects[2],
                                 teacher,
-                                (String)objects[4],
-                                (Long)objects[5]
+                                (String)objects[6],
+                                (Long)objects[7]
                         );
                         return learningActivitiesDTO;
                     }
