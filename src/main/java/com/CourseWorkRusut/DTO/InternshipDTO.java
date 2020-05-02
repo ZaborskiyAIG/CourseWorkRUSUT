@@ -43,6 +43,14 @@ public class InternshipDTO {
     public InternshipDTO() {
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     public Long getUserId() {
         return userId;
     }

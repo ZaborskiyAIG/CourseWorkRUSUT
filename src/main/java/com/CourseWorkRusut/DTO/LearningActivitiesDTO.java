@@ -36,6 +36,7 @@ public class LearningActivitiesDTO {
 
     }
 
+
     public Long getUserId() {
         return userId;
     }
