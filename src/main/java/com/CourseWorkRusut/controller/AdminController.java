@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.controller;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
+import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
@@ -33,6 +34,9 @@ public class AdminController {
 
     @Autowired
     InternshipService internshipService;
+
+    @Autowired
+    LearningActivitiesService learningActivitiesService;
 
     @Autowired
     public AdminController(UserService userService, SpecialtyService specialtyService, PositionScienceDegreeService positionScienceDegreeService, StudyGroupService studyGroupService, RoleService roleService, TeacherService teacherService, StudentService studentService) {
@@ -126,6 +130,10 @@ public class AdminController {
 
 
 
+
+
+
+
     @GetMapping(value = "/internships")
     public ResponseEntity<List<InternshipDTO>> getInternships()  {
         return new ResponseEntity<>(internshipService.getAllInternships(), HttpStatus.OK);
@@ -133,6 +141,9 @@ public class AdminController {
 
 
 
-
+    @GetMapping(value = "/learning-activities")
+    public ResponseEntity<List<LearningActivitiesDTO>> getActivities()  {
+        return new ResponseEntity<>(learningActivitiesService.getAllLearningActivities(), HttpStatus.OK);
+    }
 
 }

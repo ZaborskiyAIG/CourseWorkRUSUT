@@ -24,14 +24,15 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
     public List<LearningActivitiesDTO> getAllLearningActivities() {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(
-                "select" +
-                        " learningActivities.learningId," +
+                "select " +
+                        "learningActivities.learningId," +
                         "learningActivities.learningActivitiesType.nameType," +
                         "learningActivities.semester.numberSemester," +
                         "learningActivities.teacher.name," +
                         "learningActivities.teacher.surname," +
                         "learningActivities.teacher.middlename," +
-                        "learningActivities.embeddableLearningInternship.mark From LearningActivities learningActivities ")
+                        "learningActivities.embeddableLearningInternship.mark," +
+                        "learningActivities.semester.student.userId  From LearningActivities learningActivities ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
@@ -45,7 +46,8 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                                 (String)objects[1],
                                 (String)objects[2],
                                 teacher,
-                                (String)objects[4]
+                                (String)objects[4],
+                                (Long)objects[5]
                         );
                         return learningActivitiesDTO;
                     }

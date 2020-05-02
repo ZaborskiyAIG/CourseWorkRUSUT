@@ -12,12 +12,15 @@ public class LearningActivitiesDTO {
 
     private String nameTeacher;
 
-    public LearningActivitiesDTO(Long learningActivitiesId,String nameType, String numberSemester,  String nameTeacher, String mark) {
+    private Long userId;
+
+    public LearningActivitiesDTO(Long learningActivitiesId,String nameType, String numberSemester,  String nameTeacher, String mark, Long userId) {
         this.learningActivitiesId = learningActivitiesId;
         this.mark = mark;
         this.numberSemester = numberSemester;
         this.nameType = nameType;
         this.nameTeacher = nameTeacher;
+        this.userId = userId;
     }
 
     public LearningActivitiesDTO(){
