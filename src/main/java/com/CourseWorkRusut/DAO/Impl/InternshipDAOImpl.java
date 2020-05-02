@@ -53,9 +53,9 @@ public class InternshipDAOImpl implements InternshipDAO {
                                 (String)objects[1],
                                 (String)objects[2],
                                 teacher,
-                                (String)objects[4],
-                                (Long) objects[5],
-                                (Long) objects[6]
+                                (String)objects[6],
+                                (Long) objects[7],
+                                (Long) objects[8]
 
                         );
                         return internshipDTO;
