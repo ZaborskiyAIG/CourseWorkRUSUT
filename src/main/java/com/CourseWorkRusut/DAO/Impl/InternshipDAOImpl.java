@@ -38,7 +38,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "internship.teacher.surname," +
                         "internship.teacher.middlename," +
                         "internship.embeddableLearningInternship.mark," +
-                        "internship.semester.studen.userId," +
+                        "internship.semester.student.userId," +
                         " internship.placePractice.placePracticeId From Internship internship ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
