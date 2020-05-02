@@ -33,6 +33,7 @@ public class Internship {
     })
     private EmbeddableLearningInternship embeddableLearningInternship;
 
+
     public Long getInternshipId() {
         return internshipId;
     }

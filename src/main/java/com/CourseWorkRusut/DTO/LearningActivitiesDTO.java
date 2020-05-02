@@ -14,17 +14,42 @@ public class LearningActivitiesDTO {
 
     private Long userId;
 
-    public LearningActivitiesDTO(Long learningActivitiesId,String nameType, String numberSemester,  String nameTeacher, String mark, Long userId) {
+    private String topic;
+
+    public LearningActivitiesDTO(Long learningActivitiesId,
+                                 String nameType,
+                                 String numberSemester,
+                                 String nameTeacher,
+                                 String mark,
+                                 Long userId,
+                                 String topic) {
         this.learningActivitiesId = learningActivitiesId;
         this.mark = mark;
         this.numberSemester = numberSemester;
         this.nameType = nameType;
         this.nameTeacher = nameTeacher;
         this.userId = userId;
+        this.topic =topic;
     }
 
     public LearningActivitiesDTO(){
 
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public Long getLearningActivitiesId() {

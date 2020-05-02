@@ -7,6 +7,7 @@ public class EmbeddableLearningInternship {
 
     private byte[] report;
     private String mark;
+    private String topic;
 
     public byte[] getReport() {
         return report;
@@ -22,5 +23,13 @@ public class EmbeddableLearningInternship {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

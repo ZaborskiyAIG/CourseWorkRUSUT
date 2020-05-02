@@ -20,13 +20,16 @@ public class InternshipDTO {
 
     private Long placePracticeId;
 
+    private String topic;
+
     public InternshipDTO(Long internshipId,
                          String director,
                          String numberSemester,
                          String nameTeacher,
                          String mark,
                          Long userId,
-                         Long placePracticeId) {
+                         Long placePracticeId,
+                         String topic) {
         this.internshipId = internshipId;
         this.director = director;
         this.numberSemester = numberSemester;
@@ -34,6 +37,7 @@ public class InternshipDTO {
         this.mark = mark;
         this.userId = userId;
         this.placePracticeId= placePracticeId;
+        this.topic = topic;
     }
 
     public InternshipDTO() {

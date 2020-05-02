@@ -39,7 +39,8 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "internship.teacher.middlename," +
                         "internship.embeddableLearningInternship.mark," +
                         "internship.semester.student.userId," +
-                        " internship.placePractice.placePracticeId From Internship internship ")
+                        " internship.placePractice.placePracticeId," +
+                        " internship.topic From Internship internship ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
@@ -55,7 +56,8 @@ public class InternshipDAOImpl implements InternshipDAO {
                                 teacher,
                                 (String)objects[6],
                                 (Long) objects[7],
-                                (Long) objects[8]
+                                (Long) objects[8],
+                                (String) objects[9]
 
                         );
                         return internshipDTO;
