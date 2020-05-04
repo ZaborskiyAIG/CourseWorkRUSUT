@@ -1,6 +1,5 @@
 package com.CourseWorkRusut.controller;
 
-import com.CourseWorkRusut.model.Role;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
 import com.CourseWorkRusut.service.UserService;

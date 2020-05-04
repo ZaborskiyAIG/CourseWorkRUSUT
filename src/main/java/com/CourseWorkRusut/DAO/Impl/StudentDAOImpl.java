@@ -23,6 +23,28 @@ public class StudentDAOImpl implements StudentDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
+    public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, " +
+                "user.name, " +
+                "user.surname, " +
+                "user.middlename, " +
+                "user.email, user.numberBook, " +
+                "user.studyGroup.numberGroup, " +
+                "user.studyGroup.specialty.nameSpecialty, " +
+                "user.entryDate, user.role.nameRole) " +
+                "from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
+
+        query.setParameter("specialty",group);
+        query.setParameter("group",specialty );
+        query.setParameter("types", Student.class);
+        query.setFirstResult(Integer.valueOf(offset));
+        int quantityUsersForPagination = 25;
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+        return query.list();
+    }
 
     @Override
     public List<UserDTO> searchStudentByFullName(String search) {

@@ -20,8 +20,6 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
                                                 //jpa constructor, для сложных ResultTrasformer
     private SessionFactory sessionFactory;
 
-    private final int quantityUsersForPagination = 25;
-
 
     @Autowired
     public UserDAOImpl(SessionFactory sessionFactory) {
@@ -81,41 +79,9 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist р�
         Query<UserDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(user.userId, user.name,user.surname,user.middlename,user.email, user.role.nameRole) From User user where type(user) in :types", UserDTO.class);
         query.setParameter("types", User.class);
         query.setFirstResult(Integer.valueOf(offset));
-        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+        int quantityUsersForPagination = 25;
+        query.setMaxResults(Integer.valueOf(offset)+ quantityUsersForPagination);
 
-        return query.list();
-    }
-
-
-    @Override
-    public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
-        Session session = this.sessionFactory.getCurrentSession();
-
-        Query<UserDTO> query = session.createQuery("select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, " +
-                                                                                                    "user.name, " +
-                                                                                                    "user.surname, " +
-                                                                                                    "user.middlename, " +
-                                                                                                    "user.email, user.numberBook, " +
-                                                                                                    "user.studyGroup.numberGroup, " +
-                                                                                                    "user.studyGroup.specialty.nameSpecialty, " +
-                                                                                                    "user.entryDate, user.role.nameRole) " +
-                "from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
-
-        query.setParameter("specialty",group);
-        query.setParameter("group",specialty );
-        query.setParameter("types", Student.class);
-        query.setFirstResult(Integer.valueOf(offset));
-        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
-        return query.list();
-    }
-
-    @Override
-    public List<User> getTeachersByParameters(String offset) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Query<User> query = session.createQuery(" select user from User user where type(user) in :types",User.class );
-        query.setParameter("types", Teacher.class);
-        query.setFirstResult(Integer.valueOf(offset));
-        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
         return query.list();
     }
 

@@ -1,9 +1,6 @@
-package com.CourseWorkRusut.controller;
+package com.CourseWorkRusut.controller.admin;
 
-import com.CourseWorkRusut.DTO.InternshipDTO;
-import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
-import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 
@@ -17,7 +14,7 @@ import java.util.*;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class UserController {
 
     private UserService userService;
 
@@ -29,25 +26,13 @@ public class AdminController {
 
     private RoleService roleService;
 
-    private TeacherService teacherService ;
-
-    private StudentService studentService ;
-
     @Autowired
-    InternshipService internshipService;
-
-    @Autowired
-    LearningActivitiesService learningActivitiesService;
-
-    @Autowired
-    public AdminController(UserService userService, SpecialtyService specialtyService, PositionScienceDegreeService positionScienceDegreeService, StudyGroupService studyGroupService, RoleService roleService, TeacherService teacherService, StudentService studentService) {
+    public UserController(UserService userService, SpecialtyService specialtyService, PositionScienceDegreeService positionScienceDegreeService, StudyGroupService studyGroupService, RoleService roleService) {
         this.userService = userService;
         this.specialtyService = specialtyService;
         this.positionScienceDegreeService = positionScienceDegreeService;
         this.studyGroupService = studyGroupService;
         this.roleService = roleService;
-        this.teacherService = teacherService;
-        this.studentService = studentService;
     }
 
     @GetMapping(value = "/users")
@@ -55,35 +40,12 @@ public class AdminController {
                                                     @RequestParam(required = false) String search ) {
         List<UserDTO> userDTOS;
         if(search!=null){
-            userDTOS = userService.searchUsers(search);  //изменить наименование метода
+            userDTOS = userService.searchUsers(search);
         } else {
             userDTOS = userService.getAllUser(offset);
         }
 
         return new ResponseEntity<>(userDTOS, HttpStatus.OK);
-    }
-
-
-
-    @GetMapping(value = "/students")
-    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                        @RequestParam(required = false) String specialty,
-                                                        @RequestParam(required = false) String group,
-                                                        @RequestParam(required = false) String search) {
-
-        List<UserDTO> userDTOS;
-        if(search!=null){
-            userDTOS = studentService.searchStudentByFullName(search);
-        } else {
-            userDTOS = studentService.getStudentsByParameters(offset, group, specialty);
-        }
-
-        return new ResponseEntity<>( userDTOS, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/teachers")
-    public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(teacherService.getTeachersByParameters(offset), HttpStatus.OK);
     }
 
     @GetMapping(value = "/counterUsers")
@@ -120,15 +82,16 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/classifiers")
-    public ResponseEntity<Map<String,List>> get() { //переделать, опустить ниже, спросить у Игоря?
 
+
+
+    @GetMapping(value = "/classifiers")
+    public ResponseEntity<Map<String,List>> getClassifiers() {
         Map<String, List> response = new HashMap<>();
 
         response.put("role",roleService.getAllRoles());
         response.put("positions",positionScienceDegreeService.getAllPositions());
         response.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
-
 
         List<String> specialty = specialtyService.getAllSpecialty();
         List<Map<String, Object>> specialtyList = new ArrayList<>();
@@ -143,27 +106,9 @@ public class AdminController {
         }
         response.put("specialty",specialtyList);
 
-
-        return new ResponseEntity<>(response, HttpStatus.OK); //переделать
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
-
-
-
-
-
-
-    @GetMapping(value = "/internships")
-    public ResponseEntity<List<InternshipDTO>> getInternships()  {
-        return new ResponseEntity<>(internshipService.getAllInternships(), HttpStatus.OK);
-    }
-
-
-
-    @GetMapping(value = "/learning-activities")
-    public ResponseEntity<List<LearningActivitiesDTO>> getActivities()  {
-        return new ResponseEntity<>(learningActivitiesService.getAllLearningActivities(), HttpStatus.OK);
-    }
 
 }

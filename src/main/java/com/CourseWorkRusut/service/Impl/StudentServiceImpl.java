@@ -18,10 +18,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-
     private StudyGroupService studyGroupService;
-
-    private UserDAO userDAO;
 
     @Autowired
     private StudentDAO studentDAO;
@@ -29,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     public StudentServiceImpl(StudyGroupService studyGroupService, UserDAO userDAO) {
         this.studyGroupService = studyGroupService;
-        this.userDAO = userDAO;
+
     }
 
     @Override
@@ -83,7 +80,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
-        return userDAO.getStudentsByParameters(offset, group, specialty);
+        return studentDAO.getStudentsByParameters(offset, group, specialty);
     }
 
     @Override

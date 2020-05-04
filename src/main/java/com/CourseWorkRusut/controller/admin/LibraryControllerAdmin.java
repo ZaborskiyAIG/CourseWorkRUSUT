@@ -1,4 +1,4 @@
-package com.CourseWorkRusut.controller;
+package com.CourseWorkRusut.controller.admin;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
@@ -15,25 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @CrossOrigin
 @RestController
-public class LibraryController {
+@RequestMapping(value = "/admin")
+public class LibraryControllerAdmin {
 
     @Autowired
     private LibraryService libraryService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private InternshipService internshipService;
 
     @PostMapping(value = "/s/s",produces = "application/pdf")
     public ResponseEntity<InputStreamResource> updateUser(@RequestParam MultipartFile file) throws IOException {
@@ -52,14 +45,13 @@ public class LibraryController {
         System.out.println(file.getContentType());
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
                 new InputStreamResource(file.getInputStream()), headers, HttpStatus.OK);
-     //   MultiFile
-      //  return null;
+
         return response;
        // return new ResponseEntity( HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/s/lib")
+    @GetMapping(value = "/libraries")
     public ResponseEntity<List<LibraryDTO>> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }

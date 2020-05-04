@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
+import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.UserMapper;
@@ -26,6 +27,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    TeacherDAO teacherDAO;
 
     @Autowired
     public TeacherServiceImpl(PositionScienceDegreeDAO positionScienceDegreeService){
@@ -54,7 +58,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional
     public List<UserDTO> getTeachersByParameters(String offset) {
-        List<User> users = userDAO.getTeachersByParameters(offset);
+        List<User> users = teacherDAO.getTeachersByParameters(offset);
 
         List<UserDTO> userDTOS = new ArrayList<>();
 
