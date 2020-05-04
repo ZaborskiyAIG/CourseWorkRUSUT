@@ -2,8 +2,8 @@ package com.CourseWorkRusut.DAO.Impl;
 
 
 import com.CourseWorkRusut.DAO.StudyGroupDAO;
-import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

@@ -37,8 +37,8 @@ public class StudentDAOImpl implements StudentDAO {
                 "user.entryDate, user.role.nameRole) " +
                 "from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
 
-        query.setParameter("specialty",group);
-        query.setParameter("group",specialty );
+        query.setParameter("specialty",specialty );
+        query.setParameter("group",group);
         query.setParameter("types", Student.class);
         query.setFirstResult(Integer.valueOf(offset));
         int quantityUsersForPagination = 25;

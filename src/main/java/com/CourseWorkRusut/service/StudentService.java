@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface StudentService {
 
-   // String generationNumberStudyBook(String entryDate, StudyGroup studyGroup);
-
-    User updateStudent(Student student, User user);
+    User updateStudent(Student student);
 
     List<UserDTO> getStudentsByParameters(String offset, String group, String specialty);
 

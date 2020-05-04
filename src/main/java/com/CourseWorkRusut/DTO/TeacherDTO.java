@@ -23,7 +23,7 @@ public class TeacherDTO extends UserDTO {
     public TeacherDTO(List<PositionDTO> positions, List<ScienceDegreeDTO> scienceDegrees) {
         this.positions = positions;
         this.namePositions = convertPositionsToNamePositions(positions);
-        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
+        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);  //удалить конвертеры, изменить запросы к базе
         this.scienceDegrees = scienceDegrees;
     }
 

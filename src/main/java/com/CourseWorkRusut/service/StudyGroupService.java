@@ -12,5 +12,5 @@ public interface StudyGroupService {
 
     Long getCountStudentsInGroup(StudyGroup studyGroup);
 
-    List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty);
+    List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty); //getAllNUMBER изменить
 }

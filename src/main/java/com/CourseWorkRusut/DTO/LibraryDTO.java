@@ -9,8 +9,6 @@ import java.util.Objects;
 
 public class LibraryDTO  {
 
-
-
     private Long libraryId;
 
     private String name;

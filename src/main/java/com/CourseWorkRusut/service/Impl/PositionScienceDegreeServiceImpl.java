@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
 import com.CourseWorkRusut.model.Position;
 import com.CourseWorkRusut.model.ScienceDegree;
 import com.CourseWorkRusut.service.PositionScienceDegreeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,12 +34,12 @@ public class PositionScienceDegreeServiceImpl implements PositionScienceDegreeSe
     }
 
     @Override
-    public List<Position> getPositionsByByName(List<String> namePosition) {
-        return positionScienceDegreeDAO.getPositionsByByName(namePosition);
+    public List<Position> getPositionsByName(List<String> namePosition) {
+        return positionScienceDegreeDAO.getPositionsByName(namePosition);
     }
 
     @Override
-    public List<ScienceDegree> getScienceDegreeByByName(List<String> nameScienceDegree) {
-        return  positionScienceDegreeDAO.getScienceDegreeByByName(nameScienceDegree);
+    public List<ScienceDegree> getScienceDegreeByName(List<String> nameScienceDegree) {
+        return  positionScienceDegreeDAO.getScienceDegreeByName(nameScienceDegree);
     }
 }

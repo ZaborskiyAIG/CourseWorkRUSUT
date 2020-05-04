@@ -19,7 +19,7 @@ public interface UserService {
 
     User getUserByEmail(String email); //подумать можно ли вернуть тру/фолс если есть такой емэйл
 
-    void delete(User user);
+    void delete(Long id);
 
     Long contUsers(String nameRole);
 

@@ -22,8 +22,10 @@ public class TeacherControllerAdmin {
     }
 
     @GetMapping(value = "/teachers")
-    public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset) { //requestBody? HttpServletRequest? чек поле consumer
-        return new ResponseEntity<>(teacherService.getTeachersByParameters(offset), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset, //requestBody? HttpServletRequest? чек поле consumer
+                                                       @RequestParam(required = false) String position,
+                                                       @RequestParam(required = false) String degree) {
+        return new ResponseEntity<>(teacherService.getTeachersByParameters(offset, position, degree), HttpStatus.OK);
     }
 
 }

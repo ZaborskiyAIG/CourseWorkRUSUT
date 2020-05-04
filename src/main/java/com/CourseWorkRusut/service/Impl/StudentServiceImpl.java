@@ -1,13 +1,13 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
-import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.StudentService;
 import com.CourseWorkRusut.service.StudyGroupService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,22 +20,19 @@ public class StudentServiceImpl implements StudentService {
 
     private StudyGroupService studyGroupService;
 
-    @Autowired
     private StudentDAO studentDAO;
 
     @Autowired
-    public StudentServiceImpl(StudyGroupService studyGroupService, UserDAO userDAO) {
+    public StudentServiceImpl(StudyGroupService studyGroupService, StudentDAO studentDAO) {
         this.studyGroupService = studyGroupService;
-
+        this.studentDAO = studentDAO;
     }
 
     @Override
     @Transactional
-    public User updateStudent(Student student, User user){
-
+    public User updateStudent(Student student){
 
         if(student.getNumberBook() ==null){
-            System.out.println("11");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String entryYear = student.getEntryDate().format(formatter) ;
 
@@ -48,9 +45,6 @@ public class StudentServiceImpl implements StudentService {
 
             return student;
         }
-
-
-        System.out.println(student.getStudyGroup().getNumberGroup());
 
         StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
         student.setStudyGroup(studyGroup);
@@ -68,11 +62,10 @@ public class StudentServiceImpl implements StudentService {
 
         String numberStudent = number < 10 ? "0"+number : String.valueOf(number);
 
-        String numberStudyBook = entryDate.substring(entryDate.length()-4) +
+        return entryDate.substring(entryDate.length()-4) +
                 "0" +
                 studyGroup.getNumberGroup().charAt(studyGroup.getNumberGroup().length()-1) +
                 numberStudent;
-        return numberStudyBook;
 
     }
 

@@ -62,11 +62,6 @@ public class UserController {
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/users/updateUsers")
-    public ResponseEntity updateUsers(@RequestBody List<User> users){
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
@@ -74,16 +69,15 @@ public class UserController {
 
     @PutMapping(value = "/user/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-
-        User user = new User();  //пофиксить, опустить формирование модели представления на слой ниже
-        user.setUserId(id);
-
-        userService.delete(user);
+        userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
 
-
+    @PostMapping(value = "/users/updateUsers")
+    public ResponseEntity updateUsers(@RequestBody List<User> users){
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping(value = "/classifiers")
     public ResponseEntity<Map<String,List>> getClassifiers() {

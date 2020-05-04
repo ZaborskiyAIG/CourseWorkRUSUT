@@ -40,8 +40,11 @@ public class StudentControllerAdmin {
 
         List<UserDTO> userDTOS;
         if(search!=null){
+            System.out.println("sss");
             userDTOS = studentService.searchStudentByFullName(search);
         } else {
+            System.out.println("спец"+specialty);
+            System.out.println("group"+group);
             userDTOS = studentService.getStudentsByParameters(offset, group, specialty);
         }
 

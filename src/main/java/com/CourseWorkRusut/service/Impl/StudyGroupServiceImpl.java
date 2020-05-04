@@ -5,11 +5,11 @@ import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.service.SpecialtyService;
 import com.CourseWorkRusut.service.StudyGroupService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 

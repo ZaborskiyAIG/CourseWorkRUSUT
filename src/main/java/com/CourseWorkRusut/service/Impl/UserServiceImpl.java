@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(User user) {
-        Role role = roleService.getRoleByByName("ROLE_USER");
+        Role role = roleService.getRoleByName("ROLE_USER");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(role);
         userDAO.save(user);
@@ -57,13 +57,13 @@ public class UserServiceImpl implements UserService {
 
         User user = userDAO.getUserById(userDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
                                                                     //либо сохраняет модифайнд, либо обновляет юзера, надо пофиксить
-        User modifiedUser =  userMapper.userDTOToUser(userDTO);
-        modifiedUser.setLogin(user.getLogin());                     //предпологается, что вместе с модифайндом придет намббербук, надо проверить
+        User modifiedUser =  userMapper.userDTOToUser(userDTO);    //предпологается, что вместе с модифайндом придет намббербук, надо проверить
+        modifiedUser.setLogin(user.getLogin());
         modifiedUser.setPassword(user.getPassword());
-        modifiedUser.setRole(roleService.getRoleByByName(userDTO.getNameRole())); //чекнуть почему именно так
+        modifiedUser.setRole(roleService.getRoleByName(userDTO.getNameRole())); //чекнуть почему именно так
 
         if(userDTO.getClass() == StudentDTO.class) {
-         modifiedUser = studentService.updateStudent((Student) modifiedUser, user);
+         modifiedUser = studentService.updateStudent((Student) modifiedUser);
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
         if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
             userDAO.delete(user);
-            modifiedUser.setUserId(null); //говнокод
+            modifiedUser.setUserId(null);
             userDAO.save(modifiedUser);
         }
 
@@ -91,7 +91,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(User user) {
+    public void delete(Long id) {
+        User user = new User();
+        user.setUserId(id);
         userDAO.delete(user);
     }
 

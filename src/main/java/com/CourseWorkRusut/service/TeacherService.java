@@ -10,6 +10,6 @@ public interface TeacherService {
 
     User updateTeacher(Teacher teacher);
 
-    List<UserDTO> getTeachersByParameters(String offset);
+    List<UserDTO> getTeachersByParameters(String offset, String position, String degree);
 
 }

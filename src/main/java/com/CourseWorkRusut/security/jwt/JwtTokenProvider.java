@@ -21,15 +21,17 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-   // @Value("${jwt.token.secret}")
     private String secret = "jwtappdemo";
 
-   // @Value("${jwt.token.expired}")
     private long validityInMilliseconds = 36000000;
-
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+
+  //  public JwtTokenProvider(UserDetailsService userDetailsService) {
+  //      this.userDetailsService = userDetailsService;
+  //  }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

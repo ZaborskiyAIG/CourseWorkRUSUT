@@ -2,7 +2,6 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.LibraryDAO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
-import com.CourseWorkRusut.mappers.LibraryMapper;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import java.util.List;
 public class LibraryServiceImpl implements LibraryService {
 
     private LibraryDAO libraryDAO;
-
-    @Autowired
-    private LibraryMapper libraryMapper;
 
     public LibraryServiceImpl(LibraryDAO libraryDAO){
         this.libraryDAO = libraryDAO;
