@@ -51,7 +51,7 @@ public class LibraryControllerAdmin {
     }
 
 
-    @GetMapping(value = "/libraries")
+    @GetMapping(value = "/library")
     public ResponseEntity<List<LibraryDTO>> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }
