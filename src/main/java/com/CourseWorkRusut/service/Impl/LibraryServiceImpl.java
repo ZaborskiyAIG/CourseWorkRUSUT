@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.LibraryDAO;
+import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.service.LibraryService;
@@ -33,14 +34,12 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     @Transactional
-    public List<LibraryDTO> getAllLibrary(String offset) {
+    public LibraryCounterDTO getAllLibrary(String offset) {
 
-       // List<Library> libraries =libraryDAO.getAllLibrary(offset);
-       // System.out.println("???"+libraries.get(0).getLibraryId());
+        List<LibraryDTO> libraryDTOS =  libraryDAO.getAllLibrary(offset);
 
-      //  List<LibraryDTO> libraryDTOS = libraryMapper.libraryListToLibraryListDTO(libraries);
-       // System.out.println("?"+libraryDTOS.get(0).getLibraryId());
+        Long count = libraryDAO.contLibrary();
 
-        return libraryDAO.getAllLibrary(offset) ;
+        return new LibraryCounterDTO(libraryDTOS,count);
     }
 }

@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.controller.admin;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
+import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
@@ -74,7 +75,7 @@ public class LibraryControllerAdmin {
 
 
     @GetMapping(value = "/library")
-    public ResponseEntity<List<LibraryDTO>> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }
 

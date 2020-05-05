@@ -12,4 +12,6 @@ public interface LibraryDAO {
 
     List getAllLibrary(String offset);
 
+    Long contLibrary();
+
 }

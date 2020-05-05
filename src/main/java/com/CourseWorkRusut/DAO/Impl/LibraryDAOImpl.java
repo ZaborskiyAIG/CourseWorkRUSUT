@@ -42,6 +42,14 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
+    public Long contLibrary(){
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(*) From Library library join library.authors aut");
+
+        return (Long)  query.uniqueResult();
+    }
+
+    @Override
     @Deprecated
     public List<LibraryDTO> getAllLibrary(String offset) {                                  //пощупать select, в палне колекций,  select library.name, library.authors, авторы не работают, потому что коллекция
         Session session = this.sessionFactory.getCurrentSession();                          //попробоавать определить явно, как в тырнете советуют with element property reference, illegal attempt to dereference collection ключевые слова ошибки
