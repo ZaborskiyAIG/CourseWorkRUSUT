@@ -90,7 +90,7 @@ public class LibraryControllerAdmin {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.add("Access-Control-Allow-Origin", "*");
+   //     headers.add("Access-Control-Allow-Origin", "*");
         headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
         headers.add("Access-Control-Allow-Headers", "Content-Type");
         headers.add("Content-Disposition", "filename=" + "syla.pdf");
