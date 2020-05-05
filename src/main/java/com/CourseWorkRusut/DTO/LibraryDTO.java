@@ -13,7 +13,7 @@ public class LibraryDTO  {
 
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data;
 
   //  private byte[] book;

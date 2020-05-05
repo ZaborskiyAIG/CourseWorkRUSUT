@@ -28,7 +28,7 @@ public class LibraryControllerAdmin {
     @Autowired
     private LibraryService libraryService;
 
-    @PostMapping(value = "/s/s",produces = "application/pdf")
+    @PostMapping(value = "/library/add",produces = "application/pdf")
     public ResponseEntity<InputStreamResource> updateUser(@RequestParam MultipartFile file) throws IOException {
 
         HttpHeaders headers = new HttpHeaders();

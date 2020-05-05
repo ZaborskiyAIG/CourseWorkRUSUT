@@ -21,7 +21,7 @@ public class Library {
     @Column(name = "name")
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "data")
     private LocalDate data = LocalDate.now();  //проверить как создается LocalDate
 

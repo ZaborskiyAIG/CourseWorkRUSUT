@@ -25,7 +25,7 @@ public class Student extends User {
     @Column(name = "number_book")
     private String numberBook;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "entry_year")
     private LocalDate entryDate = LocalDate.now();
 
