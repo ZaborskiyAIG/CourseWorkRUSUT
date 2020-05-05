@@ -44,6 +44,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    @Transactional
     public void save(Library library) {
         libraryDAO.save(library);
     }

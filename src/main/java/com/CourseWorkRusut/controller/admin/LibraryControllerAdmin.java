@@ -88,4 +88,12 @@ public class LibraryControllerAdmin {
     }
 
 
+    @GetMapping(value = "/library/{id}")
+    public ResponseEntity library(@PathVariable Long id)  {
+
+        return null;
+
+
+    }
+
 }
