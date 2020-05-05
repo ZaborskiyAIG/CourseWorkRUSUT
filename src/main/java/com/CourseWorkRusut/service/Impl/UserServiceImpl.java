@@ -3,6 +3,7 @@ package com.CourseWorkRusut.service.Impl;
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.TeacherDTO;
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
@@ -114,16 +115,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Map<String, Object> getAllUser(String offset) {
-
+    public UserCounterDTO getAllUser(String offset) {
         Long count = userDAO.contUsers("ROLE_USER");
-        List list = userDAO.getAllUser(offset);
+        List<UserDTO> list = userDAO.getAllUser(offset);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("count",count);
-        map.put("users",list);
-
-        return map;
+        return new UserCounterDTO(list,count);
     }
 
     @Override
@@ -148,15 +144,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Map<String, Object> searchUsers(String search) {  //чет хуита какаита
+    public UserCounterDTO searchUsers(String search) {  //чет хуита какаита
          Long count = userDAO.contUsers("ROLE_USER");
-         List list = userDAO.searchUsersByWords(search);
+         List<UserDTO> list = userDAO.searchUsersByWords(search);
 
-         Map<String, Object> map = new HashMap<>();
-         map.put("count",count);
-         map.put("users",list);
 
-        return map;
+        return new UserCounterDTO(list,count);
     }
 
 }

@@ -3,6 +3,7 @@ package com.CourseWorkRusut.controller.admin;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.service.InternshipService;
 import com.CourseWorkRusut.service.LearningActivitiesService;
@@ -33,12 +34,12 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<List<UserDTO>> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+    public ResponseEntity<UserCounterDTO> getAllStudents(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                         @RequestParam(required = false) String specialty,
                                                         @RequestParam(required = false) String group,
                                                         @RequestParam(required = false) String search) {
 
-        List<UserDTO> userDTOS;
+        UserCounterDTO userDTOS;
         if(search!=null){
             System.out.println("sss");
             userDTOS = studentService.searchStudentByFullName(search);

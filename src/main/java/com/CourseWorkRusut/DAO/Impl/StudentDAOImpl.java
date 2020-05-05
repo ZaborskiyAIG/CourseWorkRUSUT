@@ -47,6 +47,33 @@ public class StudentDAOImpl implements StudentDAO {
         return query.list();
     }
 
+  //  @Override
+    public Long counterStudentsByParameters(String group, String specialty) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("select count (user.userId) from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ");
+
+        query.setParameter("specialty",specialty );
+        query.setParameter("group",group);
+        query.setParameter("types", Student.class);
+        return (Long) query.uniqueResult();
+    }
+
+    public Long counterStudentsByFullName(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select count (user.userId) from User user join fetch user.role where (type(user) in :types) and " +
+                "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
+                "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
+                "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +
+                "(concat(user.surname,' ',user.name,' ',IFNULL(user.middlename,'')) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.name,' ',user.surname) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.surname,' ',user.name) LIKE :words) )");
+        query.setParameter("words","%"+search+"%");
+        query.setParameter("types", Student.class);
+
+        return (Long) query.uniqueResult();
+    }
+
     @Override
     public List<UserDTO> searchStudentByFullName(String search) {
         Session session = this.sessionFactory.getCurrentSession();

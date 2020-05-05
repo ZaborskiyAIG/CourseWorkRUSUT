@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller.admin;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
@@ -36,9 +37,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<Map<String, Object>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                    @RequestParam(required = false) String search ) {
-        Map<String, Object> userDTOS;
+    public ResponseEntity<UserCounterDTO> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                     @RequestParam(required = false) String search ) {
+        UserCounterDTO userDTOS;
         if(search!=null){
             userDTOS = userService.searchUsers(search);
         } else {

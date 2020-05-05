@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 
 import com.CourseWorkRusut.model.User;
@@ -24,8 +25,8 @@ public interface UserService {
 
     Long contUsers(String nameRole);
 
-    Map<String, Object> getAllUser(String offset);
+    UserCounterDTO getAllUser(String offset);
 
-    Map<String, Object> searchUsers(String search);
+    UserCounterDTO searchUsers(String search);
 
 }

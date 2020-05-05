@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
@@ -72,13 +73,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public List<UserDTO> getStudentsByParameters(String offset, String group, String specialty) {
-        return studentDAO.getStudentsByParameters(offset, group, specialty);
+    public UserCounterDTO getStudentsByParameters(String offset, String group, String specialty) {
+        Long count = studentDAO.counterStudentsByParameters(group, specialty);
+        List<UserDTO> userDTOS = studentDAO.getStudentsByParameters(offset, group, specialty);
+
+        return new UserCounterDTO(userDTOS,count );
     }
 
     @Override
     @Transactional
-    public List<UserDTO> searchStudentByFullName(String search) {
-       return studentDAO.searchStudentByFullName(search);
+    public UserCounterDTO searchStudentByFullName(String search) {
+        Long count = studentDAO.counterStudentsByFullName(search);
+        List<UserDTO> userDTOS = studentDAO.searchStudentByFullName(search);
+
+        return new UserCounterDTO(userDTOS,count );
     }
 }
