@@ -23,7 +23,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     @Transactional
     public Library getLibraryById(Long id) {
-        return null;
+        return libraryDAO.getLibraryById(id);
     }
 
     @Override

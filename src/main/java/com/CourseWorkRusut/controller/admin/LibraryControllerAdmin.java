@@ -7,6 +7,7 @@ import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -34,35 +37,19 @@ public class LibraryControllerAdmin {
     public ResponseEntity<InputStreamResource> addLibrary(@RequestParam MultipartFile file) throws IOException {
 
         Library library = new Library();
+     //   byte[] bytes =new byte[file.getInputStream().available()];
 
-        byte[] bytes =new byte[file.getInputStream().available()];
-
-
-
-       // System.out.println(bytes.toString());
+        byte[] bytes = IOUtils.toByteArray(file.getInputStream());
 
         library.setBook(bytes);
+        System.out.println("fff"+file.getOriginalFilename());
+      //  for(int i=0;i<bytes.length;i++)
+      //  {
+      //      System.out.println("Element at Index : "+ i + " " + bytes[i]);
+      //  }
 
         libraryService.save(library);
-
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-//        headers.add("Access-Control-Allow-Origin", "*");
-//        headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
-//        headers.add("Access-Control-Allow-Headers", "Content-Type");
-//        headers.add("Content-Disposition", "filename=" + file.getOriginalFilename());
-//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-//        headers.add("Pragma", "no-cache");
-//        headers.add("Expires", "0");
-//
-//
-//        System.out.println(file.getContentType());
-//        ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
-//                new InputStreamResource(file.getInputStream()), headers, HttpStatus.OK);
-
         return null;
-     //   return response;
-        // return new ResponseEntity( HttpStatus.OK);
     }
 
 //    @GetMapping(value = "/library",produces = "application/pdf")
@@ -97,9 +84,25 @@ public class LibraryControllerAdmin {
     @GetMapping(value = "/library/{id}")
     public ResponseEntity library(@PathVariable Long id)  {
 
-        return null;
+        Library library = libraryService.getLibraryById(id);
 
+        InputStream inputStream = new ByteArrayInputStream(library.getBook());
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
+        headers.add("Access-Control-Allow-Headers", "Content-Type");
+        headers.add("Content-Disposition", "filename=" + "syla.pdf");
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
+                new InputStreamResource(inputStream), headers, HttpStatus.OK);
+            //    new InputStreamResource(file.getInputStream() ), headers, HttpStatus.OK);
+
+            return  response ;
     }
 
 }
