@@ -4,21 +4,21 @@ import java.util.List;
 
 public class LibraryCounterDTO {
 
-    private List<LibraryDTO> libraryDTOList;
+    private List<LibraryDTO> content;
 
     private Long count;
 
-    public LibraryCounterDTO(List<LibraryDTO> libraryDTOList, Long count) {
-        this.libraryDTOList = libraryDTOList;
+    public LibraryCounterDTO(List<LibraryDTO> content, Long count) {
+        this.content = content;
         this.count = count;
     }
 
-    public List<LibraryDTO> getLibraryDTOList() {
-        return libraryDTOList;
+    public List<LibraryDTO> getContent() {
+        return content;
     }
 
-    public void setLibraryDTOList(List<LibraryDTO> libraryDTOList) {
-        this.libraryDTOList = libraryDTOList;
+    public void setContent(List<LibraryDTO> content) {
+        this.content = content;
     }
 
     public Long getCount() {
