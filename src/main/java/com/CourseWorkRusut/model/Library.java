@@ -78,6 +78,10 @@ public class Library {
         this.book = book;
     }
 
+    public void setLibraryId(Long libraryId) {
+        this.libraryId = libraryId;
+    }
+
     public void setData(LocalDate data) {
         this.data = data;
     }

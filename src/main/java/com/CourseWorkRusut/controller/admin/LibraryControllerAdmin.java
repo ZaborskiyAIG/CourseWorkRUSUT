@@ -42,20 +42,21 @@ public class LibraryControllerAdmin {
     public ResponseEntity<InputStreamResource> addLibrary(@RequestParam MultipartFile file) throws IOException {
 
         Library library = new Library();
-     //   byte[] bytes =new byte[file.getInputStream().available()];
+        //   byte[] bytes =new byte[file.getInputStream().available()];
 
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
 
         library.setBook(bytes);
         System.out.println("fff"+file.getOriginalFilename());
-      //  for(int i=0;i<bytes.length;i++)
-      //  {
-      //      System.out.println("Element at Index : "+ i + " " + bytes[i]);
-      //  }
+        //  for(int i=0;i<bytes.length;i++)
+        //  {
+        //      System.out.println("Element at Index : "+ i + " " + bytes[i]);
+        //  }
 
         libraryService.save(library);
         return null;
     }
+
 
 //    @GetMapping(value = "/library",produces = "application/pdf")
 //    public ResponseEntity<InputStreamResource> updateUser(@RequestParam MultipartFile file) throws IOException {
@@ -86,6 +87,7 @@ public class LibraryControllerAdmin {
     }
 
 
+
     @GetMapping(value = "/library/{id}", produces = "application/pdf")
     public ResponseEntity<InputStreamResource> library(@PathVariable Long id)  {
 
@@ -96,21 +98,27 @@ public class LibraryControllerAdmin {
         String fileName = "syk.pdf";
 
         HttpHeaders headers = new HttpHeaders();
+
+
+
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-   //     headers.add("Access-Control-Allow-Origin", "*");
-       // headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
-       // headers.add("Access-Control-Allow-Headers", "Content-Type");
+        //     headers.add("Access-Control-Allow-Origin", "*");
+        // headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
+         headers.add("Access-Control-Allow-Headers", "Content-Type");
         headers.add("Content-Disposition", "attachment; filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
+
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
+       // headers.getAccessControlExposeHeaders( );
 
 
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
                 new InputStreamResource(inputStream), headers, HttpStatus.OK);
 
 
-         return  response ;
+        return  response ;
     }
 
 }
