@@ -5,6 +5,7 @@ import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface UserService {
@@ -23,8 +24,8 @@ public interface UserService {
 
     Long contUsers(String nameRole);
 
-    List<UserDTO> getAllUser(String offset);
+    Map<String, Object> getAllUser(String offset);
 
-    List<UserDTO> searchUsers(String search);
+    Map<String, Object> searchUsers(String search);
 
 }

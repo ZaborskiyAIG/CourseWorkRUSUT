@@ -36,9 +36,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+    public ResponseEntity<Map<String, Object>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                     @RequestParam(required = false) String search ) {
-        List<UserDTO> userDTOS;
+        Map<String, Object> userDTOS;
         if(search!=null){
             userDTOS = userService.searchUsers(search);
         } else {
@@ -67,12 +67,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/users/delete/{id}")
+    @DeleteMapping(value = "/users/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 
     @PostMapping(value = "/users/updateUsers")
     public ResponseEntity updateUsers(@RequestBody List<User> users){

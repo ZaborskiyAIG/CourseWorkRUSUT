@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -112,8 +114,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<UserDTO> getAllUser(String offset) {
-        return userDAO.getAllUser(offset);
+    public Map<String, Object> getAllUser(String offset) {
+
+        Long count = userDAO.contUsers("ROLE_USER");
+        List list = userDAO.getAllUser(offset);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("count",count);
+        map.put("users",list);
+
+        return map;
     }
 
     @Override
@@ -138,8 +148,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<UserDTO> searchUsers(String search) {
-        return userDAO.searchUsersByWords(search);
+    public Map<String, Object> searchUsers(String search) {  //чет хуита какаита
+         Long count = userDAO.contUsers("ROLE_USER");
+         List list = userDAO.searchUsersByWords(search);
+
+         Map<String, Object> map = new HashMap<>();
+         map.put("count",count);
+         map.put("users",list);
+
+        return map;
     }
 
 }
