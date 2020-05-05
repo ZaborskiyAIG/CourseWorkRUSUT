@@ -35,7 +35,13 @@ public class LibraryControllerAdmin {
 
         Library library = new Library();
 
-        library.setBook(new byte[file.getInputStream().available()]);
+        byte[] bytes =new byte[file.getInputStream().available()];
+
+
+
+       // System.out.println(bytes.toString());
+
+        library.setBook(bytes);
 
         libraryService.save(library);
 
