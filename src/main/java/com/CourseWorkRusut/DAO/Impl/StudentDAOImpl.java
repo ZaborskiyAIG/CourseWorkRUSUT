@@ -34,7 +34,7 @@ public class StudentDAOImpl implements StudentDAO {
                 "user.email, user.numberBook, " +
                 "user.studyGroup.numberGroup, " +
                 "user.studyGroup.specialty.nameSpecialty, " +
-                "user.entryDate, user.role.nameRole," +
+                "user.entryDate, user.role.nameRole) " +
                 "from User user where (type(user) in :types) and (:specialty is null or user.studyGroup.specialty.nameSpecialty = :specialty) and (:group is null or user.studyGroup.numberGroup = :group) ", UserDTO.class);
 
         query.setParameter("specialty",specialty );
