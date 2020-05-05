@@ -14,4 +14,6 @@ public interface LibraryDAO {
 
     Long contLibrary();
 
+    void save(Library library);
+
 }

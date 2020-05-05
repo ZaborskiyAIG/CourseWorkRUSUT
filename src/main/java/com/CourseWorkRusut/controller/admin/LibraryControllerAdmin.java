@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class LibraryControllerAdmin {
 
     @PostMapping(value = "/library",produces = "application/pdf")
     public ResponseEntity<InputStreamResource> addLibrary(@RequestParam MultipartFile file) throws IOException {
+
+        Library library = new Library();
+
+        library.setBook(new byte[file.getInputStream().available()]);
+
+        libraryService.save(library);
 
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setContentType(MediaType.parseMediaType("application/pdf"));

@@ -42,4 +42,9 @@ public class LibraryServiceImpl implements LibraryService {
 
         return new LibraryCounterDTO(libraryDTOS,count);
     }
+
+    @Override
+    public void save(Library library) {
+        libraryDAO.save(library);
+    }
 }

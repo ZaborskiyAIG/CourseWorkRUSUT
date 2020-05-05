@@ -13,4 +13,6 @@ public interface LibraryService {
    void updateLibrary(Library library);
 
    LibraryCounterDTO getAllLibrary(String offset);
+
+   void save(Library library);
 }

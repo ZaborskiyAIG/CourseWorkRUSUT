@@ -50,6 +50,12 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
+    public void save(Library library) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(library);
+    }
+
+    @Override
     @Deprecated
     public List<LibraryDTO> getAllLibrary(String offset) {                                  //пощупать select, в палне колекций,  select library.name, library.authors, авторы не работают, потому что коллекция
         Session session = this.sessionFactory.getCurrentSession();                          //попробоавать определить явно, как в тырнете советуют with element property reference, illegal attempt to dereference collection ключевые слова ошибки
