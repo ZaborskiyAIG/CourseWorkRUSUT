@@ -62,12 +62,12 @@ public class UserController {
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/user/delete/{id}")
+    @PutMapping(value = "/users/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
