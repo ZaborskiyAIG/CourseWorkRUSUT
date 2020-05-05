@@ -4,21 +4,21 @@ import java.util.List;
 
 public class UserCounterDTO { //попробовать на основе этой dto сделать запрос к базе
 
-    private List<UserDTO> users;
+    private List<UserDTO> content;
 
     private Long count;
 
-    public UserCounterDTO(List<UserDTO> users, Long count) {
-        this.users = users;
+    public UserCounterDTO(List<UserDTO> content , Long count) {
+        this.content  = content ;
         this.count = count;
     }
 
-    public List<UserDTO> getUsers() {
-        return users;
+    public List<UserDTO> getContent() {
+        return content;
     }
 
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
+    public void setContent(List<UserDTO> content) {
+        this.content = content;
     }
 
     public Long getCount() {
