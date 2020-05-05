@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Teacher;
 import com.CourseWorkRusut.model.User;
@@ -10,6 +11,6 @@ public interface TeacherService {
 
     User updateTeacher(Teacher teacher);
 
-    List<UserDTO> getTeachersByParameters(String offset, String position, String degree);
+    UserCounterDTO getTeachersByParameters(String offset, String position, String degree);
 
 }

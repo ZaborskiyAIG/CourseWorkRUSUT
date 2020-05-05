@@ -39,4 +39,17 @@ public class TeacherDAOImpl implements TeacherDAO {
         return query.list();
     }
 
+    @Override
+    public Long counterTeachersByParameters(String position, String degree) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("select count (user.userId) from User user join fetch user.positions pos join fetch user.scienceDegrees sci where (type(user) in :types) and (:position is null or pos.namePosition = :position) and (:degree is null or sci.nameScienceDegree = :degree)" );
+
+        query.setParameter("position",position);
+        query.setParameter("degree",degree);
+        query.setParameter("types", Teacher.class);
+
+        return (Long) query.uniqueResult();
+    }
+
 }

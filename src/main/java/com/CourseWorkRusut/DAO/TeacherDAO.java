@@ -7,4 +7,7 @@ import java.util.List;
 public interface TeacherDAO {
 
     List<User> getTeachersByParameters(String offset, String position, String degree);
+
+    Long counterTeachersByParameters(String position, String degree);
+
 }

@@ -2,6 +2,7 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
 import com.CourseWorkRusut.DAO.TeacherDAO;
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.Position;
@@ -56,7 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public List<UserDTO> getTeachersByParameters(String offset,String position, String degree) {
+    public UserCounterDTO getTeachersByParameters(String offset,String position, String degree) {
         List<User> users = teacherDAO.getTeachersByParameters(offset, position, degree);
 
         List<UserDTO> userDTOS = new ArrayList<>();
@@ -64,7 +65,10 @@ public class TeacherServiceImpl implements TeacherService {
         for (User user : users) {
             userDTOS.add(userMapper.userToUserDTO(user));
         }
-        return userDTOS;
+
+        Long counter = teacherDAO.counterTeachersByParameters(position, degree);
+
+        return new UserCounterDTO(userDTOS,counter);
     }
 
 
