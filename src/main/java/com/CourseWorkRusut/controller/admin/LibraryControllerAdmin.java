@@ -9,6 +9,8 @@ import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +20,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 
@@ -81,28 +86,31 @@ public class LibraryControllerAdmin {
     }
 
 
-    @GetMapping(value = "/library/{id}")
-    public ResponseEntity library(@PathVariable Long id)  {
+    @GetMapping(value = "/library/{id}", produces = "application/pdf")
+    public ResponseEntity<InputStreamResource> library(@PathVariable Long id)  {
 
         Library library = libraryService.getLibraryById(id);
 
         InputStream inputStream = new ByteArrayInputStream(library.getBook());
+
+        String fileName = "syk.pdf";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
    //     headers.add("Access-Control-Allow-Origin", "*");
        // headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
        // headers.add("Access-Control-Allow-Headers", "Content-Type");
-        headers.add("Content-Disposition", "attachment; filename=" + "syla.pdf");
+        headers.add("Content-Disposition", "attachment; filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
 
+
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
                 new InputStreamResource(inputStream), headers, HttpStatus.OK);
-            //    new InputStreamResource(file.getInputStream() ), headers, HttpStatus.OK);
 
-            return  response ;
+
+         return  response ;
     }
 
 }
