@@ -63,7 +63,10 @@ public class LibraryControllerAdmin {
 
             author.setName(s[0]);
             author.setSurname(s[1]);
-            author.setMiddlename(s[2]);
+
+            if(s.length>2)
+                author.setMiddlename(s[2]);
+
             list.add(author);
         }
 
