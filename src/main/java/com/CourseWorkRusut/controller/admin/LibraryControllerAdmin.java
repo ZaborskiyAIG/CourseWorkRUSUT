@@ -50,12 +50,25 @@ public class LibraryControllerAdmin {
     public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
 
-        Author author = new Author();
-        author.setName(authors[0]);
+        System.out.println(name);
+
+        System.out.println("sss"+authors[0]);
 
         Set<Author> list = new HashSet<>();
 
-        list.add(author);
+        for(int i = 0; i<=authors.length; i++){
+            Author author = new Author();
+
+            String[] s = authors[i].split(" ");
+
+            author.setName(s[0]);
+            author.setSurname(s[1]);
+            author.setMiddlename(s[2]);
+            list.add(author);
+        }
+
+
+
 
         Library library = new Library();
         library.setAuthors(list);
