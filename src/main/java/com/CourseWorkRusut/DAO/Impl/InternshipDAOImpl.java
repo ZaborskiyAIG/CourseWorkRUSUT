@@ -3,6 +3,7 @@ package com.CourseWorkRusut.DAO.Impl;
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 
+import com.CourseWorkRusut.model.Internship;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -70,5 +71,11 @@ public class InternshipDAOImpl implements InternshipDAO {
 
 
         return query.getResultList();
+    }
+
+    @Override
+    public void delete(Internship internship) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(internship);
     }
 }

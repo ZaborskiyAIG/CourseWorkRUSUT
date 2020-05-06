@@ -52,7 +52,14 @@ public class LibraryDAOImpl implements LibraryDAO {
     @Override
     public void save(Library library) {
         Session session = this.sessionFactory.getCurrentSession();
+        session.save(library.getAuthors());
         session.save(library);
+    }
+
+    @Override
+    public void delete(Library library) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(library);
     }
 
     @Override

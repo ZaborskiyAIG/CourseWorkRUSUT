@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Author;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
@@ -27,7 +28,10 @@ import java.io.IOException;
 
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @CrossOrigin
@@ -35,57 +39,38 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class LibraryControllerAdmin {
 
-    @Autowired
     private LibraryService libraryService;
 
-    @PostMapping(value = "/library",produces = "application/pdf")
-    public ResponseEntity<InputStreamResource> addLibrary(@RequestParam MultipartFile file) throws IOException {
-
-        Library library = new Library();
-        //   byte[] bytes =new byte[file.getInputStream().available()];
-
-        byte[] bytes = IOUtils.toByteArray(file.getInputStream());
-
-        library.setBook(bytes);
-        System.out.println("fff"+file.getOriginalFilename());
-        //  for(int i=0;i<bytes.length;i++)
-        //  {
-        //      System.out.println("Element at Index : "+ i + " " + bytes[i]);
-        //  }
-
-        libraryService.save(library);
-        return null;
+    public LibraryControllerAdmin(LibraryService libraryService) {
+        this.libraryService = libraryService;
     }
 
 
-//    @GetMapping(value = "/library",produces = "application/pdf")
-//    public ResponseEntity<InputStreamResource> updateUser(@RequestParam MultipartFile file) throws IOException {
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-//        headers.add("Access-Control-Allow-Origin", "*");
-//        headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
-//        headers.add("Access-Control-Allow-Headers", "Content-Type");
-//        headers.add("Content-Disposition", "filename=" + file.getOriginalFilename());
-//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-//        headers.add("Pragma", "no-cache");
-//        headers.add("Expires", "0");
-//
-//
-//        System.out.println(file.getContentType());
-//        ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
-//                new InputStreamResource(file.getInputStream()), headers, HttpStatus.OK);
-//
-//        return response;
-//        // return new ResponseEntity( HttpStatus.OK);
-//    }
+    @PostMapping(value = "/library",produces = "application/pdf")
+    public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
+
+        Author author = new Author();
+        author.setName(authors[0]);
+
+        Set<Author> list = new HashSet<>();
+
+        list.add(author);
+
+        Library library = new Library();
+        library.setAuthors(list);
+
+        library.setName(name);
+        byte[] bytes = IOUtils.toByteArray(file.getInputStream());
+        library.setBook(bytes);
+        libraryService.save(library);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping(value = "/library")
     public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
          return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
     }
-
 
 
     @GetMapping(value = "/library/{id}", produces = "application/pdf")
@@ -100,25 +85,26 @@ public class LibraryControllerAdmin {
         HttpHeaders headers = new HttpHeaders();
 
 
-
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        //     headers.add("Access-Control-Allow-Origin", "*");
-        // headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
-         headers.add("Access-Control-Allow-Headers", "Content-Type");
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));                    //сделать фильтр
+        headers.add("Access-Control-Allow-Headers", "Content-Type");
         headers.add("Content-Disposition", "attachment; filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-
         headers.add("Access-Control-Expose-Headers", "Content-Disposition");
-       // headers.getAccessControlExposeHeaders( );
-
 
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
                 new InputStreamResource(inputStream), headers, HttpStatus.OK);
 
-
         return  response ;
+    }
+
+    @DeleteMapping(value = "/library/delete/{id}")
+    public ResponseEntity deleteLibrary(@PathVariable Long id){
+
+        libraryService.delete(id);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

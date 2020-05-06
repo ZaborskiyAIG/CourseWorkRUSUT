@@ -62,4 +62,16 @@ public class StudentControllerAdmin {
         return new ResponseEntity<>(learningActivitiesService.getAllLearningActivities(), HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/internships/delete/{id}")
+    public ResponseEntity deleteInternships(@PathVariable Long id)  {
+        internshipService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/learning-activities/delete/{id}")
+    public ResponseEntity deleteActivities(@PathVariable Long id)  {
+        learningActivitiesService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

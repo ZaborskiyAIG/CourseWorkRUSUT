@@ -15,4 +15,6 @@ public interface LibraryService {
    LibraryCounterDTO getAllLibrary(String offset);
 
    void save(Library library);
+
+   void delete(Long id);
 }

@@ -48,4 +48,11 @@ public class LibraryServiceImpl implements LibraryService {
     public void save(Library library) {
         libraryDAO.save(library);
     }
+
+    @Override
+    public void delete(Long id) {
+        Library library = new Library();
+        library.setLibraryId(id);
+        libraryDAO.delete(library);
+    }
 }

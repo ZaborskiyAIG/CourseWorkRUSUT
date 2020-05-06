@@ -16,4 +16,5 @@ public interface LibraryDAO {
 
     void save(Library library);
 
+    void delete(Library library);
 }

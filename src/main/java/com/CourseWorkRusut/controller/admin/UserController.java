@@ -58,10 +58,10 @@ public class UserController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/users/updateUser")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
-        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
-    }
+//    @PutMapping(value = "/users/updateUser")
+//    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
+//        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {

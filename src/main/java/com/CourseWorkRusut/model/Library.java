@@ -38,12 +38,8 @@ public class Library {
             inverseJoinColumns = { @JoinColumn(name = "author_id")})
     private Set<Author> authors;
 
-    public long getLibraryId() {
+    public Long getLibraryId() {
         return libraryId;
-    }
-
-    public void setLibraryId(long libraryId) {
-        this.libraryId = libraryId;
     }
 
     public Specialty getSpecialty() {
