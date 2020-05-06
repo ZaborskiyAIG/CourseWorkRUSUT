@@ -56,7 +56,7 @@ public class LibraryControllerAdmin {
 
         Set<Author> list = new HashSet<>();
 
-        for(int i = 0; i<=authors.length; i++){
+        for(int i = 0; i<authors.length; i++){
             Author author = new Author();
 
             String[] s = authors[i].split(" ");
