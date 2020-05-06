@@ -7,6 +7,10 @@ import java.util.List;
 
 public class TeacherDTO extends UserDTO {
 
+    //массив групп
+
+    //предмет
+
     private List<String> namePositions = new ArrayList<>();
 
     private List<String> nameScienceDegrees = new ArrayList<>();
@@ -16,6 +20,9 @@ public class TeacherDTO extends UserDTO {
 
     @JsonIgnore
     private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
+
+  //  @JsonIgnore
+  //  private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
 
     public TeacherDTO() {
     }
