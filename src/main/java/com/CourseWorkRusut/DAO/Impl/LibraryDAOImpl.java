@@ -54,7 +54,6 @@ public class LibraryDAOImpl implements LibraryDAO {
             session.save(author);
         }
 
-
         session.save(library);
     }
 
