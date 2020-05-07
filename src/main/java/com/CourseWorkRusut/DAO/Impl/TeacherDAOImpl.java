@@ -1,8 +1,7 @@
 package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.TeacherDAO;
-import com.CourseWorkRusut.model.Teacher;
-import com.CourseWorkRusut.model.User;
+import com.CourseWorkRusut.model.*;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,5 +52,31 @@ public class TeacherDAOImpl implements TeacherDAO {
 
         return (Long) query.uniqueResult();
     }
+
+    @Override
+    public void saveSubjectTeacherGroup(SubjectTeacherGroup subjectTeacherGroup) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(subjectTeacherGroup);
+    }
+
+    @Override
+    public void deleteSubjectTeacherGroup(SubjectTeacherGroup subjectTeacherGroup) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.delete(subjectTeacherGroup);
+    }
+
+    @Override
+    public List<SubjectTeacherGroup> getSubjectTeacherGroupByNumberGroupBySubject(List<String> numberGroup, String subject) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<SubjectTeacherGroup> query = session.createQuery("  from SubjectTeacherGroup stg  where  ( stg.studyGroup.numberGroup in (:numberGroup) ) and ( stg.subject.nameSubject = :subject)",SubjectTeacherGroup.class );
+
+        query.setParameter("numberGroup",numberGroup);
+        query.setParameter("subject",subject);
+
+
+        return  query.list();
+    }
+
 
 }

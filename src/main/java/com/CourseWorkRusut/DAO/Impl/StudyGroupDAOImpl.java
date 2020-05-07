@@ -58,4 +58,15 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
         return query.uniqueResult();
     }
 
+    @Override
+    public List<StudyGroup> getStudyGroupBySubject(String nameSubject) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<StudyGroup> query = session.createQuery("select subjectTeacherGroup.studyGroup  from SubjectTeacherGroup subjectTeacherGroup  where  (subjectTeacherGroup.subject.nameSubject = :nameSubject)",StudyGroup.class );
+
+        query.setParameter("nameSubject",nameSubject);
+
+        return  query.list();
+    }
+
 }

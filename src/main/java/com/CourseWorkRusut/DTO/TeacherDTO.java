@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.DTO;
 
+import com.CourseWorkRusut.model.SubjectTeacherGroup;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class TeacherDTO extends UserDTO {
 
     @JsonIgnore
     private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
+
+    private List<SubjectTeacherGroupDTO> stg;
 
   //  @JsonIgnore
   //  private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
@@ -56,7 +59,6 @@ public class TeacherDTO extends UserDTO {
     }
 
 
-
     public void setNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
         this.scienceDegrees = scienceDegrees;
        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
@@ -86,4 +88,13 @@ public class TeacherDTO extends UserDTO {
         return nameScienceDegrees;
     }
 
+    public List<SubjectTeacherGroupDTO> getStg() {
+        return stg;
+    }
+
+
+
+    public void setStg(List<SubjectTeacherGroupDTO> stg) {
+        this.stg = stg;
+    }
 }

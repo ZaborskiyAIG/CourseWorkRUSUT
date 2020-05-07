@@ -1,10 +1,8 @@
 package com.CourseWorkRusut.service.Impl;
 
+import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.DTO.StudentDTO;
-import com.CourseWorkRusut.DTO.TeacherDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.*;
@@ -14,7 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     private TeacherService teacherService;
+
+    @Autowired
+    private TeacherDAO teacherDAO;
 
     @Autowired
     public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, UserMapper userMapper, TeacherService teacherService, StudentService studentService, RoleService roleService){
@@ -67,7 +71,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
-            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
+            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser,  ((TeacherDTO)userDTO).getStg());
         }
 
         if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
@@ -101,7 +105,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO getUserById(Long id) {
         User user = userDAO.getUserById(id);
-        return userMapper.userToUserDTO(user);
+
+        UserDTO userDTO = userMapper.userToUserDTO(user);
+
+        if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+            ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(id));
+        }
+
+        return userDTO;
     }
 
     @Override

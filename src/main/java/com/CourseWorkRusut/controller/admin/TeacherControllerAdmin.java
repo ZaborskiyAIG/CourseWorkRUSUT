@@ -1,5 +1,7 @@
 package com.CourseWorkRusut.controller.admin;
 
+import com.CourseWorkRusut.DTO.SubjectTeacherGroupDTO;
+import com.CourseWorkRusut.DTO.TeacherDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.service.TeacherService;
@@ -27,6 +29,16 @@ public class TeacherControllerAdmin {
                                                         @RequestParam(required = false) String position,
                                                         @RequestParam(required = false) String degree) {
         return new ResponseEntity<>(teacherService.getTeachersByParameters(offset, position, degree), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/delete/stg")
+    public ResponseEntity deleteSubjectStudyTeacher(@RequestBody TeacherDTO teacherDTO) {
+
+        teacherService.deleteSubjectTeacherGroup(teacherDTO.getStg());
+
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

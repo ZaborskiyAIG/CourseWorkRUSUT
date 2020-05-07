@@ -2,6 +2,8 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Subject;
+import com.CourseWorkRusut.model.SubjectTeacherGroup;
 import com.CourseWorkRusut.model.User;
 
 import org.hibernate.Session;
@@ -107,6 +109,8 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
 
         return query.list();
     }
+
+
 
 
     
