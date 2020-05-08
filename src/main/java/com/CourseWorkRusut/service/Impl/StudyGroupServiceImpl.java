@@ -5,20 +5,20 @@ import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.service.SpecialtyService;
 import com.CourseWorkRusut.service.StudyGroupService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class StudyGroupServiceImpl implements StudyGroupService {
 
-    private final StudyGroupDAO studyGroupDAO;
+    private StudyGroupDAO studyGroupDAO;
 
-    private final SpecialtyService specialtyService;
+    private SpecialtyService specialtyService;
 
     @Autowired
     public StudyGroupServiceImpl(StudyGroupDAO studyGroupDAO, SpecialtyService specialtyService) {
@@ -40,6 +40,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
     @Transactional
     public List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty) {
        return studyGroupDAO.getAllStudyGroupByNameSpecialty(nameSpecialty);
+    }
+
+    @Override
+    public List<StudyGroup> getStudyGroupBySubject(String nameSubject) {
+        return studyGroupDAO.getStudyGroupBySubject(nameSubject);
     }
 
     @Override
@@ -81,5 +86,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 
         return stringBuilder.toString();
     }
+
+
+
+
+
+
 
 }

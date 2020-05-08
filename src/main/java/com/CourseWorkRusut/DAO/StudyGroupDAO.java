@@ -15,4 +15,6 @@ public interface StudyGroupDAO {
     StudyGroup getStudyGroupById(Long id);
 
     StudyGroup getStudyGroupByNumberGroup(String numberGroup);
+
+    List<StudyGroup> getStudyGroupBySubject(String nameSubject);
 }

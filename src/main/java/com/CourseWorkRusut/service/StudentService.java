@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
@@ -9,12 +10,10 @@ import java.util.List;
 
 public interface StudentService {
 
-   // String generationNumberStudyBook(String entryDate, StudyGroup studyGroup);
+    User updateStudent(Student student);
 
-    User updateStudent(Student student, User user);
+    UserCounterDTO getStudentsByParameters(String offset, String group, String specialty);
 
-    List<UserDTO> getStudentsByParameters(String offset, String group, String specialty);
-
-    List<UserDTO> searchStudentByFullName(String search);
+    UserCounterDTO searchStudentByFullName(String search);
 
 }

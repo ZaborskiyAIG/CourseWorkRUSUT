@@ -2,8 +2,8 @@ package com.CourseWorkRusut.DAO.Impl;
 
 
 import com.CourseWorkRusut.DAO.StudyGroupDAO;
-import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -56,6 +56,17 @@ public class StudyGroupDAOImpl implements StudyGroupDAO {
         Query<StudyGroup> query = session.createQuery("from StudyGroup studyGroup where studyGroup.numberGroup = : numberGroup ",StudyGroup.class);
         query.setParameter("numberGroup", numberGroup);
         return query.uniqueResult();
+    }
+
+    @Override
+    public List<StudyGroup> getStudyGroupBySubject(String nameSubject) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<StudyGroup> query = session.createQuery("select subjectTeacherGroup.studyGroup  from SubjectTeacherGroup subjectTeacherGroup  where  (subjectTeacherGroup.subject.nameSubject = :nameSubject)",StudyGroup.class );
+
+        query.setParameter("nameSubject",nameSubject);
+
+        return  query.list();
     }
 
 }

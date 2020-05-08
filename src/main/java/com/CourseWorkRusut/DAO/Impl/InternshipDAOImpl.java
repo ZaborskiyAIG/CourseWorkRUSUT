@@ -2,8 +2,8 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
-import com.CourseWorkRusut.model.Teacher;
 
+import com.CourseWorkRusut.model.Internship;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,7 +11,6 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -72,5 +71,11 @@ public class InternshipDAOImpl implements InternshipDAO {
 
 
         return query.getResultList();
+    }
+
+    @Override
+    public void delete(Internship internship) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(internship);
     }
 }

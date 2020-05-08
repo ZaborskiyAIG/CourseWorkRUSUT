@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "teacher")
@@ -22,14 +20,14 @@ public class Teacher extends User {
     @JoinTable(name = "teacher_science_degree",
             joinColumns = { @JoinColumn(name = "teacher_id") },
             inverseJoinColumns = { @JoinColumn(name = "position_id")})
-    private List<Position> positions;
+    private Set<Position> positions;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "teacher_science_degree",
             joinColumns = { @JoinColumn(name = "teacher_id") },
             inverseJoinColumns = { @JoinColumn(name = "science_degree_id")})
-    private List<ScienceDegree> scienceDegrees;
+    private Set<ScienceDegree> scienceDegrees;
 
     @JsonIgnore
     @OneToMany(mappedBy = "teacher")
@@ -55,19 +53,19 @@ public class Teacher extends User {
         this.email = email;
     }
 
-    public List<Position> getPositions() {
+    public Set<Position> getPositions() {
         return positions;
     }
 
-    public void setPositions(List<Position> positions) {
+    public void setPositions(Set<Position> positions) {
         this.positions = positions;
     }
 
-    public List<ScienceDegree> getScienceDegrees() {
+    public Set<ScienceDegree> getScienceDegrees() {
         return scienceDegrees;
     }
 
-    public void setScienceDegrees(List<ScienceDegree> scienceDegrees) {
+    public void setScienceDegrees(Set<ScienceDegree> scienceDegrees) {
         this.scienceDegrees = scienceDegrees;
     }
 
@@ -103,4 +101,23 @@ public class Teacher extends User {
         this.internships = internships;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Teacher teacher = (Teacher) o;
+        return Objects.equals(email, teacher.email) &&
+                Objects.equals(positions, teacher.positions) &&
+                Objects.equals(scienceDegrees, teacher.scienceDegrees) &&
+                Objects.equals(subjectTeacherGroups, teacher.subjectTeacherGroups) &&
+                Objects.equals(exams, teacher.exams) &&
+                Objects.equals(learningActivities, teacher.learningActivities) &&
+                Objects.equals(internships, teacher.internships);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, positions, scienceDegrees, subjectTeacherGroups, exams, learningActivities, internships);
+    }
 }

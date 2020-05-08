@@ -9,13 +9,11 @@ import java.util.Objects;
 
 public class LibraryDTO  {
 
-
-
     private Long libraryId;
 
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data;
 
   //  private byte[] book;

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class LibraryDAOImpl implements LibraryDAO {
@@ -39,6 +36,32 @@ public class LibraryDAOImpl implements LibraryDAO {
     public void updateLibrary(Library library) {
         Session session = sessionFactory.getCurrentSession();
         session.update(library);
+    }
+
+    @Override
+    public Long countLibrary(){
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count(*) From Library library where library.libraryId in (select library.libraryId From Library library join library.authors aut)");
+        return (Long)  query.uniqueResult();
+    }
+
+
+    @Override
+    public void save(Library library) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        for (Author author : library.getAuthors()) {
+            System.out.println("sss"+author.getName());
+            session.save(author);
+        }
+
+        session.save(library);
+    }
+
+    @Override
+    public void delete(Library library) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(library);
     }
 
     @Override

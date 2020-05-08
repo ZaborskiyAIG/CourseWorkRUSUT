@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller.admin;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
@@ -15,6 +16,9 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/admin")
 public class UserController {
+
+    @Autowired
+    private SubjectService subjectService;
 
     private UserService userService;
 
@@ -36,9 +40,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
-                                                    @RequestParam(required = false) String search ) {
-        List<UserDTO> userDTOS;
+    public ResponseEntity<UserCounterDTO> getAllUser(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                     @RequestParam(required = false) String search ) {
+        UserCounterDTO userDTOS;
         if(search!=null){
             userDTOS = userService.searchUsers(search);
         } else {
@@ -48,42 +52,35 @@ public class UserController {
         return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/counterUsers")
-    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
-
-        Map<String,Long> map =  new HashMap<>();
-        map.put("counter",userService.contUsers(nameRole));
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/counterUsers")
+//    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
+//
+//        Map<String,Long> map =  new HashMap<>();
+//        map.put("counter",userService.contUsers(nameRole));
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//    }
 
     @PutMapping(value = "/users/updateUser")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/users/updateUsers")
-    public ResponseEntity updateUsers(@RequestBody List<User> users){
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/user/delete/{id}")
+    @DeleteMapping(value = "/users/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-
-        User user = new User();  //пофиксить, опустить формирование модели представления на слой ниже
-        user.setUserId(id);
-
-        userService.delete(user);
+        userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
-
+//    @PostMapping(value = "/users/updateUsers")
+//    public ResponseEntity updateUsers(@RequestBody List<User> users){
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/classifiers")
     public ResponseEntity<Map<String,List>> getClassifiers() {
@@ -92,6 +89,7 @@ public class UserController {
         response.put("role",roleService.getAllRoles());
         response.put("positions",positionScienceDegreeService.getAllPositions());
         response.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
+        response.put("subject", subjectService.getAllSubject());
 
         List<String> specialty = specialtyService.getAllSpecialty();
         List<Map<String, Object>> specialtyList = new ArrayList<>();

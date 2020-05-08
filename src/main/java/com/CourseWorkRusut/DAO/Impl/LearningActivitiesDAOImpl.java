@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.LearningActivitiesDAO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
+import com.CourseWorkRusut.model.LearningActivities;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -62,5 +63,11 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
 
 
         return query.getResultList();
+    }
+
+    @Override
+    public void delete(LearningActivities learningActivities) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(learningActivities);
     }
 }

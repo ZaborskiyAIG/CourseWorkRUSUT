@@ -1,11 +1,16 @@
 package com.CourseWorkRusut.DTO;
 
+import com.CourseWorkRusut.model.SubjectTeacherGroup;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherDTO extends UserDTO {
+
+    //массив групп
+
+    //предмет
 
     private List<String> namePositions = new ArrayList<>();
 
@@ -17,13 +22,18 @@ public class TeacherDTO extends UserDTO {
     @JsonIgnore
     private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
 
+    private List<SubjectTeacherGroupDTO> stg;
+
+  //  @JsonIgnore
+  //  private List<ScienceDegreeDTO> scienceDegrees = new ArrayList<>();
+
     public TeacherDTO() {
     }
 
     public TeacherDTO(List<PositionDTO> positions, List<ScienceDegreeDTO> scienceDegrees) {
         this.positions = positions;
         this.namePositions = convertPositionsToNamePositions(positions);
-        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);
+        this.nameScienceDegrees = convertScienceDegreesToNameScienceDegrees(scienceDegrees);  //удалить конвертеры, изменить запросы к базе
         this.scienceDegrees = scienceDegrees;
     }
 
@@ -47,7 +57,6 @@ public class TeacherDTO extends UserDTO {
         this.positions = positions;
         this.namePositions = convertPositionsToNamePositions(positions);
     }
-
 
 
     public void setNameScienceDegrees(List<ScienceDegreeDTO> scienceDegrees) {
@@ -79,4 +88,13 @@ public class TeacherDTO extends UserDTO {
         return nameScienceDegrees;
     }
 
+    public List<SubjectTeacherGroupDTO> getStg() {
+        return stg;
+    }
+
+
+
+    public void setStg(List<SubjectTeacherGroupDTO> stg) {
+        this.stg = stg;
+    }
 }

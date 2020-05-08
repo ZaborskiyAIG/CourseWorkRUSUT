@@ -12,4 +12,9 @@ public interface LibraryDAO {
 
     List getAllLibrary(String offset);
 
+    Long countLibrary();
+
+    void save(Library library);
+
+    void delete(Library library);
 }

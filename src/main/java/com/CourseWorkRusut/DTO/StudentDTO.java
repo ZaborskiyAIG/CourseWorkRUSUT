@@ -1,7 +1,10 @@
 package com.CourseWorkRusut.DTO;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,11 +17,8 @@ public class StudentDTO extends UserDTO {
 
     private String nameSpecialty;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private String entryDate;
-
-    @JsonIgnore
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate entryDate;
 
     public StudentDTO(Long userId,  //некрасиво, пофиксить бы
                       String name,
@@ -35,7 +35,7 @@ public class StudentDTO extends UserDTO {
         this.numberBook = numberBook;
         this.numberGroup = numberGroup;
         this.nameSpecialty = nameSpecialty;
-        this.entryDate = convertLocalDateToString(entryDate);
+        this.entryDate = entryDate;
     }
 
     public StudentDTO(){
@@ -65,16 +65,16 @@ public class StudentDTO extends UserDTO {
         this.nameSpecialty = nameSpecialty;
     }
 
-    public String getEntryDate() {
+    public LocalDate getEntryDate() {
         return entryDate;
     }
 
     public void setEntryDate(LocalDate entryDate) {
-        this.entryDate = convertLocalDateToString(entryDate);
+        this.entryDate = entryDate;
     }
 
-    private String convertLocalDateToString(LocalDate entryDate){  //сделать декоратор, перенести это в другое место
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return entryDate.format(formatter);
-    }
+  //  private String convertLocalDateToString(LocalDate entryDate){  //сделать декоратор, перенести это в другое место
+ //       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+ //       return entryDate.format(formatter);
+ //   }
 }

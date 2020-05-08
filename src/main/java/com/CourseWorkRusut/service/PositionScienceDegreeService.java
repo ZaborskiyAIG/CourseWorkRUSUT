@@ -11,8 +11,8 @@ public interface PositionScienceDegreeService {
 
     List<String> getAllScienceDegree();
 
-    List<Position> getPositionsByByName(List<String> namePosition);
+    List<Position> getPositionsByName(List<String> namePosition);
 
-    List<ScienceDegree> getScienceDegreeByByName(List<String> nameScienceDegree);
+    List<ScienceDegree> getScienceDegreeByName(List<String> nameScienceDegree);
 
 }

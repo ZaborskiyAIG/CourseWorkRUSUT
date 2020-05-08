@@ -21,7 +21,7 @@ public class Library {
     @Column(name = "name")
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "data")
     private LocalDate data = LocalDate.now();  //проверить как создается LocalDate
 
@@ -38,12 +38,8 @@ public class Library {
             inverseJoinColumns = { @JoinColumn(name = "author_id")})
     private Set<Author> authors;
 
-    public long getLibraryId() {
+    public Long getLibraryId() {
         return libraryId;
-    }
-
-    public void setLibraryId(long libraryId) {
-        this.libraryId = libraryId;
     }
 
     public Specialty getSpecialty() {
@@ -76,6 +72,10 @@ public class Library {
 
     public void setBook(byte[] book) {
         this.book = book;
+    }
+
+    public void setLibraryId(Long libraryId) {
+        this.libraryId = libraryId;
     }
 
     public void setData(LocalDate data) {

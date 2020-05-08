@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.model.Library;
 
@@ -11,5 +12,9 @@ public interface LibraryService {
 
    void updateLibrary(Library library);
 
-   List<LibraryDTO> getAllLibrary(String offset);
+   LibraryCounterDTO getAllLibrary(String offset);
+
+   void save(Library library);
+
+   void delete(Long id);
 }

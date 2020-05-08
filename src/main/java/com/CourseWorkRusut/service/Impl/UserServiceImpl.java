@@ -1,9 +1,8 @@
 package com.CourseWorkRusut.service.Impl;
 
+import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.DTO.StudentDTO;
-import com.CourseWorkRusut.DTO.TeacherDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.*;
@@ -13,8 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService {
     private TeacherService teacherService;
 
     @Autowired
+    private TeacherDAO teacherDAO;
+
+    @Autowired
     public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserDAO userDAO, UserMapper userMapper, TeacherService teacherService, StudentService studentService, RoleService roleService){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDAO = userDAO;
@@ -44,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(User user) {
-        Role role = roleService.getRoleByByName("ROLE_USER");
+        Role role = roleService.getRoleByName("ROLE_USER");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(role);
         userDAO.save(user);
@@ -57,22 +61,22 @@ public class UserServiceImpl implements UserService {
 
         User user = userDAO.getUserById(userDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
                                                                     //либо сохраняет модифайнд, либо обновляет юзера, надо пофиксить
-        User modifiedUser =  userMapper.userDTOToUser(userDTO);
-        modifiedUser.setLogin(user.getLogin());                     //предпологается, что вместе с модифайндом придет намббербук, надо проверить
+        User modifiedUser =  userMapper.userDTOToUser(userDTO);    //предпологается, что вместе с модифайндом придет намббербук, надо проверить
+        modifiedUser.setLogin(user.getLogin());
         modifiedUser.setPassword(user.getPassword());
-        modifiedUser.setRole(roleService.getRoleByByName(userDTO.getNameRole())); //чекнуть почему именно так
+        modifiedUser.setRole(roleService.getRoleByName(userDTO.getNameRole())); //чекнуть почему именно так
 
         if(userDTO.getClass() == StudentDTO.class) {
-         modifiedUser = studentService.updateStudent((Student) modifiedUser, user);
+         modifiedUser = studentService.updateStudent((Student) modifiedUser);
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
-            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
+            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser,  ((TeacherDTO)userDTO).getStg());
         }
 
         if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
             userDAO.delete(user);
-            modifiedUser.setUserId(null); //говнокод
+            modifiedUser.setUserId(null);
             userDAO.save(modifiedUser);
         }
 
@@ -91,7 +95,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(User user) {
+    public void delete(Long id) {
+        User user = new User();
+        user.setUserId(id);
         userDAO.delete(user);
     }
 
@@ -99,7 +105,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO getUserById(Long id) {
         User user = userDAO.getUserById(id);
-        return userMapper.userToUserDTO(user);
+
+        UserDTO userDTO = userMapper.userToUserDTO(user);
+
+        if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+            ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(id));
+        }
+
+        return userDTO;
     }
 
     @Override
@@ -110,8 +123,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<UserDTO> getAllUser(String offset) {
-        return userDAO.getAllUser(offset);
+    public UserCounterDTO getAllUser(String offset) {
+        Long count = userDAO.contUsers("ROLE_USER");
+        List<UserDTO> list = userDAO.getAllUser(offset);
+
+        return new UserCounterDTO(list,count);
     }
 
     @Override
@@ -136,8 +152,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<UserDTO> searchUsers(String search) {
-        return userDAO.searchUsersByWords(search);
+    public UserCounterDTO searchUsers(String search) {  //чет хуита какаита
+        Long count = userDAO.contUsersByFullName(search);
+        List<UserDTO> list = userDAO.searchUsersByWords(search.replace("+", " "));
+
+        return new UserCounterDTO(list,count);
     }
 
 }

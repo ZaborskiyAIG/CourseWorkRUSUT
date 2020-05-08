@@ -37,7 +37,7 @@ public class PositionScienceDegreeDAOImpl implements PositionScienceDegreeDAO {
     }
 
     @Override
-    public List<Position> getPositionsByByName(List<String> namePosition) {
+    public List<Position> getPositionsByName(List<String> namePosition) {
         Session session = sessionFactory.getCurrentSession();
         Query<Position> query = session.createQuery("from Position position where position.namePosition in (:namePosition)", Position.class);
         query.setParameterList("namePosition",namePosition);
@@ -45,7 +45,7 @@ public class PositionScienceDegreeDAOImpl implements PositionScienceDegreeDAO {
     }
 
     @Override
-    public List<ScienceDegree> getScienceDegreeByByName(List<String> nameScienceDegree) {
+    public List<ScienceDegree> getScienceDegreeByName(List<String> nameScienceDegree) {
         Session session = sessionFactory.getCurrentSession();
         Query<ScienceDegree> query = session.createQuery("from ScienceDegree scienceDegree where scienceDegree.nameScienceDegree in (:nameScienceDegree)", ScienceDegree.class);
         query.setParameterList("nameScienceDegree",nameScienceDegree);

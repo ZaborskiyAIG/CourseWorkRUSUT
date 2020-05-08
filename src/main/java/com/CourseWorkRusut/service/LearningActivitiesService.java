@@ -8,4 +8,6 @@ public interface LearningActivitiesService {
 
     List<LearningActivitiesDTO> getAllLearningActivities();
 
+    void delete(Long id);
+
 }

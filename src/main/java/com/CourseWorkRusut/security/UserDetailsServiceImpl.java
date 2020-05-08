@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
-    private final UserService userService;
-
     @Autowired
-    public UserDetailsServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
+
+   // @Autowired
+   // public UserDetailsServiceImpl(UserService userService) {
+    //    this.userService = userService;
+   // }
 
     @Override
-    public UserDetails loadUserByUsername(String login)  { //проверить без throws
+    public UserDetails loadUserByUsername(String login)  {
         User user = userService.getUserByLogin(login);
 
         if (user == null) {

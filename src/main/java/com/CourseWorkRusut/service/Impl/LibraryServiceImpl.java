@@ -1,8 +1,8 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.LibraryDAO;
+import com.CourseWorkRusut.DTO.LibraryCounterDTO;
 import com.CourseWorkRusut.DTO.LibraryDTO;
-import com.CourseWorkRusut.mappers.LibraryMapper;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,6 @@ public class LibraryServiceImpl implements LibraryService {
 
     private LibraryDAO libraryDAO;
 
-    @Autowired
-    private LibraryMapper libraryMapper;
-
     public LibraryServiceImpl(LibraryDAO libraryDAO){
         this.libraryDAO = libraryDAO;
     }
@@ -26,7 +23,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     @Transactional
     public Library getLibraryById(Long id) {
-        return null;
+        return libraryDAO.getLibraryById(id);
     }
 
     @Override
@@ -37,14 +34,25 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     @Transactional
-    public List<LibraryDTO> getAllLibrary(String offset) {
+    public LibraryCounterDTO getAllLibrary(String offset) {
 
-       // List<Library> libraries =libraryDAO.getAllLibrary(offset);
-       // System.out.println("???"+libraries.get(0).getLibraryId());
+        List<LibraryDTO> libraryDTOS =  libraryDAO.getAllLibrary(offset);
 
-      //  List<LibraryDTO> libraryDTOS = libraryMapper.libraryListToLibraryListDTO(libraries);
-       // System.out.println("?"+libraryDTOS.get(0).getLibraryId());
+        Long count = libraryDAO.countLibrary();
 
-        return libraryDAO.getAllLibrary(offset) ;
+        return new LibraryCounterDTO(libraryDTOS,count);
+    }
+
+    @Override
+    @Transactional
+    public void save(Library library) {
+        libraryDAO.save(library);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Library library = new Library();
+        library.setLibraryId(id);
+        libraryDAO.delete(library);
     }
 }

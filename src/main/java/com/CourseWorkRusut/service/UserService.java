@@ -1,10 +1,12 @@
 package com.CourseWorkRusut.service;
 
+import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 
 import com.CourseWorkRusut.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface UserService {
@@ -19,12 +21,12 @@ public interface UserService {
 
     User getUserByEmail(String email); //подумать можно ли вернуть тру/фолс если есть такой емэйл
 
-    void delete(User user);
+    void delete(Long id);
 
     Long contUsers(String nameRole);
 
-    List<UserDTO> getAllUser(String offset);
+    UserCounterDTO getAllUser(String offset);
 
-    List<UserDTO> searchUsers(String search);
+    UserCounterDTO searchUsers(String search);
 
 }
