@@ -10,4 +10,6 @@ public interface SubjectService {
 
     List<Subject> getSubjectByTeacher(Long idTeacher);
 
+    List<String> getAllSubject();
+
 }

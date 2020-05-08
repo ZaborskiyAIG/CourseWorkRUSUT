@@ -17,6 +17,9 @@ import java.util.*;
 @RequestMapping(value = "/admin")
 public class UserController {
 
+    @Autowired
+    private SubjectService subjectService;
+
     private UserService userService;
 
     private SpecialtyService specialtyService;
@@ -86,6 +89,7 @@ public class UserController {
         response.put("role",roleService.getAllRoles());
         response.put("positions",positionScienceDegreeService.getAllPositions());
         response.put("scienceDegrees",positionScienceDegreeService.getAllScienceDegree() );
+        response.put("subject", subjectService.getAllSubject());
 
         List<String> specialty = specialtyService.getAllSpecialty();
         List<Map<String, Object>> specialtyList = new ArrayList<>();

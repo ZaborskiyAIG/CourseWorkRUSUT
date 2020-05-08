@@ -10,4 +10,6 @@ public interface SubjectDAO {
 
     List<Subject> getSubjectByTeacher(Long idTeacher);
 
+    List<String> getAllSubject();
+
 }

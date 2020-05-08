@@ -40,4 +40,10 @@ public class SubjectDAOImpl implements SubjectDAO {
         return (Subject) query.uniqueResult();
     }
 
+    @Override
+    public List<String> getAllSubject() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select subject.nameSubject  FROM Subject subject ", String.class).list();
+    }
+
 }
