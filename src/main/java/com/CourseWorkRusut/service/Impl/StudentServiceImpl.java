@@ -84,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public UserCounterDTO searchStudentByFullName(String search) {
         Long count = studentDAO.counterStudentsByFullName(search);
-        List<UserDTO> userDTOS = studentDAO.searchStudentByFullName(search);
+        List<UserDTO> userDTOS = studentDAO.searchStudentByFullName(search.replace("+", " "));
 
         return new UserCounterDTO(userDTOS,count );
     }
