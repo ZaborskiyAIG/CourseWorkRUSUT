@@ -39,12 +39,12 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
-    public Long contLibrary(){
+    public Long countLibrary(){
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count(*) From Library library join library.authors aut");
-
+        Query query = session.createQuery("select count(*) From Library library where library.libraryId in (select library.libraryId From Library library join library.authors aut)");
         return (Long)  query.uniqueResult();
     }
+
 
     @Override
     public void save(Library library) {

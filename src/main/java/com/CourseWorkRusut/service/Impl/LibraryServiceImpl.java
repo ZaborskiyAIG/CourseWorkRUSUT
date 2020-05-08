@@ -38,7 +38,7 @@ public class LibraryServiceImpl implements LibraryService {
 
         List<LibraryDTO> libraryDTOS =  libraryDAO.getAllLibrary(offset);
 
-        Long count = libraryDAO.contLibrary();
+        Long count = libraryDAO.countLibrary();
 
         return new LibraryCounterDTO(libraryDTOS,count);
     }
