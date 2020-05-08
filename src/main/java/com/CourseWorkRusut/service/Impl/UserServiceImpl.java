@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserCounterDTO searchUsers(String search) {  //чет хуита какаита
-        Long count = userDAO.contUsers("ROLE_USER");
+        Long count = userDAO.contUsersByFullName(search);
         List<UserDTO> list = userDAO.searchUsersByWords(search.replace("+", " "));
 
         return new UserCounterDTO(list,count);

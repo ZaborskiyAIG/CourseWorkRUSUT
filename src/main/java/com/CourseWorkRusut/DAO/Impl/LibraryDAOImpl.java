@@ -50,9 +50,6 @@ public class LibraryDAOImpl implements LibraryDAO {
     public void save(Library library) {
         Session session = this.sessionFactory.getCurrentSession();
 
-//          Author author = new Author();
-//          author.setName("ssss");
-//          session.save(author);
         for (Author author : library.getAuthors()) {
             System.out.println("sss"+author.getName());
             session.save(author);

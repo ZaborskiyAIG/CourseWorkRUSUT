@@ -60,7 +60,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     public Long counterStudentsByFullName(String search) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select count (user.userId) from User user join fetch user.role where (type(user) in :types) and " +
+        Query query = session.createQuery(" select count (user.userId) from User user where (type(user) in :types) and " +
                 "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
                 "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
                 "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +
@@ -86,7 +86,7 @@ public class StudentDAOImpl implements StudentDAO {
                                                                                             "user.studyGroup.specialty.nameSpecialty, " +
                                                                                             "user.entryDate, " +
                                                                                             "user.role.nameRole) " +
-                "from User user join fetch user.role where (type(user) in :types) and " +
+                "from User user where (type(user) in :types) and " +
                 "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
                 "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
                 "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +

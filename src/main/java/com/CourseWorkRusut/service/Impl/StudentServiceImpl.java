@@ -67,7 +67,6 @@ public class StudentServiceImpl implements StudentService {
                 "0" +
                 studyGroup.getNumberGroup().charAt(studyGroup.getNumberGroup().length()-1) +
                 numberStudent;
-
     }
 
     @Override

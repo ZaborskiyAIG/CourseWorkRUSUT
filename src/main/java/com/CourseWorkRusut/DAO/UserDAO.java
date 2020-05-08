@@ -26,6 +26,8 @@ public interface UserDAO {
 
     Long contUsers(String nameRole);
 
+    Long contUsersByFullName(String words);
+
     List<UserDTO> searchUsersByWords(String words);
 
 

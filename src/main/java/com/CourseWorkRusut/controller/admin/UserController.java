@@ -52,14 +52,14 @@ public class UserController {
         return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/counterUsers")
-    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
-
-        Map<String,Long> map =  new HashMap<>();
-        map.put("counter",userService.contUsers(nameRole));
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/counterUsers")
+//    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
+//
+//        Map<String,Long> map =  new HashMap<>();
+//        map.put("counter",userService.contUsers(nameRole));
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//    }
 
     @PutMapping(value = "/users/updateUser")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
