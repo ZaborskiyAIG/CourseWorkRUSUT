@@ -70,14 +70,13 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-
     @Override
     @Transactional
     public UserCounterDTO getStudentsByParameters(String offset, String group, String specialty) {
         Long count = studentDAO.counterStudentsByParameters(group, specialty);
         List<UserDTO> userDTOS = studentDAO.getStudentsByParameters(offset, group, specialty);
 
-        return new UserCounterDTO(userDTOS,count );
+        return new UserCounterDTO(userDTOS, count);
     }
 
     @Override
