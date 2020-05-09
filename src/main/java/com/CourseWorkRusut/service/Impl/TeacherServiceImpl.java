@@ -32,6 +32,9 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private UserDAO userDAO;
+
     private TeacherDAO teacherDAO;
 
     @Autowired
@@ -42,7 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Transactional
-    public User updateTeacher(Teacher teacher, List<SubjectTeacherGroupDTO> stg){
+    public User updateTeacher(Teacher teacher){
 
         List<String> namePositions = new ArrayList<>();
         for(Position position : teacher.getPositions()){
@@ -56,35 +59,6 @@ public class TeacherServiceImpl implements TeacherService {
 
         teacher.setPositions(new HashSet<>(positionScienceDegreeService.getPositionsByName(namePositions)));
         teacher.setScienceDegrees(new HashSet<>(positionScienceDegreeService.getScienceDegreeByName(nameScienceDegrees)));
-
-        List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
-
-        if(stg.size()==0){
-          List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacher.getUserId());
-
-          for(SubjectTeacherGroup ss: list){
-              teacherDAO.deleteSubjectTeacherGroup(ss);
-          }
-
-        }else {
-
-            for (SubjectTeacherGroupDTO ss : stg) {
-
-                for (String str : ss.getGroups()) {
-                    SubjectTeacherGroup s = new SubjectTeacherGroup();
-                    StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
-                    s.setStudyGroup(studyGroup);
-                    s.setSubject(subjectService.getSubjectByName(ss.getSubject()));
-                    s.setTeacher(teacher);
-                    teacherDAO.saveSubjectTeacherGroup(s);
-
-                    subjectTeacherGroups.add(s);
-                }
-
-
-            }
-        }
-        teacher.setSubjectTeacherGroups(subjectTeacherGroups);
 
         return teacher;
     }
@@ -132,6 +106,45 @@ public class TeacherServiceImpl implements TeacherService {
             list.add(subjectTeacherGroupDTO);
         }
         return list;
+    }
+
+    @Override
+    public TeacherDTO updateSubjectTeacherGroup(TeacherDTO teacherDTO) {
+
+        List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
+        List<SubjectTeacherGroupDTO> stg = teacherDTO.getStg();
+
+        Teacher teacher = (Teacher) userDAO.getUserById(teacherDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
+
+            for (SubjectTeacherGroupDTO ss : stg) {
+                for (String str : ss.getGroups()) {
+                    SubjectTeacherGroup s = new SubjectTeacherGroup();
+                    StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
+                    s.setStudyGroup(studyGroup);
+                    s.setSubject(subjectService.getSubjectByName(ss.getSubject()));
+                    s.setTeacher(teacher);
+                    teacherDAO.saveSubjectTeacherGroup(s);
+
+                    subjectTeacherGroups.add(s);
+                }
+            }
+
+
+        teacher.setSubjectTeacherGroups(subjectTeacherGroups);
+        teacherDTO = (TeacherDTO) userMapper.userToUserDTO(teacher);
+
+        teacherDTO.setStg(getSubjectTeacherGroupDTO(teacherDTO.getUserId()));
+
+        return teacherDTO;
+    }
+
+    @Override
+    public void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId) {
+        List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacherId);
+
+        for(SubjectTeacherGroup ss: list){
+            teacherDAO.deleteSubjectTeacherGroup(ss);
+        }
     }
 
 //    @Override

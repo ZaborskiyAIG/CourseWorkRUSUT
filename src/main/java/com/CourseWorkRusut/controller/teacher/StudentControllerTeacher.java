@@ -1,7 +1,6 @@
 package com.CourseWorkRusut.controller.teacher;
 
-import com.CourseWorkRusut.DTO.StudentDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
+import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class StudentControllerTeacher {
     private StudyGroupService studyGroupService;
 
     @GetMapping(value = "/students")
-    public ResponseEntity<List<StudentDTO>> getAllUser(@RequestParam String  group ) {
+    public ResponseEntity<List<StudentDTO>> getStudents(@RequestParam String  group ) {
 
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(group), HttpStatus.OK);
     }
@@ -59,6 +58,17 @@ public class StudentControllerTeacher {
         response.put("specialty",specialtyList);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/stg")
+    public ResponseEntity<TeacherDTO> addSTG(@RequestBody TeacherDTO teacherDTO ){
+        return new ResponseEntity<>(teacherService.updateSubjectTeacherGroup(teacherDTO), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/stg/{id}")
+    public ResponseEntity deleteSTG(@PathVariable Long id, @RequestBody SubjectTeacherGroupDTO subjectTeacherGroupDTO ){
+        teacherService.deleteSubjectTeacherGroup(subjectTeacherGroupDTO, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
-            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser,  ((TeacherDTO)userDTO).getStg());
+            modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
         }
 
         if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
@@ -82,13 +82,7 @@ public class UserServiceImpl implements UserService {
 
         userDAO.update(modifiedUser);
 
-        userDTO = userMapper.userToUserDTO(modifiedUser);
-
-        if(modifiedUser.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
-            ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(modifiedUser.getUserId()));
-        }
-
-        return userDTO;
+        return userMapper.userToUserDTO(modifiedUser);
     }
 
 

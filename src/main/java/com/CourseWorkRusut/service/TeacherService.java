@@ -1,8 +1,10 @@
 package com.CourseWorkRusut.service;
 
 import com.CourseWorkRusut.DTO.SubjectTeacherGroupDTO;
+import com.CourseWorkRusut.DTO.TeacherDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.SubjectTeacherGroup;
 import com.CourseWorkRusut.model.Teacher;
 import com.CourseWorkRusut.model.User;
 
@@ -10,11 +12,14 @@ import java.util.List;
 
 public interface TeacherService {
 
-    User updateTeacher(Teacher teacher,List<SubjectTeacherGroupDTO> stg);
+    User updateTeacher(Teacher teacher);
 
     UserCounterDTO getTeachersByParameters(String offset, String position, String degree);
 
     List<SubjectTeacherGroupDTO> getSubjectTeacherGroupDTO(Long TeacherId);
 
+    TeacherDTO updateSubjectTeacherGroup(TeacherDTO teacherDTO);
+
+    void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId);
 
 }
