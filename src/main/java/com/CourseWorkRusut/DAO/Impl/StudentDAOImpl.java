@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
+import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 
@@ -46,7 +47,7 @@ public class StudentDAOImpl implements StudentDAO {
         return query.list();
     }
 
-  //  @Override
+    @Override
     public Long counterStudentsByParameters(String group, String specialty) {
         Session session = this.sessionFactory.getCurrentSession();
 
@@ -56,6 +57,21 @@ public class StudentDAOImpl implements StudentDAO {
         query.setParameter("group",group);
         query.setParameter("types", Student.class);
         return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<StudentDTO> getStudentsByNumberGroup(String numberGroup) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, " +
+                "user.name, " +
+                "user.surname, " +
+                "user.middlename, " +
+                "user.numberBook) " +
+                "from User user where (type(user) in :types) and (user.studyGroup.numberGroup =:numberGroup ) ");
+        query.setParameter("numberGroup","numberGroup");
+        query.setParameter("types", Student.class);
+
+        return query.list();
     }
 
     public Long counterStudentsByFullName(String search) {

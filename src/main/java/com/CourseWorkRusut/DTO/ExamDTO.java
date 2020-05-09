@@ -1,21 +1,17 @@
 package com.CourseWorkRusut.DTO;
 
+import java.util.List;
+
 public class ExamDTO {
 
     private Long examId;
 
-    private String typeExam;
+    private String mark;
 
-    private String hours;
+    private String nameStudents;
 
-    private String markExam;
+    private String numberBook;
 
-    private String numberSemester;
 
-    private String nameStudent;
-
-    private String nameSubject;
-
-    private String Teacher;
 
 }

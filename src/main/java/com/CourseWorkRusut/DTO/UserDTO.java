@@ -40,6 +40,13 @@ public class UserDTO {
         this.nameRole = nameRole;
     }
 
+    public UserDTO(Long userId, String name, String surname, String middlename){
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.middlename =middlename;
+    }
+
     public UserDTO(){
 
     }

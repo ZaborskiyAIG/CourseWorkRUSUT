@@ -38,6 +38,16 @@ public class StudentDTO extends UserDTO {
         this.entryDate = entryDate;
     }
 
+    public StudentDTO(Long userId,
+                      String name,
+                      String surname,
+                      String middlename,
+                      String numberBook) {
+        super(userId,name,surname,middlename);
+
+        this.numberBook = numberBook;
+    }
+
     public StudentDTO(){
     }
 

@@ -3,9 +3,7 @@ package com.CourseWorkRusut.service.Impl;
 import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
 import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.DTO.SubjectTeacherGroupDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.StudyGroupService;
@@ -71,7 +69,6 @@ public class TeacherServiceImpl implements TeacherService {
         }else {
 
             for (SubjectTeacherGroupDTO ss : stg) {
-
 
                 for (String str : ss.getGroups()) {
                     SubjectTeacherGroup s = new SubjectTeacherGroup();
@@ -144,6 +141,14 @@ public class TeacherServiceImpl implements TeacherService {
                for(SubjectTeacherGroup stg:subjectTeacherGroup)
                    teacherDAO.deleteSubjectTeacherGroup(stg);
         }
+    }
+
+
+    public List<ExamGroupDTO> getExamGroup(Long teacherId){
+
+    //    List<ExamDTO> list = teacherDAO.getExamBy
+
+        return null;
     }
 
 

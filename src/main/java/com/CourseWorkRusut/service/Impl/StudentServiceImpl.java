@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
+import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
@@ -85,5 +86,9 @@ public class StudentServiceImpl implements StudentService {
         List<UserDTO> userDTOS = studentDAO.searchStudentByFullName(search.replace("+", " "));
 
         return new UserCounterDTO(userDTOS,count );
+    }
+
+    public List<StudentDTO> getStudentsByNumberGroup(String numberGroup){
+        return studentDAO.getStudentsByNumberGroup(numberGroup);
     }
 }
