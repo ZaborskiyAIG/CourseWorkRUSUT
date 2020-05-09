@@ -31,14 +31,14 @@ public class TeacherControllerAdmin {
         return new ResponseEntity<>(teacherService.getTeachersByParameters(offset, position, degree), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete/stg")
-    public ResponseEntity deleteSubjectStudyTeacher(@RequestBody TeacherDTO teacherDTO) {
-
-        teacherService.deleteSubjectTeacherGroup(teacherDTO.getStg());
-
-
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @DeleteMapping(value = "/delete/stg")
+//    public ResponseEntity deleteSubjectStudyTeacher(@RequestBody TeacherDTO teacherDTO) {
+//
+//        teacherService.deleteSubjectTeacherGroup(teacherDTO.getStg());
+//
+//
+//
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }

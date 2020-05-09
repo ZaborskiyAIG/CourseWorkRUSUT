@@ -60,22 +60,33 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setScienceDegrees(new HashSet<>(positionScienceDegreeService.getScienceDegreeByName(nameScienceDegrees)));
 
         List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
-        for(SubjectTeacherGroupDTO ss: stg){
+
+        if(stg.size()==0){
+          List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacher.getUserId());
+
+          for(SubjectTeacherGroup ss: list){
+              teacherDAO.deleteSubjectTeacherGroup(ss);
+          }
+
+        }else {
+
+            for (SubjectTeacherGroupDTO ss : stg) {
 
 
-            for(String str: ss.getGroups()){
-                SubjectTeacherGroup s = new SubjectTeacherGroup();
-                StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
-                s.setStudyGroup(studyGroup);
-                s.setSubject(subjectService.getSubjectByName( ss.getSubject()));
-                s.setTeacher(teacher);
-                teacherDAO.saveSubjectTeacherGroup(s);
+                for (String str : ss.getGroups()) {
+                    SubjectTeacherGroup s = new SubjectTeacherGroup();
+                    StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
+                    s.setStudyGroup(studyGroup);
+                    s.setSubject(subjectService.getSubjectByName(ss.getSubject()));
+                    s.setTeacher(teacher);
+                    teacherDAO.saveSubjectTeacherGroup(s);
 
-                subjectTeacherGroups.add(s);
+                    subjectTeacherGroups.add(s);
+                }
+
+
             }
-
         }
-
         teacher.setSubjectTeacherGroups(subjectTeacherGroups);
 
         return teacher;

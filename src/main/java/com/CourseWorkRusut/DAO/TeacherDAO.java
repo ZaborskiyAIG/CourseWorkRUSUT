@@ -19,4 +19,6 @@ public interface TeacherDAO {
 
     List<SubjectTeacherGroup>  getSubjectTeacherGroupByNumberGroupBySubject(List<String> numberGroup, String subject);
 
+    List<SubjectTeacherGroup> getSTGByTeacherId(Long id);
+
 }
