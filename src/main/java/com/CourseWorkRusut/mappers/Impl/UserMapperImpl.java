@@ -1,8 +1,10 @@
 package com.CourseWorkRusut.mappers.Impl;
 
+import com.CourseWorkRusut.DTO.AdminDTO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.TeacherDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.mappers.AdminMapper;
 import com.CourseWorkRusut.mappers.StudentMapper;
 import com.CourseWorkRusut.mappers.TeacherMapper;
 import com.CourseWorkRusut.mappers.UserMapper;
@@ -20,10 +22,14 @@ public class UserMapperImpl implements UserMapper {
 
     private TeacherMapper teacherMapper;
 
+    private AdminMapper adminMapper;
+
+
     @Autowired
-    public UserMapperImpl(StudentMapper studentMapper, TeacherMapper teacherMapper) {
+    public UserMapperImpl(StudentMapper studentMapper, TeacherMapper teacherMapper, AdminMapper adminMapper) {
         this.studentMapper = studentMapper;
         this.teacherMapper = teacherMapper;
+        this.adminMapper = adminMapper;
     }
 
     @Override
@@ -54,7 +60,10 @@ public class UserMapperImpl implements UserMapper {
             userDto = teacherMapper.teacherToTeacherDTO((Teacher) user);
             return userDto;
         }
-       // if(user.getClass() == Admin.class)
+        if(user.getClass() == Admin.class){
+            userDto = adminMapper.adminToAdminDTO((Admin) user);
+            return userDto;
+        }
 
         return null;
     }
@@ -83,7 +92,10 @@ public class UserMapperImpl implements UserMapper {
             user = teacherMapper.teacherDTOToTeacher((TeacherDTO) dto);
             return user;
         }
-        // if(user.getClass() == Admin.class)
+         if(dto.getClass() == AdminDTO.class){
+             user = adminMapper.adminDTOToAdmin((AdminDTO) dto);
+             return user;
+         }
 
         return null;
     }

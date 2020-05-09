@@ -118,6 +118,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDTO getUserByLog(String login) {
+
+        System.out.println(login+"Log");
+
         User user = userDAO.getUserByLogin(login);
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
@@ -125,6 +128,8 @@ public class UserServiceImpl implements UserService {
         if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
             ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(user.getUserId()));
         }
+
+      //  System.out.println("ss"+userDTO.getName());
 
         return userDTO;
     }

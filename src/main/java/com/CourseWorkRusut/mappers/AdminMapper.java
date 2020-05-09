@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AdminMapper {
 
-    AdminDTO adminToAdminDTO(Admin position);
+    AdminDTO adminToAdminDTO(Admin admin);
 
     Admin adminDTOToAdmin(AdminDTO dto);
 
