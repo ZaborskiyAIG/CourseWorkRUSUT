@@ -63,9 +63,9 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/stg")
-    public ResponseEntity<TeacherDTO> addSTG(@RequestBody TeacherDTO teacherDTO ){
-        return new ResponseEntity<>(teacherService.updateSubjectTeacherGroup(teacherDTO), HttpStatus.OK);
+    @PostMapping(value = "/stg/{id}")
+    public ResponseEntity<List<SubjectTeacherGroupDTO>> addSTG(@PathVariable Long id, @RequestBody List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO ){
+        return new ResponseEntity<>(teacherService.updateSubjectTeacherGroup(subjectTeacherGroupDTO, id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/stg/{id}")

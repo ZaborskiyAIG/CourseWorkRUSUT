@@ -114,12 +114,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public TeacherDTO updateSubjectTeacherGroup(TeacherDTO teacherDTO) {
+    public List<SubjectTeacherGroupDTO> updateSubjectTeacherGroup(List<SubjectTeacherGroupDTO> stg, Long id) {
 
         List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
-        List<SubjectTeacherGroupDTO> stg = teacherDTO.getStg();
 
-        Teacher teacher = (Teacher) userDAO.getUserById(teacherDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
+        Teacher teacher = (Teacher) userDAO.getUserById(id);       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
 
             for (SubjectTeacherGroupDTO ss : stg) {
                 for (String str : ss.getGroups()) {
@@ -134,13 +133,7 @@ public class TeacherServiceImpl implements TeacherService {
                 }
             }
 
-
-        teacher.setSubjectTeacherGroups(subjectTeacherGroups);
-        teacherDTO = (TeacherDTO) userMapper.userToUserDTO(teacher);
-
-        teacherDTO.setStg(getSubjectTeacherGroupDTO(teacherDTO.getUserId()));
-
-        return teacherDTO;
+        return stg;
     }
 
     @Override
