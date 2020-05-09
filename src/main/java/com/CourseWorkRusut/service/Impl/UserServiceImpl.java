@@ -116,6 +116,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO getUserByLog(String login) {
         User user = userDAO.getUserByLogin(login);
 

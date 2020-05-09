@@ -113,6 +113,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    @Transactional
     public TeacherDTO updateSubjectTeacherGroup(TeacherDTO teacherDTO) {
 
         List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
@@ -143,6 +144,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    @Transactional
     public void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId) {
         List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacherId);
 
