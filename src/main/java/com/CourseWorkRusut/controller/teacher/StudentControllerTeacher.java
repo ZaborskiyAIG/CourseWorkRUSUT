@@ -30,6 +30,9 @@ public class StudentControllerTeacher {
     private SpecialtyService specialtyService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private StudyGroupService studyGroupService;
 
     @GetMapping(value = "/students")
@@ -69,6 +72,11 @@ public class StudentControllerTeacher {
     public ResponseEntity deleteSTG(@PathVariable Long id, @RequestBody SubjectTeacherGroupDTO subjectTeacherGroupDTO ){
         teacherService.deleteSubjectTeacherGroup(subjectTeacherGroupDTO, id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
 }

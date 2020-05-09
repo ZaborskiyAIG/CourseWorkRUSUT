@@ -88,6 +88,7 @@ public class AuthenticationController {
 
             response.put("nameRole", validUser.getRole().getNameRole());
             response.put("token", token);
+            response.put("login", user.getLogin());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -95,5 +96,10 @@ public class AuthenticationController {
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
         }
+    }
+
+    @GetMapping(value = "/self/{login}")
+    public ResponseEntity getMyself(@PathVariable String login){
+        return new ResponseEntity<>(userService.getUserByLog(login), HttpStatus.OK);
     }
 }

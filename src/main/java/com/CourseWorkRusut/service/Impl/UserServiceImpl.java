@@ -116,6 +116,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO getUserByLog(String login) {
+        User user = userDAO.getUserByLogin(login);
+
+        UserDTO userDTO = userMapper.userToUserDTO(user);
+
+        if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+            ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(user.getUserId()));
+        }
+
+        return userDTO;
+    }
+
+    @Override
     @Transactional
     public User getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);

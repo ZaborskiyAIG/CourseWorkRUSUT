@@ -19,6 +19,8 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
+    UserDTO getUserByLog(String login);
+
     User getUserByEmail(String email); //подумать можно ли вернуть тру/фолс если есть такой емэйл
 
     void delete(Long id);
@@ -28,5 +30,6 @@ public interface UserService {
     UserCounterDTO getAllUser(String offset);
 
     UserCounterDTO searchUsers(String search);
+
 
 }
