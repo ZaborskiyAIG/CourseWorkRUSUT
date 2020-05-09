@@ -82,7 +82,13 @@ public class UserServiceImpl implements UserService {
 
         userDAO.update(modifiedUser);
 
-        return userMapper.userToUserDTO(modifiedUser);
+        userDTO = userMapper.userToUserDTO(modifiedUser);
+
+        if(modifiedUser.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+            ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(modifiedUser.getUserId()));
+        }
+
+        return userDTO;
     }
 
 
@@ -129,13 +135,13 @@ public class UserServiceImpl implements UserService {
 
         return new UserCounterDTO(list,count);
     }
-
-    @Override
-    @Transactional
-    public Long contUsers(String nameRole) {
-        nameRole = convertRoles(nameRole);
-        return userDAO.contUsers(nameRole);
-    }
+//
+//    @Override
+//    @Transactional
+//    public Long contUsers(String nameRole) {
+//        nameRole = convertRoles(nameRole);
+//        return userDAO.contUsers(nameRole);
+//    }
 
     private String convertRoles(String nameRole){
         if(nameRole.equals("students") || nameRole.equals("student"))

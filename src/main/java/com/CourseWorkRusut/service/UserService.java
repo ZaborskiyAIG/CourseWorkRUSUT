@@ -23,7 +23,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    Long contUsers(String nameRole);
+///    Long contUsers(String nameRole);
 
     UserCounterDTO getAllUser(String offset);
 

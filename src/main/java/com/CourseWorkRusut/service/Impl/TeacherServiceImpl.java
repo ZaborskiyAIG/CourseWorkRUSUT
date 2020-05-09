@@ -89,6 +89,9 @@ public class TeacherServiceImpl implements TeacherService {
         return teacher;
     }
 
+
+
+
     @Override
     @Transactional
     public UserCounterDTO getTeachersByParameters(String offset,String position, String degree) {
@@ -131,25 +134,25 @@ public class TeacherServiceImpl implements TeacherService {
         return list;
     }
 
-    @Override
-    @Transactional
-    public void deleteSubjectTeacherGroup(List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO) {
+//    @Override
+//    @Transactional
+//    public void deleteSubjectTeacherGroup(List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO) {
+//
+//        for(SubjectTeacherGroupDTO dto: subjectTeacherGroupDTO) {
+//            List<SubjectTeacherGroup> subjectTeacherGroup = teacherDAO.getSubjectTeacherGroupByNumberGroupBySubject(dto.getGroups(),dto.getSubject() );
+//
+//               for(SubjectTeacherGroup stg:subjectTeacherGroup)
+//                   teacherDAO.deleteSubjectTeacherGroup(stg);
+//        }
+//    }
 
-        for(SubjectTeacherGroupDTO dto: subjectTeacherGroupDTO) {
-            List<SubjectTeacherGroup> subjectTeacherGroup = teacherDAO.getSubjectTeacherGroupByNumberGroupBySubject(dto.getGroups(),dto.getSubject() );
 
-               for(SubjectTeacherGroup stg:subjectTeacherGroup)
-                   teacherDAO.deleteSubjectTeacherGroup(stg);
-        }
-    }
-
-
-    public List<ExamGroupDTO> getExamGroup(Long teacherId){
-
-    //    List<ExamDTO> list = teacherDAO.getExamBy
-
-        return null;
-    }
+//    public List<ExamGroupDTO> getExamGroup(Long teacherId){
+//
+//    //    List<ExamDTO> list = teacherDAO.getExamBy
+//
+//        return null;
+//    }
 
 
 }

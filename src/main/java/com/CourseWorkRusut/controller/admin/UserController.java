@@ -52,15 +52,6 @@ public class UserController {
         return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/counterUsers")
-//    public ResponseEntity<Map<String,Long>> counterUser(@RequestParam(value = "nameRole", defaultValue = "ROLE_USER") String nameRole){
-//
-//        Map<String,Long> map =  new HashMap<>();
-//        map.put("counter",userService.contUsers(nameRole));
-//
-//        return new ResponseEntity<>(map, HttpStatus.OK);
-//    }
-
     @PutMapping(value = "/users/updateUser")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
@@ -76,11 +67,6 @@ public class UserController {
         userService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-//    @PostMapping(value = "/users/updateUsers")
-//    public ResponseEntity updateUsers(@RequestBody List<User> users){
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
 
     @GetMapping(value = "/classifiers")
     public ResponseEntity<Map<String,List>> getClassifiers() {
