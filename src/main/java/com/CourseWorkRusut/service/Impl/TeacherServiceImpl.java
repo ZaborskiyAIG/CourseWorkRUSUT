@@ -149,7 +149,7 @@ public class TeacherServiceImpl implements TeacherService {
                     for(StudentExamDTO dto: list){
                                                                                                                 //я буду себя люто не навижеть за эти строчки, особенно, когда
                                                                                                                 // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
-                        List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemester());
+                        List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemesters());
 
                         for(Semester sem:semester){
                             Exam exam = new Exam();
