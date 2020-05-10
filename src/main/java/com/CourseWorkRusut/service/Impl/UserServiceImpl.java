@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         modifiedUser.setRole(roleService.getRoleByName(userDTO.getNameRole())); //чекнуть почему именно так
 
         if(userDTO.getClass() == StudentDTO.class) {
-         modifiedUser = studentService.updateStudent((Student) modifiedUser);
+         modifiedUser = studentService.updateStudent((Student) modifiedUser, user);
 
         }
 

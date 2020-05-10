@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    User updateStudent(Student student);
+    User updateStudent(Student student, User user);
 
     UserCounterDTO getStudentsByParameters(String offset, String group, String specialty);
 

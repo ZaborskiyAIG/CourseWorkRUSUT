@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public User updateStudent(Student student){
+    public User updateStudent(Student student, User user){
 
         if(student.getNumberBook() ==null){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -56,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
 
             student.setNumberBook(generationNumberStudyBook(entryYear, student.getStudyGroup()));
 
-            userDAO.delete(student);
+            userDAO.delete(user);
             student.setUserId(null);
             student.setUserId(userDAO.save(student));
             int amountSemester = studyGroup.getSpecialty().getAmountSemester();
