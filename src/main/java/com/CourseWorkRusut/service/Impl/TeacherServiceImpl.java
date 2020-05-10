@@ -1,9 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
-import com.CourseWorkRusut.DAO.StudentDAO;
-import com.CourseWorkRusut.DAO.TeacherDAO;
-import com.CourseWorkRusut.DAO.UserDAO;
+import com.CourseWorkRusut.DAO.*;
 import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
@@ -45,6 +42,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private StudentDAO studentDAO;
+
+    private ExamDAO examDAO;
 
     @Autowired
     private UserDAO userDAO;
@@ -156,6 +155,7 @@ public class TeacherServiceImpl implements TeacherService {
                             exam.setSemester(sem);
                             exam.setSubject(subject);
                             exam.setTeacher(teacher);
+                            examDAO.save(exam);
                         }
 
 
