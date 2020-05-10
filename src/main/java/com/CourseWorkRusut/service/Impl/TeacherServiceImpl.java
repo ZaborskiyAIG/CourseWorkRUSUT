@@ -1,15 +1,19 @@
 package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
+import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
+import com.CourseWorkRusut.service.StudentService;
 import com.CourseWorkRusut.service.StudyGroupService;
 import com.CourseWorkRusut.service.SubjectService;
 import com.CourseWorkRusut.service.TeacherService;
 
+import org.hibernate.annotations.AttributeAccessor;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +39,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private SubjectService subjectService;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private StudentDAO studentDAO;
 
     @Autowired
     private UserDAO userDAO;
@@ -125,13 +135,36 @@ public class TeacherServiceImpl implements TeacherService {
                     SubjectTeacherGroup s = new SubjectTeacherGroup();
                     StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
                     s.setStudyGroup(studyGroup);
-                    s.setSubject(subjectService.getSubjectByName(ss.getSubject()));
+
+                    Subject subject = subjectService.getSubjectByName(ss.getSubject());
+
+                    s.setSubject(subject);
                     s.setTeacher(teacher);
                     teacherDAO.saveSubjectTeacherGroup(s);
 
              //       subjectTeacherGroups.add(s);
+
+                    List<StudentExamDTO> list = studentService.getStudentsByNumberGroup(str);
+
+                    for(StudentExamDTO dto: list){
+                                                                                                                //я буду себя люто не навижеть за эти строчки, особенно, когда
+                                                                                                                // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
+                        List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemester());
+
+                        for(Semester sem:semester){
+                            Exam exam = new Exam();
+                            exam.setSemester(sem);
+                            exam.setSubject(subject);
+                            exam.setTeacher(teacher);
+                        }
+
+
+                    }
+
                 }
             }
+
+
 
         return stg;
     }

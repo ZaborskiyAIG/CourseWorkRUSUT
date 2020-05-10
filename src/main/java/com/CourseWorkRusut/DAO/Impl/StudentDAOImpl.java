@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Semester;
 import com.CourseWorkRusut.model.Student;
 
 import org.hibernate.Session;
@@ -71,6 +72,22 @@ public class StudentDAOImpl implements StudentDAO {
                 "from User user where (type(user) in :types) and (user.studyGroup.numberGroup =:numberGroup ) ");
         query.setParameter("numberGroup","numberGroup");
         query.setParameter("types", Student.class);
+
+        return query.list();
+    }
+
+    @Override
+    public void save(Semester semester) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(semester);
+    }
+
+    @Override
+    public List<Semester> getSemesterByUserAndAmountSemester(Long userId, List<String> amountSemester) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Semester semester where (semester.student.userId =:userId ) and (semester.numberSemester in (:amountSemester) ) ", Semester.class);
+        query.setParameter("userId","userId");
+        query.setParameterList("amountSemester", amountSemester);
 
         return query.list();
     }

@@ -3,6 +3,7 @@ package com.CourseWorkRusut.DAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Semester;
 
 import java.util.List;
 
@@ -17,4 +18,9 @@ public interface StudentDAO {
     Long counterStudentsByParameters(String group, String specialty);
 
     List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup);
+
+    void save(Semester semester);
+
+    List<Semester> getSemesterByUserAndAmountSemester(Long userId, List<String> amountSemester);
+
 }

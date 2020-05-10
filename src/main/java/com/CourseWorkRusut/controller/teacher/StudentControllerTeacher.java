@@ -75,6 +75,11 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/exam")
+    public ResponseEntity<ExamGroupDTO> getStudents(@RequestBody ExamGroupDTO exam){
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 //    @GetMapping(value = "/users/{id}")
 //    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {

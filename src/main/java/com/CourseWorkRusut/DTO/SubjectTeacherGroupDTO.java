@@ -6,6 +6,8 @@ public class SubjectTeacherGroupDTO {
 
     private List<String> groups;
 
+    private List<String> semester;
+
     private String subject;
 
     public SubjectTeacherGroupDTO(List<String> groups, String subject) {
@@ -14,6 +16,14 @@ public class SubjectTeacherGroupDTO {
     }
 
     public SubjectTeacherGroupDTO() {
+    }
+
+    public List<String> getSemester() {
+        return semester;
+    }
+
+    public void setSemester(List<String> semester) {
+        this.semester = semester;
     }
 
     public List<String> getGroups() {

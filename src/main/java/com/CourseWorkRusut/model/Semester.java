@@ -15,6 +15,7 @@ public class Semester {
     @Column(name = "number_semester")
     private String numberSemester;
 
+
     @OneToMany(mappedBy ="semester", fetch=FetchType.LAZY)
     private List<LearningActivities> learningActivities;
 
@@ -28,13 +29,12 @@ public class Semester {
     @JoinColumn (name="student_id")
     private Student student;
 
+    public void setSemesterId(Long semesterId) {
+        this.semesterId = semesterId;
+    }
 
     public long getSemesterId() {
         return semesterId;
-    }
-
-    public void setSemesterId(long semestrId) {
-        this.semesterId = semestrId;
     }
 
     public String getNumberSemester() {
@@ -43,5 +43,13 @@ public class Semester {
 
     public void setNumberSemester(String numberSemestr) {
         this.numberSemester = numberSemestr;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

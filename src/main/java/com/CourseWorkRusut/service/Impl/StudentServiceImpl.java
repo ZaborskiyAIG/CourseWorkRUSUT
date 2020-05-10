@@ -1,10 +1,12 @@
 package com.CourseWorkRusut.service.Impl;
 
+import com.CourseWorkRusut.DAO.ExamDAO;
 import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.Semester;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.model.User;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class StudentServiceImpl implements StudentService {
     private StudyGroupService studyGroupService;
 
     private StudentDAO studentDAO;
+
+    @Autowired
+    private ExamDAO examDAO;
 
     @Autowired
     public StudentServiceImpl(StudyGroupService studyGroupService, StudentDAO studentDAO) {
@@ -51,6 +57,15 @@ public class StudentServiceImpl implements StudentService {
 
         StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
         student.setStudyGroup(studyGroup);
+
+       int amountSemester = studyGroup.getSpecialty().getAmountSemester();
+
+       for(int i = 1; i<amountSemester; i++){
+           Semester semester = new Semester();
+           semester.setNumberSemester(String.valueOf(i));
+           semester.setStudent(student);
+           studentDAO.save(semester);
+       }
 
         return student;
     }

@@ -21,6 +21,9 @@ public class Specialty {
     @OneToMany(mappedBy = "specialty", fetch=FetchType.LAZY)
     private List<StudyGroup> studyGroups;
 
+    @Column(name = "amount_semester")
+    private int amountSemester;
+
     public long getSpecialtyId() {
         return specialtyId;
     }
@@ -37,5 +40,31 @@ public class Specialty {
         this.nameSpecialty = nameSpecialty;
     }
 
+    public void setSpecialtyId(Long specialtyId) {
+        this.specialtyId = specialtyId;
+    }
 
+    public List<Library> getLibraries() {
+        return libraries;
+    }
+
+    public void setLibraries(List<Library> libraries) {
+        this.libraries = libraries;
+    }
+
+    public List<StudyGroup> getStudyGroups() {
+        return studyGroups;
+    }
+
+    public void setStudyGroups(List<StudyGroup> studyGroups) {
+        this.studyGroups = studyGroups;
+    }
+
+    public int getAmountSemester() {
+        return amountSemester;
+    }
+
+    public void setAmountSemester(int amountSemester) {
+        this.amountSemester = amountSemester;
+    }
 }
