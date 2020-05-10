@@ -172,15 +172,17 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional
     public void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId) {
-        List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacherId);
 
-        List<String> groups = dto.getGroups();
-        String subject = dto.getSubject();
+        Subject subject = subjectService.getSubjectByName(dto.getSubject());
 
+        for(String group:  dto.getGroups()) {
+            StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(group);
 
+            List<SubjectTeacherGroup> list = teacherDAO.getSTGByTeacherId(teacherId);
 
-        for(SubjectTeacherGroup ss: list){
-            teacherDAO.deleteSubjectTeacherGroup(ss);
+            for (SubjectTeacherGroup ss : list) {
+                teacherDAO.deleteSubjectTeacherGroup(ss);
+            }
         }
     }
 
