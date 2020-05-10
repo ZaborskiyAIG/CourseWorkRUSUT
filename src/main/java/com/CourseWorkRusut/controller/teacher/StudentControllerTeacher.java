@@ -50,6 +50,7 @@ public class StudentControllerTeacher {
 
             specialtyObject.put("numberGroup",studyGroupService.getAllStudyGroupByNameSpecialty(spec));
             specialtyObject.put("nameSpecialty",spec);
+            specialtyObject.put("amount",specialtyService.getAmountSpecialty(spec));
 
             specialtyList.add(specialtyObject);
         }

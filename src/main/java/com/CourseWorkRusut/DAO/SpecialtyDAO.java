@@ -12,4 +12,6 @@ public interface SpecialtyDAO {
 
     List<String> getAllSpecialty();
 
+    String getAmountSpecialty(String specialty);
+
 }

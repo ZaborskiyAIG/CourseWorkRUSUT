@@ -11,4 +11,6 @@ public interface SpecialtyService {
     Specialty getSpecialtyByName(String nameSpecialty);
 
     List<String> getAllSpecialty();
+
+    String getAmountSpecialty(String specialty);
 }

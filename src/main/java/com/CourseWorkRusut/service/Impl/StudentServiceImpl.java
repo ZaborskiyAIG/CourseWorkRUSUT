@@ -61,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
             student.setUserId(userDAO.save(student));
             int amountSemester = studyGroup.getSpecialty().getAmountSemester();
 
-            for(int i = 1; i<amountSemester; i++){
+            for(int i = 1; i<=amountSemester; i++){
                 Semester semester = new Semester();
                 semester.setNumberSemester(String.valueOf(i));
                 semester.setStudent(student);
