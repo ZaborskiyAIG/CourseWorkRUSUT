@@ -174,6 +174,11 @@ public class TeacherServiceImpl implements TeacherService {
     public void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId) {
         List<SubjectTeacherGroup> list =  teacherDAO.getSTGByTeacherId(teacherId);
 
+        List<String> groups = dto.getGroups();
+        String subject = dto.getSubject();
+
+
+
         for(SubjectTeacherGroup ss: list){
             teacherDAO.deleteSubjectTeacherGroup(ss);
         }

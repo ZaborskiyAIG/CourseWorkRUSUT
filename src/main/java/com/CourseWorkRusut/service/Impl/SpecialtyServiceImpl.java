@@ -38,6 +38,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
+    @Transactional
     public String getAmountSpecialty(String specialty) {
         return specialtyDAO.getAmountSpecialty(specialty);
     }
