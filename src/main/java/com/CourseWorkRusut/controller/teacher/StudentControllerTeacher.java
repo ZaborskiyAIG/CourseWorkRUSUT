@@ -35,11 +35,6 @@ public class StudentControllerTeacher {
     @Autowired
     private StudyGroupService studyGroupService;
 
-    @GetMapping(value = "/students")
-    public ResponseEntity<List<StudentDTO>> getStudents(@RequestParam String  group ) {
-
-        return new ResponseEntity<>(studentService.getStudentsByNumberGroup(group), HttpStatus.OK);
-    }
 
     @GetMapping(value = "/classifiers")
     public ResponseEntity<Map<String,List>> getClassifiers() {
@@ -75,7 +70,7 @@ public class StudentControllerTeacher {
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<List<StudentDTO>> deleteSTG(@RequestParam(value = "group") String numberGroup){
+    public ResponseEntity<List<StudentDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
 
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
     }

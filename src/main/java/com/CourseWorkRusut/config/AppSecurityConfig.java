@@ -49,12 +49,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
                 .authorizeRequests()//.sessionManagement //почитать, впринцыпе узнать про сессии в секьюрности
                     .antMatchers("/registration").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                  //  .antMatchers("/teacher/**").hasRole("TEACHER")
+                    .antMatchers("/teacher/**").hasRole("TEACHER")
                     .antMatchers("/login").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
-
     }
 
     @Bean
