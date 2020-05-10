@@ -43,8 +43,8 @@ public class StudyGroupServiceImpl implements StudyGroupService {
     }
 
     @Override
-    public List<StudyGroup> getStudyGroupBySubject(String nameSubject) {
-        return studyGroupDAO.getStudyGroupBySubject(nameSubject);
+    public List<StudyGroup> getStudyGroupBySubject(String nameSubject, Long teacherId) {
+        return studyGroupDAO.getStudyGroupBySubject(nameSubject, teacherId);
     }
 
     @Override

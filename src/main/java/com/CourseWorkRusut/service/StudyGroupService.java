@@ -14,5 +14,5 @@ public interface StudyGroupService {
 
     List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty); //getAllNUMBER изменить
 
-    List<StudyGroup> getStudyGroupBySubject(String nameSubject);
+    List<StudyGroup> getStudyGroupBySubject(String nameSubject, Long teacherId);
 }

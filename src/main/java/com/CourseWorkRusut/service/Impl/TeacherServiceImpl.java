@@ -106,7 +106,7 @@ public class TeacherServiceImpl implements TeacherService {
         for(Subject sb : subjects){
             SubjectTeacherGroupDTO subjectTeacherGroupDTO = new SubjectTeacherGroupDTO();
 
-            List<StudyGroup> studyGroups = studyGroupService.getStudyGroupBySubject(sb.getNameSubject());
+            List<StudyGroup> studyGroups = studyGroupService.getStudyGroupBySubject(sb.getNameSubject(), teacherId);
 
 
             List<String> numberStudyGroup = new ArrayList<>();
