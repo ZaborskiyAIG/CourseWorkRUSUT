@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
 
         if(student.getNumberBook() ==null){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String entryYear = student.getEntryDate().format(formatter) ;
+            String entryYear = LocalDate.now().format(formatter) ;
 
             String nameSpecialty = student.getStudyGroup().getSpecialty().getNameSpecialty();
 
