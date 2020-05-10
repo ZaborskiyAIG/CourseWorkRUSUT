@@ -74,11 +74,12 @@ public class TeacherDAOImpl implements TeacherDAO {
         return  query.list();
     }
 
-    public List<SubjectTeacherGroup> getSTGByTeacherId(Long id){
+    public List<SubjectTeacherGroup> getSTGByTeacherId(Long id, Long subId, Long groupId){
         Session session = this.sessionFactory.getCurrentSession();
 
-        Query<SubjectTeacherGroup> query = session.createQuery("  from SubjectTeacherGroup stg  where   stg.teacher.userId = :id",SubjectTeacherGroup.class );
+        Query<SubjectTeacherGroup> query = session.createQuery("  from SubjectTeacherGroup stg  where  (stg.teacher.userId = :id) and (stg.subject.subjectId = :subId) ",SubjectTeacherGroup.class );
         query.setParameter("id",id);
+        query.setParameter("subId",subId);
 
         return  query.list();
     }

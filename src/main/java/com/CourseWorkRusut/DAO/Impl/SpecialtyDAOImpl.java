@@ -42,11 +42,11 @@ public class SpecialtyDAOImpl implements SpecialtyDAO {
     }
 
     @Override
-    public Long getAmountSpecialty(String specialty) {
+    public Integer getAmountSpecialty(String specialty) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Long> query = session.createQuery("select specialty.amountSemester  FROM Specialty specialty where specialty.nameSpecialty =:nameSpecialty", Long.class);
+        Query<Integer> query = session.createQuery("select specialty.amountSemester  FROM Specialty specialty where specialty.nameSpecialty =:nameSpecialty", Integer.class);
         query.setParameter("nameSpecialty",specialty);
-        return (Long) query.uniqueResult();
+        return query.uniqueResult();
     }
 
 }

@@ -12,5 +12,5 @@ public interface SpecialtyService {
 
     List<String> getAllSpecialty();
 
-    Long getAmountSpecialty(String specialty);
+    Integer getAmountSpecialty(String specialty);
 }

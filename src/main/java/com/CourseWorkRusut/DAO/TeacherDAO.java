@@ -19,6 +19,6 @@ public interface TeacherDAO {
 
     List<SubjectTeacherGroup>  getSubjectTeacherGroupByNumberGroupBySubject(List<String> numberGroup, String subject);
 
-    List<SubjectTeacherGroup> getSTGByTeacherId(Long id);
+    List<SubjectTeacherGroup> getSTGByTeacherId(Long id, Long subId, Long groupId);
 
 }
