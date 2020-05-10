@@ -26,10 +26,9 @@ public class UserDAOImpl implements UserDAO {   //save, update,merge,persist Ñ€Ð
     }
 
     @Override
-    public void save(User user) {
+    public Long save(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.saveOrUpdate(user);
-
+        return (Long) session.save(user);
     }
 
     @Override

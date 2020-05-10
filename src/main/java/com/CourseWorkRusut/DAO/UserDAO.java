@@ -5,12 +5,13 @@ import com.CourseWorkRusut.model.Subject;
 import com.CourseWorkRusut.model.SubjectTeacherGroup;
 import com.CourseWorkRusut.model.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
 public interface UserDAO {
 
-    void save(User user);
+    Long save(User user);
 
     void update(User user);
 
