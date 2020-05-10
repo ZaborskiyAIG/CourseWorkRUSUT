@@ -52,20 +52,23 @@ public class StudentServiceImpl implements StudentService {
 
             student.setNumberBook(generationNumberStudyBook(entryYear, student.getStudyGroup()));
 
+
+            int amountSemester = studyGroup.getSpecialty().getAmountSemester();
+
+            for(int i = 1; i<amountSemester; i++){
+                Semester semester = new Semester();
+                semester.setNumberSemester(String.valueOf(i));
+                semester.setStudent(student);
+                studentDAO.save(semester);
+            }
+
             return student;
         }
 
         StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(student.getStudyGroup().getNumberGroup());
         student.setStudyGroup(studyGroup);
 
-       int amountSemester = studyGroup.getSpecialty().getAmountSemester();
 
-       for(int i = 1; i<amountSemester; i++){
-           Semester semester = new Semester();
-           semester.setNumberSemester(String.valueOf(i));
-           semester.setStudent(student);
-           studentDAO.save(semester);
-       }
 
         return student;
     }
