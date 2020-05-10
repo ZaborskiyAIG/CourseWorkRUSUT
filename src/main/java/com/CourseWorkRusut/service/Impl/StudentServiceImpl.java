@@ -2,6 +2,7 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.ExamDAO;
 import com.CourseWorkRusut.DAO.StudentDAO;
+import com.CourseWorkRusut.DAO.UserDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
@@ -32,6 +33,9 @@ public class StudentServiceImpl implements StudentService {
     private ExamDAO examDAO;
 
     @Autowired
+    private UserDAO userDAO;
+
+    @Autowired
     public StudentServiceImpl(StudyGroupService studyGroupService, StudentDAO studentDAO) {
         this.studyGroupService = studyGroupService;
         this.studentDAO = studentDAO;
@@ -52,7 +56,9 @@ public class StudentServiceImpl implements StudentService {
 
             student.setNumberBook(generationNumberStudyBook(entryYear, student.getStudyGroup()));
 
-
+            userDAO.delete(student);
+            student.setUserId(null);
+            userDAO.save(student);
             int amountSemester = studyGroup.getSpecialty().getAmountSemester();
 
             for(int i = 1; i<amountSemester; i++){
@@ -61,6 +67,7 @@ public class StudentServiceImpl implements StudentService {
                 semester.setStudent(student);
                 studentDAO.save(semester);
             }
+
 
             return student;
         }

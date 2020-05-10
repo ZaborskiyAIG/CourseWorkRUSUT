@@ -68,17 +68,20 @@ public class UserServiceImpl implements UserService {
 
         if(userDTO.getClass() == StudentDTO.class) {
          modifiedUser = studentService.updateStudent((Student) modifiedUser);
+
         }
 
         if(userDTO.getClass() == TeacherDTO.class) {
             modifiedUser = teacherService.updateTeacher((Teacher) modifiedUser);
+
+            if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
+                userDAO.delete(user);
+                modifiedUser.setUserId(null);
+                userDAO.save(modifiedUser);
+            }
+
         }
 
-        if(!user.getRole().getNameRole().equals(modifiedUser.getRole().getNameRole())){
-            userDAO.delete(user);
-            modifiedUser.setUserId(null);
-            userDAO.save(modifiedUser);
-        }
 
         userDAO.update(modifiedUser);
 
