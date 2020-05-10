@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service;
 
 import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
@@ -17,6 +18,6 @@ public interface StudentService {
 
     UserCounterDTO searchStudentByFullName(String search);
 
-    List<StudentDTO> getStudentsByNumberGroup(String numberGroup);
+    List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup);
 
 }

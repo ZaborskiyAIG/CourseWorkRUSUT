@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.DAO;
 
 import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface StudentDAO {
 
     Long counterStudentsByParameters(String group, String specialty);
 
-    List<StudentDTO> getStudentsByNumberGroup(String numberGroup);
+    List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup);
 }

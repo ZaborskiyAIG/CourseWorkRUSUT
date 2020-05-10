@@ -2,6 +2,7 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
@@ -88,7 +89,7 @@ public class StudentServiceImpl implements StudentService {
         return new UserCounterDTO(userDTOS,count );
     }
 
-    public List<StudentDTO> getStudentsByNumberGroup(String numberGroup){
+    public List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup){
         return studentDAO.getStudentsByNumberGroup(numberGroup);
     }
 }

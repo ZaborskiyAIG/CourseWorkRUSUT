@@ -13,7 +13,7 @@ public class ExamGroupDTO {
 
     private String subject;
 
-    private List<ExamDTO> students;
+    private List<StudentExamDTO> students;
 
 
 }

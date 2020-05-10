@@ -162,7 +162,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 //    public List<ExamGroupDTO> getExamGroup(Long teacherId){
 //
-//    //    List<ExamDTO> list = teacherDAO.getExamBy
+//    //    List<StudentExamDTO> list = teacherDAO.getExamBy
 //
 //        return null;
 //    }

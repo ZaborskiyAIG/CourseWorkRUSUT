@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.StudentDAO;
 import com.CourseWorkRusut.DTO.StudentDTO;
+import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Student;
 
@@ -60,9 +61,9 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public List<StudentDTO> getStudentsByNumberGroup(String numberGroup) {
+    public List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentDTO(user.userId, " +
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentExamDTO(user.userId, " +
                 "user.name, " +
                 "user.surname, " +
                 "user.middlename, " +

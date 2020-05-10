@@ -70,7 +70,7 @@ public class StudentControllerTeacher {
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<List<StudentDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
+    public ResponseEntity<List<StudentExamDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
 
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
     }
