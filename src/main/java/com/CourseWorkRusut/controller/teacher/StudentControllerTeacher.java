@@ -74,9 +74,16 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/users/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    @GetMapping(value = "/students")
+    public ResponseEntity<List<StudentDTO>> deleteSTG(@RequestParam(value = "group") String numberGroup){
+
+        return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
     }
+
+
+//    @GetMapping(value = "/users/{id}")
+//    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+//        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+//    }
 
 }

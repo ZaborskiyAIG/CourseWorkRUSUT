@@ -116,7 +116,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Transactional
     public List<SubjectTeacherGroupDTO> updateSubjectTeacherGroup(List<SubjectTeacherGroupDTO> stg, Long id) {
 
-        List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
+    //    List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
 
         Teacher teacher = (Teacher) userDAO.getUserById(id);       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
 
@@ -129,7 +129,7 @@ public class TeacherServiceImpl implements TeacherService {
                     s.setTeacher(teacher);
                     teacherDAO.saveSubjectTeacherGroup(s);
 
-                    subjectTeacherGroups.add(s);
+             //       subjectTeacherGroups.add(s);
                 }
             }
 
