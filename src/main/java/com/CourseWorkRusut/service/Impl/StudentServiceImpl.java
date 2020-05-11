@@ -93,7 +93,7 @@ public class StudentServiceImpl implements StudentService {
         String numberStudent = number < 10 ? "0"+number : String.valueOf(number);
 
         return entryDate.substring(entryDate.length()-4) +
-                "0" +
+                studyGroup.getNumberGroup().substring(0,2) +
                 studyGroup.getNumberGroup().charAt(studyGroup.getNumberGroup().length()-1) +
                 numberStudent;
     }
