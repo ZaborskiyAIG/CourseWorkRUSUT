@@ -60,7 +60,7 @@ public class StudentControllerTeacher {
     }
 
     @PostMapping(value = "/stg/{id}")
-    public ResponseEntity<List<SubjectTeacherGroupDTO>> addSTG(@PathVariable Long id, @RequestBody List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO ){
+    public ResponseEntity<SubjectTeacherGroupDTO> addSTG(@PathVariable Long id, @RequestBody SubjectTeacherGroupDTO subjectTeacherGroupDTO ){
         return new ResponseEntity<>(teacherService.updateSubjectTeacherGroup(subjectTeacherGroupDTO, id), HttpStatus.OK);
     }
 

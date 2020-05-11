@@ -18,7 +18,7 @@ public interface TeacherService {
 
     List<SubjectTeacherGroupDTO> getSubjectTeacherGroupDTO(Long TeacherId);
 
-    List<SubjectTeacherGroupDTO> updateSubjectTeacherGroup(List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO, Long id);
+    SubjectTeacherGroupDTO updateSubjectTeacherGroup(SubjectTeacherGroupDTO subjectTeacherGroupDTO, Long id);
 
     void deleteSubjectTeacherGroup(SubjectTeacherGroupDTO dto, Long teacherId);
 

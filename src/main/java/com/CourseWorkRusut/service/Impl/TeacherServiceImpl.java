@@ -132,26 +132,25 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public List<SubjectTeacherGroupDTO> updateSubjectTeacherGroup(List<SubjectTeacherGroupDTO> stg, Long id) {
+    public SubjectTeacherGroupDTO updateSubjectTeacherGroup(SubjectTeacherGroupDTO stg, Long id) {
 
     //    List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
 
         Teacher teacher = (Teacher) userDAO.getUserById(id);       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
 
-            for (SubjectTeacherGroupDTO ss : stg) {
-                for (String str : ss.getGroups()) {
+        //    for (SubjectTeacherGroupDTO ss : stg) {
+                for (String str : stg.getGroups()) {
                     SubjectTeacherGroup s = new SubjectTeacherGroup();
                     StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
                     s.setStudyGroup(studyGroup);
 
-                    Subject subject = subjectService.getSubjectByName(ss.getSubject());
+                    Subject subject = subjectService.getSubjectByName(stg.getSubject());
 
                     s.setSubject(subject);
                     s.setTeacher(teacher);
                     teacherDAO.saveSubjectTeacherGroup(s);
 
              //       subjectTeacherGroups.add(s);
-
 
                     List<StudentExamDTO> list = studentService.getStudentsByNumberGroup(str);
 
@@ -163,7 +162,7 @@ public class TeacherServiceImpl implements TeacherService {
                         System.out.println("ID:"+dto.getUserId());
                                                                                                                 //я буду себя люто не навижеть за эти строчки, особенно, когда
                                                                                                                 // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
-                        List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemesters());
+                        List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),stg.getSemesters());
 
                         for(Semester sem: semester){
                             System.out.println("EXAM:"+sem.getSemesterId());
@@ -173,14 +172,9 @@ public class TeacherServiceImpl implements TeacherService {
                             exam.setTeacher(teacher);
                             examDAO.save(exam);
                         }
-
-
                     }
-
                 }
-            }
-
-
+          //  }
 
         return stg;
     }
