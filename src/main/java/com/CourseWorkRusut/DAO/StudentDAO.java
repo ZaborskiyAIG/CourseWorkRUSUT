@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DTO.StudentDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Semester;
+import com.CourseWorkRusut.model.Student;
 
 import java.util.List;
 
@@ -22,5 +23,7 @@ public interface StudentDAO {
     void save(Semester semester);
 
     List<Semester> getSemesterByUserAndAmountSemester(Long userId, List<String> amountSemester);
+
+    List<String> getSemesterByExam(Long teacherId,String nameSubject);
 
 }

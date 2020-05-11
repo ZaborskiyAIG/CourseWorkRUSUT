@@ -29,12 +29,12 @@ public class Semester {
     @JoinColumn (name="student_id")
     private Student student;
 
-    public void setSemesterId(Long semesterId) {
-        this.semesterId = semesterId;
+    public Long getSemesterId() {
+        return semesterId;
     }
 
-    public long getSemesterId() {
-        return semesterId;
+    public void setSemesterId(Long semesterId) {
+        this.semesterId = semesterId;
     }
 
     public String getNumberSemester() {
@@ -52,4 +52,6 @@ public class Semester {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+
 }

@@ -64,17 +64,18 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentExamDTO(user.userId, " +
-                "user.name, " +
-                "user.surname, " +
-                "user.middlename, " +
-                "user.numberBook) " +
-                "from User user where (type(user) in :types) and (user.studyGroup.numberGroup =:numberGroup ) ");
-        query.setParameter("numberGroup","numberGroup");
-        query.setParameter("types", Student.class);
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentExamDTO(student.userId, " +
+                "student.name, " +
+                "student.surname, " +
+                "student.middlename, " +
+                "student.numberBook) " +
+                "from Student student where  student.studyGroup.numberGroup =:numberGroup  ");
+        query.setParameter("numberGroup",numberGroup);
+
 
         return query.list();
     }
+
 
     @Override
     public void save(Semester semester) {
@@ -86,8 +87,18 @@ public class StudentDAOImpl implements StudentDAO {
     public List<Semester> getSemesterByUserAndAmountSemester(Long userId, List<String> amountSemester) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Semester semester where (semester.student.userId =:userId ) and (semester.numberSemester in (:amountSemester) ) ", Semester.class);
-        query.setParameter("userId","userId");
+        query.setParameter("userId",userId);
         query.setParameterList("amountSemester", amountSemester);
+
+        return query.list();
+    }
+
+    @Override
+    public List<String> getSemesterByExam(Long teacherId, String nameSubject) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<String> query = session.createQuery("select exam.semester.numberSemester from Exam exam where (exam.teacher.userId =:teacherId ) and (exam.subject.nameSubject =:nameSubject ) ", String.class);
+        query.setParameter("teacherId",teacherId);
+        query.setParameter("nameSubject", nameSubject);
 
         return query.list();
     }

@@ -43,6 +43,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private StudentDAO studentDAO;
 
+    @Autowired
     private ExamDAO examDAO;
 
     @Autowired
@@ -116,6 +117,12 @@ public class TeacherServiceImpl implements TeacherService {
 
             subjectTeacherGroupDTO.setGroups(numberStudyGroup);
             subjectTeacherGroupDTO.setSubject(sb.getNameSubject());
+
+            List<String> sem = studentDAO.getSemesterByExam(teacherId, sb.getNameSubject());
+
+            subjectTeacherGroupDTO.setSemesters(sem);
+
+
             list.add(subjectTeacherGroupDTO);
         }
         return list;
@@ -143,14 +150,17 @@ public class TeacherServiceImpl implements TeacherService {
 
              //       subjectTeacherGroups.add(s);
 
+
                     List<StudentExamDTO> list = studentService.getStudentsByNumberGroup(str);
 
                     for(StudentExamDTO dto: list){
+                        System.out.println("ID:"+dto.getUserId());
                                                                                                                 //я буду себя люто не навижеть за эти строчки, особенно, когда
                                                                                                                 // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
                         List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemesters());
 
                         for(Semester sem: semester){
+                            System.out.println("EXAM:");
                             Exam exam = new Exam();
                             exam.setSemester(sem);
                             exam.setSubject(subject);

@@ -114,7 +114,10 @@ public class StudentServiceImpl implements StudentService {
         return new UserCounterDTO(userDTOS,count );
     }
 
+    @Override
+    @Transactional
     public List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup){
-        return studentDAO.getStudentsByNumberGroup(numberGroup);
+
+       return studentDAO.getStudentsByNumberGroup(numberGroup);
     }
 }
