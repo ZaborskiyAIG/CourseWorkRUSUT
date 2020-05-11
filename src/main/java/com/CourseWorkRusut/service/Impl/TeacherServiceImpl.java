@@ -154,13 +154,17 @@ public class TeacherServiceImpl implements TeacherService {
                     List<StudentExamDTO> list = studentService.getStudentsByNumberGroup(str);
 
                     for(StudentExamDTO dto: list){
+                        System.out.println("пройтись по листу и получить всех его студентов:"+dto.getUserId());
+                    }
+
+                    for(StudentExamDTO dto: list){
                         System.out.println("ID:"+dto.getUserId());
                                                                                                                 //я буду себя люто не навижеть за эти строчки, особенно, когда
                                                                                                                 // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
                         List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),ss.getSemesters());
 
                         for(Semester sem: semester){
-                            System.out.println("EXAM:");
+                            System.out.println("EXAM:"+sem.getSemesterId());
                             Exam exam = new Exam();
                             exam.setSemester(sem);
                             exam.setSubject(subject);
