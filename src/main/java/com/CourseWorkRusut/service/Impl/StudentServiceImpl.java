@@ -49,6 +49,8 @@ public class StudentServiceImpl implements StudentService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String entryYear = LocalDate.now().format(formatter) ;
 
+            student.setEntryDate(LocalDate.now());
+
             String nameSpecialty = student.getStudyGroup().getSpecialty().getNameSpecialty();
 
             StudyGroup studyGroup = studyGroupService.getStudyGroupForAddStudent(nameSpecialty, entryYear);
