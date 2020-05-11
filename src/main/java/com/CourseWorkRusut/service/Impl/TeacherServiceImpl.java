@@ -120,7 +120,9 @@ public class TeacherServiceImpl implements TeacherService {
 
             List<String> sem = studentDAO.getSemesterByExam(teacherId, sb.getNameSubject());
 
-            subjectTeacherGroupDTO.setSemesters(sem);
+            Set<String> set = new HashSet<>(sem);
+
+            subjectTeacherGroupDTO.setSemesters(new ArrayList<>(set));
 
 
             list.add(subjectTeacherGroupDTO);

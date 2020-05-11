@@ -93,15 +93,30 @@ public class StudentDAOImpl implements StudentDAO {
         return query.list();
     }
 
+//    @Override
+//    public List<String> getSemesterByExam(Long teacherId, String nameSubject) {
+//        Session session = this.sessionFactory.getCurrentSession();
+//        Query<String> query = session.createQuery("select exam.semester.numberSemester from Exam exam where (exam.teacher.userId =:teacherId ) and (exam.subject.nameSubject =:nameSubject ) ", String.class);
+//        query.setParameter("teacherId",teacherId);
+//        query.setParameter("nameSubject", nameSubject);
+//
+//        return query.list();
+//    }
+
+
+
     @Override
     public List<String> getSemesterByExam(Long teacherId, String nameSubject) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<String> query = session.createQuery("select exam.semester.numberSemester from Exam exam where (exam.teacher.userId =:teacherId ) and (exam.subject.nameSubject =:nameSubject ) ", String.class);
+        Query<String> query = session.createQuery("select exam.semester.numberSemester from Exam exam  where (exam.teacher.userId =:teacherId ) and (exam.subject.nameSubject =:nameSubject ) ", String.class);
         query.setParameter("teacherId",teacherId);
         query.setParameter("nameSubject", nameSubject);
 
         return query.list();
     }
+
+
+
 
     public Long counterStudentsByFullName(String search) {
         Session session = this.sessionFactory.getCurrentSession();
