@@ -64,7 +64,7 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public List<StudentExamDTO> getStudentsByNumberGroup(String numberGroup) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentExamDTO(student.userId, " +
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentDTO(student.userId, " +
                 "student.name, " +
                 "student.surname, " +
                 "student.middlename, " +
