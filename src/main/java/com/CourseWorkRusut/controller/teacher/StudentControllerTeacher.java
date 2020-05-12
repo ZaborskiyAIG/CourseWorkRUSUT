@@ -76,11 +76,6 @@ public class StudentControllerTeacher {
 
 
 
-//    @GetMapping(value = "/users/{id}")
-//    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-//        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-//    }
-
     @GetMapping(value = "/students")
     public ResponseEntity<List<StudentExamDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
@@ -99,6 +94,11 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(examService.getExamGroup(id), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/exams/{id}")
+    public ResponseEntity updateUser(@PathVariable Long id, @RequestBody ExamGroupDTO exam) {
+        examService.saveExamGroup(exam, id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @PostMapping(value = "/exams/{id}")
     public ResponseEntity getUser(@PathVariable Long id, @RequestBody ExamGroupDTO exam) {
