@@ -57,7 +57,7 @@ public class ExamServiceImpl implements ExamService {
                     ExamGroupDTO examGroupDTO = new ExamGroupDTO();
                     examGroupDTO.setGroup(group);
                     examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,group, subject, num));
-                    examGroupDTO.setSemesters(num);
+                    examGroupDTO.setSemester(num);
                     examGroupDTO.setSubject(subject);
                     list.add(examGroupDTO);
                 }
@@ -74,7 +74,7 @@ public class ExamServiceImpl implements ExamService {
 
         examGroupDTO.setSubject(subject);
         examGroupDTO.setGroup(numberGroup);
-        examGroupDTO.setSemesters(semester);
+        examGroupDTO.setSemester(semester);
 
         examGroupDTO.setStudents(examDAO.getStudentExamDTO(teacherId, numberGroup, subject, semester) );
 
@@ -93,9 +93,9 @@ public class ExamServiceImpl implements ExamService {
         System.out.println("предмет"+examGroupDTO.getSubject());
         System.out.println("Id"+teacherId);
         System.out.println("id"+examGroupDTO.getGroup());
-        System.out.println("семестр"+examGroupDTO.getSemesters());
+        System.out.println("семестр"+examGroupDTO.getSemester());
 
-        List<Exam> exams = examDAO.getExamBySubjectTeacherGroup(examGroupDTO.getSubject(),teacherId, examGroupDTO.getGroup(), examGroupDTO.getSemesters());
+        List<Exam> exams = examDAO.getExamBySubjectTeacherGroup(examGroupDTO.getSubject(),teacherId, examGroupDTO.getGroup(), examGroupDTO.getSemester());
 
         System.out.println("массив:"+exams.size());
 
