@@ -88,11 +88,12 @@ public class ExamDAOImpl implements ExamDAO {
     @Override
     public List<Exam> getExamBySubjectTeacherGroup(String subject, Long id, String group, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<Exam> query = session.createQuery(" from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester ", Exam.class  );
-        query.setParameter("teacherId",id);
-        query.setParameter("group",group);
+        Query<Exam> query = session.createQuery(" from Exam exam where exam.teacher.userId =:teacherId and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester and exam.semester.student.studyGroup.numberGroup =:numberGroup ", Exam.class  );
+        query.setParameter("teacherId",id);  //
         query.setParameter("subject",subject);
         query.setParameter("semester",semester);
+        query.setParameter("numberGroup",group);
+
         return  query.list();
     }
 

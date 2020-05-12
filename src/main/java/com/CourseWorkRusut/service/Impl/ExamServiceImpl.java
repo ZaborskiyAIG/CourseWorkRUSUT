@@ -87,18 +87,27 @@ public class ExamServiceImpl implements ExamService {
 
 
     @Override
-    public void saveExamGroup(ExamGroupDTO examGroupDTO, Long teacherId) {
+    @Transactional
+    public void saveExamGroup(ExamGroupDTO examGroupDTO, Long teacherId) {  //один селект или много селектов через какое нибудь кэширование
+
+        System.out.println("предмет"+examGroupDTO.getSubject());
+        System.out.println("Id"+teacherId);
+        System.out.println("id"+examGroupDTO.getGroup());
+        System.out.println("семестр"+examGroupDTO.getSemesters());
 
         List<Exam> exams = examDAO.getExamBySubjectTeacherGroup(examGroupDTO.getSubject(),teacherId, examGroupDTO.getGroup(), examGroupDTO.getSemesters());
 
+        System.out.println("массив:"+exams.size());
 
         for(Exam exam: exams){
             exam.setHours(examGroupDTO.getHours());
             exam.setTypeExam(examGroupDTO.getTypeExam());
 
-
             for(StudentExamDTO dto: examGroupDTO.getStudents()){
+                System.out.println("IdExamUS"+exam.getSemester().getStudent().getUserId());
+                System.out.println("IdUS"+dto.getUserId());
                 if(exam.getSemester().getStudent().getUserId().equals(dto.getUserId())){
+                    System.out.println("Работает"+dto.getMark());
                     exam.setMarkExam(dto.getMark());
                     examDAO.update(exam);
                 }
