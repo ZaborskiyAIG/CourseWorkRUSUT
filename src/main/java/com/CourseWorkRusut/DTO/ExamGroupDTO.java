@@ -12,7 +12,7 @@ public class ExamGroupDTO {
 
     private String subject;
 
-    private String semesters;
+    private String semester;
 
     private List<StudentExamDTO> students;
 
@@ -66,11 +66,11 @@ public class ExamGroupDTO {
         this.students = students;
     }
 
-    public String getSemesters() {
-        return semesters;
+    public String getSemester() {
+        return semester;
     }
 
-    public void setSemesters(String semesters) {
-        this.semesters = semesters;
+    public void setSemester(String semesters) {
+        this.semester = semesters;
     }
 }
