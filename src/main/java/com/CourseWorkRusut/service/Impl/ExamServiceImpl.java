@@ -56,7 +56,7 @@ public class ExamServiceImpl implements ExamService {
                 for(String subject :subjects){
                     ExamGroupDTO examGroupDTO = new ExamGroupDTO();
                     examGroupDTO.setGroup(group);
-                    examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,group));
+                    examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,group, subject, num));
                     examGroupDTO.setSemesters(num);
                     examGroupDTO.setSubject(subject);
                     list.add(examGroupDTO);
@@ -69,14 +69,18 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional
-    public ExamGroupDTO getExamStudents(Long teacherId, String numberGroup) {
+    public ExamGroupDTO getExamStudents(Long teacherId, String numberGroup, String subject, String semester) {
         ExamGroupDTO examGroupDTO = new ExamGroupDTO();
 
+        examGroupDTO.setSubject(subject);
         examGroupDTO.setGroup(numberGroup);
-      //  examGroupDTO.setSubject(examDAO.getSubjectByGroupAndTeacher(teacherId,numberGroup));
-      //  examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,numberGroup));
+        examGroupDTO.setSemesters(semester);
 
-        examGroupDTO.setStudents(studentService.getStudentsByNumberGroupAndSubject(numberGroup,examGroupDTO.getSubject()));
+        examGroupDTO.setStudents(examDAO.getStudentExamDTO(teacherId, numberGroup, subject, semester) );
+
+        examGroupDTO.setHours(examDAO.getHoursExamByGroupAndTeacher(teacherId,numberGroup, subject, semester));
+
+        examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,numberGroup, subject, semester));
 
         return examGroupDTO;
     }

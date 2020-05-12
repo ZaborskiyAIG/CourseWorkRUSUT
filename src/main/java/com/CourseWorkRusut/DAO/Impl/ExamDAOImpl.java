@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.ExamDAO;
 import com.CourseWorkRusut.DTO.ExamGroupDTO;
+import com.CourseWorkRusut.DTO.StudentExamDTO;
 import com.CourseWorkRusut.model.Exam;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,14 +54,29 @@ public class ExamDAOImpl implements ExamDAO {
     }
 
     @Override
-    public String getTypeExamByGroupAndTeacher(Long teacherId, String group) {
+    public String getTypeExamByGroupAndTeacher(Long teacherId, String group, String subject, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select exam.typeExam from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =: group ");
+        Query query = session.createQuery(" select exam.typeExam from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =: group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
         query.setParameter("teacherId",teacherId);
         query.setParameter("group",group);
+        query.setParameter("subject",subject);
+        query.setParameter("semester",semester);
         query.setMaxResults(1);
 
         return (String) query.getSingleResult();
+    }
+
+    @Override
+    public String getHoursExamByGroupAndTeacher(Long teacherId, String group, String subject, String semester) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select exam.hours from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =: group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
+        query.setParameter("teacherId",teacherId);
+        query.setParameter("group",group);
+        query.setParameter("subject",subject);
+        query.setParameter("semester",semester);
+        query.setMaxResults(1);
+
+        return (String) query.getSingleResult();;
     }
 
     @Override
@@ -87,6 +103,17 @@ public class ExamDAOImpl implements ExamDAO {
         query.setParameter("teacherId",id);
         query.setParameter("group",group);
 
+        return  query.list();
+    }
+
+    @Override
+    public List<StudentExamDTO> getStudentExamDTO(Long teacherId, String numberGroup, String subject, String semester) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select  new com.CourseWorkRusut.DTO.StudentExamDTO(exam.semester.student.userId, exam.semester.student.name, exam.semester.student.surname, exam.semester.student.middlename, exam.semester.student.numberBook ) from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester "  );
+        query.setParameter("teacherId",teacherId);
+        query.setParameter("group",numberGroup);
+        query.setParameter("subject",subject);
+        query.setParameter("semester",semester);
         return  query.list();
     }
 

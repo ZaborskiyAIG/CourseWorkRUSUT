@@ -87,14 +87,22 @@ public class StudentControllerTeacher {
     }
 
     @GetMapping(value = "/exams/{id}")
+    public ResponseEntity<ExamGroupDTO> getExams(@PathVariable Long id,
+                                                       @RequestParam String group,
+                                                       @RequestParam String subject,
+                                                       @RequestParam String semester ) {
+        return new ResponseEntity<>(examService.getExamStudents(id,group, subject, semester), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/exam/{id}")
     public ResponseEntity<List<ExamGroupDTO>> getExam(@PathVariable Long id) {
         return new ResponseEntity<>(examService.getExamGroup(id), HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/exams/{id}")
     public ResponseEntity getUser(@PathVariable Long id, @RequestBody ExamGroupDTO exam) {
         examService.saveExamGroup(exam, id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

@@ -10,7 +10,7 @@ public interface ExamService {
 
     List<ExamGroupDTO> getExamGroup(Long teacherId);
 
-    ExamGroupDTO getExamStudents(Long teacherId, String numberGroup);
+    ExamGroupDTO getExamStudents(Long teacherId, String numberGroup, String subject, String semester);
 
     void saveExamGroup(ExamGroupDTO examGroupDTO, Long teacherId);
 
