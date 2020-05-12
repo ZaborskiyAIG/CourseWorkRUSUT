@@ -8,19 +8,20 @@ public class StudentExamDTO {
 
     private String mark;
 
-    //private String nameStudent;
+    private String nameStudent;
 
     private String numberBook;
 
-    public StudentExamDTO(Long userId, String numberBook) {
+    public StudentExamDTO(Long userId, String name, String Surname, String middlename, String numberBook, String mark) {
 
-    //    if(middlename==null){  //исправить
-    //        middlename = " ";
-   //     }
+        if(middlename==null){  //исправить
+            middlename = " ";
+        }
 
-    //    this.nameStudent = name +" "+Surname+" "+middlename;
+        this.nameStudent = name +" "+Surname+" "+middlename;
         this.numberBook = numberBook;
         this.userId = userId;
+        this.mark = mark;
     }
 
     public Long getUserId() {
@@ -42,13 +43,13 @@ public class StudentExamDTO {
         this.mark = mark;
     }
 
-//    public String getNameStudent() {
-//        return nameStudent;
-//    }
-//
-//    public void setNameStudent(String nameStudents) {
-//        this.nameStudent = nameStudents;
-//    }
+    public String getNameStudent() {
+        return nameStudent;
+    }
+
+    public void setNameStudent(String nameStudents) {
+        this.nameStudent = nameStudents;
+    }
 
     public String getNumberBook() {
         return numberBook;

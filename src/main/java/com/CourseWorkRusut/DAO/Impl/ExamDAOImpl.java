@@ -110,7 +110,7 @@ public class ExamDAOImpl implements ExamDAO {
     @Override
     public List<StudentExamDTO> getStudentExamDTO(Long teacherId, String numberGroup, String subject, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select  new com.CourseWorkRusut.DTO.StudentExamDTO(exam.semester.student.userId, exam.semester.student.name, exam.semester.student.surname, exam.semester.student.middlename, exam.semester.student.numberBook ) from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester "  );
+        Query query = session.createQuery("select  new com.CourseWorkRusut.DTO.StudentExamDTO(exam.semester.student.userId, exam.semester.student.name, exam.semester.student.surname, exam.semester.student.middlename, exam.semester.student.numberBook, exam.markExam) from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester "  );
         query.setParameter("teacherId",teacherId);
         query.setParameter("group",numberGroup);
         query.setParameter("subject",subject);
