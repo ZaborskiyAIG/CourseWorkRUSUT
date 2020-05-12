@@ -44,11 +44,11 @@ public class ExamDAOImpl implements ExamDAO {
 //    }
 
     @Override
-    public List<String> getSubjectByGroupAndTeacher(Long teacherId, String group) {
+    public List<String> getSubjectByGroupAndTeacher(Long teacherId, String group, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<String> query = session.createQuery("select distinct exam.subject.nameSubject from Exam exam where exam.subject.nameSubject in (select stg.subject.nameSubject from SubjectTeacherGroup stg where stg.teacher.userId =:teacherId and stg.studyGroup.numberGroup =: group ) and exam.markExam is not null and exam.teacher.userId =: teacherId ", String.class);
+        Query<String> query = session.createQuery("select distinct exam.subject.nameSubject from Exam exam where exam.subject.nameSubject in (select stg.subject.nameSubject from SubjectTeacherGroup stg where stg.teacher.userId =:teacherId and stg.studyGroup.numberGroup =:numberGroup) and (exam.markExam is not null) and exam.teacher.userId =: teacherId ", String.class);
         query.setParameter("teacherId",teacherId);
-        query.setParameter("group",group);
+        query.setParameter("numberGroup",group);
 
         return  query.list();
     }
@@ -56,22 +56,22 @@ public class ExamDAOImpl implements ExamDAO {
     @Override
     public String getTypeExamByGroupAndTeacher(Long teacherId, String group, String subject, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select exam.typeExam from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =: group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
+        Query query = session.createQuery(" select exam.typeExam from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:numberGroup and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
         query.setParameter("teacherId",teacherId);
-        query.setParameter("group",group);
+        query.setParameter("numberGroup",group);
         query.setParameter("subject",subject);
         query.setParameter("semester",semester);
         query.setMaxResults(1);
 
-        return (String) query.getSingleResult();
+        return (String) query.uniqueResult();
     }
 
     @Override
     public String getHoursExamByGroupAndTeacher(Long teacherId, String group, String subject, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select exam.hours from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =: group and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
+        Query query = session.createQuery(" select exam.hours from Exam exam where exam.teacher.userId =:teacherId and exam.semester.student.studyGroup.numberGroup =:numberGroup and exam.subject.nameSubject =:subject and exam.semester.numberSemester =:semester");
         query.setParameter("teacherId",teacherId);
-        query.setParameter("group",group);
+        query.setParameter("numberGroup",group);
         query.setParameter("subject",subject);
         query.setParameter("semester",semester);
         query.setMaxResults(1);
@@ -117,6 +117,5 @@ public class ExamDAOImpl implements ExamDAO {
         query.setParameter("semester",semester);
         return  query.list();
     }
-
 
 }

@@ -51,7 +51,7 @@ public class ExamServiceImpl implements ExamService {
             Set<String> set = new HashSet<>(semesters);
 
             for(String num: set){
-                List<String> subjects = examDAO.getSubjectByGroupAndTeacher(teacherId,group);
+                List<String> subjects = examDAO.getSubjectByGroupAndTeacher(teacherId,group, num);
 
                 for(String subject :subjects){
                     ExamGroupDTO examGroupDTO = new ExamGroupDTO();

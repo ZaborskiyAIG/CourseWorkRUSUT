@@ -12,7 +12,7 @@ public interface ExamDAO {
 
   //  ExamGroupDTO getExamGroup(Long teacherId, String group);
 
-    List<String> getSubjectByGroupAndTeacher(Long teacherId, String group);
+    List<String> getSubjectByGroupAndTeacher(Long teacherId, String group, String semester);
 
     String getTypeExamByGroupAndTeacher(Long teacherId, String group, String subject, String semester );
 
