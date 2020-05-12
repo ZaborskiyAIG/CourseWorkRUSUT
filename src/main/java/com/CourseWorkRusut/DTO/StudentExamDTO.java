@@ -24,6 +24,17 @@ public class StudentExamDTO {
         this.mark = mark;
     }
 
+    public StudentExamDTO(Long userId, String name, String Surname, String middlename, String numberBook) {
+
+        if(middlename==null){  //исправить
+            middlename = " ";
+        }
+
+        this.nameStudent = name +" "+Surname+" "+middlename;
+        this.numberBook = numberBook;
+        this.userId = userId;
+    }
+
     public Long getUserId() {
         return userId;
     }
