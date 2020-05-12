@@ -37,11 +37,11 @@ public class Exam {
 
     }
 
-    public long getExamId() {
+    public Long getExamId() {
         return examId;
     }
 
-    public void setExamId(long examId) {
+    public void setExamId(Long examId) {
         this.examId = examId;
     }
 

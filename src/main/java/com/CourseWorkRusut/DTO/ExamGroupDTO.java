@@ -12,8 +12,19 @@ public class ExamGroupDTO {
 
     private String subject;
 
+    private String semesters;
+
     private List<StudentExamDTO> students;
 
+    public ExamGroupDTO(String typeExam, String group, String subject) {
+        this.typeExam = typeExam;
+        this.group = group;
+        this.subject = subject;
+    }
+
+    public ExamGroupDTO() {
+
+    }
 
     public String getTypeExam() {
         return typeExam;
@@ -53,5 +64,13 @@ public class ExamGroupDTO {
 
     public void setStudents(List<StudentExamDTO> students) {
         this.students = students;
+    }
+
+    public String getSemesters() {
+        return semesters;
+    }
+
+    public void setSemesters(String semesters) {
+        this.semesters = semesters;
     }
 }

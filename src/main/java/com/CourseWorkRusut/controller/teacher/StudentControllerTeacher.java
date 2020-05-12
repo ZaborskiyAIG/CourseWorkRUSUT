@@ -30,6 +30,10 @@ public class StudentControllerTeacher {
     private SpecialtyService specialtyService;
 
     @Autowired
+    private ExamService examService;
+
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -70,21 +74,27 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/students")
-    public ResponseEntity<List<StudentExamDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
 
-        return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/exam")
-    public ResponseEntity<ExamGroupDTO> getStudents(@RequestBody ExamGroupDTO exam){
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
 //    @GetMapping(value = "/users/{id}")
 //    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
 //        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
 //    }
+
+    @GetMapping(value = "/students")
+    public ResponseEntity<List<StudentExamDTO>> getStudents(@RequestParam(value = "group") String numberGroup){
+        return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/exam/{id}")
+    public ResponseEntity<List<ExamGroupDTO>> getExam(@PathVariable Long id) {
+        return new ResponseEntity<>(examService.getExamGroup(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/exam/{id}")
+    public ResponseEntity getUser(@PathVariable Long id, @RequestBody ExamGroupDTO exam) {
+        examService.saveExamGroup(exam, id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

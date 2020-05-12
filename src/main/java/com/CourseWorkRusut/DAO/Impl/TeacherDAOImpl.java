@@ -85,4 +85,14 @@ public class TeacherDAOImpl implements TeacherDAO {
         return  query.list();
     }
 
+    @Override
+    public List<String> getNumberGroupByTeacherId(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<String> query = session.createQuery("select distinct stg.studyGroup.numberGroup from SubjectTeacherGroup stg  where  (stg.teacher.userId = :id) ",String.class );
+        query.setParameter("id",id);
+
+        return  query.list();
+    }
+
 }

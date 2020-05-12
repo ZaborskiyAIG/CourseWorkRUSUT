@@ -117,7 +117,6 @@ public class StudentDAOImpl implements StudentDAO {
 
 
 
-
     public Long counterStudentsByFullName(String search) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(" select count (user.userId) from User user where (type(user) in :types) and " +
@@ -158,4 +157,20 @@ public class StudentDAOImpl implements StudentDAO {
 
         return query.list();
     }
+
+    @Override
+    public List<StudentExamDTO> getStudentsByNumberGroupAndSubject(String numberGroup, String subject) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select new com.CourseWorkRusut.DTO.StudentExamDTO(student.userId, " +
+                "student.name, " +
+                "student.surname, " +
+                "student.middlename, " +
+                "student.numberBook) " +
+                "from Student student where  student.studyGroup.numberGroup =:numberGroup and  student.subject.nameSubject =:subject");
+        query.setParameter("numberGroup",numberGroup);
+        query.setParameter("subject",subject);
+
+        return query.list();
+    }
+
 }

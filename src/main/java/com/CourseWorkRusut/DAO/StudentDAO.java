@@ -26,4 +26,6 @@ public interface StudentDAO {
 
     List<String> getSemesterByExam(Long teacherId,String nameSubject);
 
+    List<StudentExamDTO> getStudentsByNumberGroupAndSubject(String numberGroup, String subject);
+
 }

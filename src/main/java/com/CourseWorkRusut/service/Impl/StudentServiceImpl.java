@@ -122,4 +122,17 @@ public class StudentServiceImpl implements StudentService {
 
        return studentDAO.getStudentsByNumberGroup(numberGroup);
     }
+
+    @Override
+    @Transactional
+    public List<StudentExamDTO> getStudentsByNumberGroupAndSubject(String numberGroup, String subject) {
+        return studentDAO.getStudentsByNumberGroupAndSubject(numberGroup, subject);
+    }
+
+    @Override
+    public List<Semester> getSemesterByUserAndAmountSemester(Long userId, List<String> amountSemester) {
+        return studentDAO.getSemesterByUserAndAmountSemester(userId,amountSemester);
+    }
+
+
 }

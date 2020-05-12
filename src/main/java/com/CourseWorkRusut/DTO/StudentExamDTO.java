@@ -6,6 +6,8 @@ public class StudentExamDTO {
 
     private Long userId;
 
+    private Long examId;
+
     private String mark;
 
     private String nameStudents;
@@ -23,6 +25,16 @@ public class StudentExamDTO {
         this.userId = userId;
     }
 
+    public StudentExamDTO(Long userId, String name, String Surname, String middlename, String numberBook, Long examId) {
+
+        if(middlename==null){  //исправить
+            middlename = " ";
+        }
+
+        this.nameStudents = name +" "+Surname+" "+middlename;
+        this.numberBook = numberBook;
+        this.userId = userId;
+    }
 
     public Long getUserId() {
         return userId;
@@ -57,5 +69,13 @@ public class StudentExamDTO {
 
     public void setNumberBook(String numberBook) {
         this.numberBook = numberBook;
+    }
+
+    public Long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(Long examId) {
+        this.examId = examId;
     }
 }
