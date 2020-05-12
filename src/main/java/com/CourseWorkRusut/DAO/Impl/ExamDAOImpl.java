@@ -46,9 +46,10 @@ public class ExamDAOImpl implements ExamDAO {
     @Override
     public List<String> getSubjectByGroupAndTeacher(Long teacherId, String group, String semester) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<String> query = session.createQuery("select distinct exam.subject.nameSubject from Exam exam where exam.subject.nameSubject in (select stg.subject.nameSubject from SubjectTeacherGroup stg where stg.teacher.userId =:teacherId and stg.studyGroup.numberGroup =:numberGroup) and (exam.markExam is not null) and exam.teacher.userId =: teacherId ", String.class);
+        Query<String> query = session.createQuery("select distinct exam.subject.nameSubject from Exam exam where exam.subject.nameSubject in (select stg.subject.nameSubject from SubjectTeacherGroup stg where stg.teacher.userId =:teacherId and stg.studyGroup.numberGroup =:numberGroup) and (exam.markExam is not null) and exam.teacher.userId =:teacherId and exam.semester.numberSemester =:semester and exam.semester.student.studyGroup.numberGroup =:numberGroup", String.class);
         query.setParameter("teacherId",teacherId);
         query.setParameter("numberGroup",group);
+        query.setParameter("semester",semester);
 
         return  query.list();
     }
