@@ -76,7 +76,7 @@ public class ExamDAOImpl implements ExamDAO {
         query.setParameter("semester",semester);
         query.setMaxResults(1);
 
-        return (String) query.getSingleResult();;
+        return (String) query.getSingleResult();
     }
 
     @Override
