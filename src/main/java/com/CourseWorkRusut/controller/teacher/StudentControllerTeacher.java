@@ -86,12 +86,12 @@ public class StudentControllerTeacher {
         return new ResponseEntity<>(studentService.getStudentsByNumberGroup(numberGroup), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/exam/{id}")
+    @GetMapping(value = "/exams/{id}")
     public ResponseEntity<List<ExamGroupDTO>> getExam(@PathVariable Long id) {
         return new ResponseEntity<>(examService.getExamGroup(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/exam/{id}")
+    @PostMapping(value = "/exams/{id}")
     public ResponseEntity getUser(@PathVariable Long id, @RequestBody ExamGroupDTO exam) {
         examService.saveExamGroup(exam, id);
         return new ResponseEntity(HttpStatus.OK);
