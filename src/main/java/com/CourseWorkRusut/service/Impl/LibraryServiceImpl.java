@@ -50,7 +50,6 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         Library library = new Library();
         library.setLibraryId(id);
