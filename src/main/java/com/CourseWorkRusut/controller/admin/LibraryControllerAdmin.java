@@ -50,11 +50,6 @@ public class LibraryControllerAdmin {
     @PostMapping(value = "/library",produces = "application/pdf")
     public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
-        String nameFile = new String(name.getBytes(), StandardCharsets.UTF_8);
-
-        System.out.println(name);
-
-        System.out.println("sss"+authors[0]);
 
         Set<Author> list = new HashSet<>();
 
@@ -64,8 +59,8 @@ public class LibraryControllerAdmin {
             String[] s = authors[i].split(" ");
           //  String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
          //   String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
-            author.setName(new String (name.getBytes ("iso-8859-1"), "Cp1251"));
-            author.setSurname(new String (name.getBytes ("iso-8859-1"), "UTF-8"));
+            author.setName(new String (s[0].getBytes ("iso-8859-1"), "UTF-8"));
+            author.setSurname(new String (s[1].getBytes ("iso-8859-1"), "UTF-8"));
 
             if(s.length>2) {
            //     String s2 = new String(s[2].getBytes(), "UTF-8");
@@ -81,7 +76,7 @@ public class LibraryControllerAdmin {
         Library library = new Library();
         library.setAuthors(list);
 
-        library.setName(nameFile);
+        library.setName(new String (name.getBytes ("iso-8859-1"), "UTF-8"));
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         library.setBook(bytes);
         libraryService.save(library);
