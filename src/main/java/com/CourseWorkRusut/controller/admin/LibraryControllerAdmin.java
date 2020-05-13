@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ public class LibraryControllerAdmin {
     @PostMapping(value = "/library",produces = "application/pdf")
     public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
-        String nameFile = new String(name.getBytes(), "UTF-8");
+        String nameFile = new String(name.getBytes(), StandardCharsets.UTF_8);
 
         System.out.println(name);
 
@@ -61,8 +62,8 @@ public class LibraryControllerAdmin {
             Author author = new Author();
 
             String[] s = authors[i].split(" ");
-            String s0 = new String(s[0].getBytes(), "UTF-8");
-            String s1 = new String(s[1].getBytes(), "UTF-8");
+            String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
+            String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
             author.setName(s0);
             author.setSurname(s1);
 
