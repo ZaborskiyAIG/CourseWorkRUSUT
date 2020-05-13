@@ -62,14 +62,14 @@ public class LibraryControllerAdmin {
             Author author = new Author();
 
             String[] s = authors[i].split(" ");
-            String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
-            String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
-            author.setName(s0);
-            author.setSurname(s1);
+          //  String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
+         //   String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
+            author.setName(s[0]);
+            author.setSurname(s[1]);
 
             if(s.length>2) {
-                String s2 = new String(s[2].getBytes(), "UTF-8");
-                author.setMiddlename(s2);
+           //     String s2 = new String(s[2].getBytes(), "UTF-8");
+                author.setMiddlename(s[2]);
             }
 
             list.add(author);
