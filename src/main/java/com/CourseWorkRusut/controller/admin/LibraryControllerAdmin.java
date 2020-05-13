@@ -96,7 +96,7 @@ public class LibraryControllerAdmin {
 
         InputStream inputStream = new ByteArrayInputStream(library.getBook());
 
-        String fileName = "syk.pdf";
+        String fileName = library.getName();
 
         HttpHeaders headers = new HttpHeaders();
 
