@@ -6,6 +6,7 @@ import com.CourseWorkRusut.DTO.LibraryDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Author;
 import com.CourseWorkRusut.model.Library;
+import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.apache.commons.io.IOUtils;
@@ -44,9 +45,12 @@ public class LibraryControllerAdmin {
         this.libraryService = libraryService;
     }
 
+    @Autowired
+    SpecialtyService specialtyService;
 
-    @PostMapping(value = "/library",produces = "application/pdf")
-    public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
+    @PostMapping(value = "/library/{specialty}",produces = "application/pdf")
+    public ResponseEntity addLibrary(@PathVariable String specialty, @RequestParam MultipartFile file, String name, String[] authors) throws IOException {
+
 
 
         Set<Author> list = new HashSet<>();
@@ -64,12 +68,8 @@ public class LibraryControllerAdmin {
            //     String s2 = new String(s[2].getBytes(), "UTF-8");
                 author.setMiddlename(new String (s[2].getBytes ("iso-8859-1"), "UTF-8"));
             }
-
             list.add(author);
         }
-
-
-
 
         Library library = new Library();
         library.setAuthors(list);
@@ -77,6 +77,7 @@ public class LibraryControllerAdmin {
         library.setName(new String (name.getBytes ("iso-8859-1"), "UTF-8"));
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         library.setBook(bytes);
+        library.setSpecialty(specialtyService.getSpecialtyByName(specialty));
         libraryService.save(library);
         return new ResponseEntity(HttpStatus.OK);
     }
