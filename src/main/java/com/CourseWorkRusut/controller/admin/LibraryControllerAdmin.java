@@ -77,7 +77,6 @@ public class LibraryControllerAdmin {
         library.setAuthors(list);
 
         library.setName(new String (name.getBytes ("iso-8859-1"), "UTF-8"));
-     //   library.setName("сук");
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         library.setBook(bytes);
         libraryService.save(library);
@@ -97,9 +96,7 @@ public class LibraryControllerAdmin {
 
         InputStream inputStream = new ByteArrayInputStream(library.getBook());
 
-      //  String fileName = library.getName()+".pdf";
-
-        String fileName = "сука.pdf";
+        String fileName = library.getName()+".pdf";
 
         HttpHeaders headers = new HttpHeaders();
 
