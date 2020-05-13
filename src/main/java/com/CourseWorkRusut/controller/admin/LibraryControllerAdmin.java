@@ -22,11 +22,9 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-import java.io.InputStream;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -90,7 +88,7 @@ public class LibraryControllerAdmin {
 
 
     @GetMapping(value = "/library/{id}", produces = "application/pdf")
-    public ResponseEntity<InputStreamResource> library(@PathVariable Long id)  {
+    public ResponseEntity<InputStreamResource> library(@PathVariable Long id) throws UnsupportedEncodingException {
 
         Library library = libraryService.getLibraryById(id);
 
@@ -100,15 +98,19 @@ public class LibraryControllerAdmin {
 
         HttpHeaders headers = new HttpHeaders();
 
-        List<MediaType> type = new ArrayList<>();
-        type.add(MediaType.parseMediaType("application/pdf"));
-        type.add(MediaType.parseMediaType("UTF-8"));
+     //   List<MediaType> type = new ArrayList<>();
+      //  type.add(MediaType.parseMediaType("application/pdf"));
+        //type.add(MediaType.parseMediaType("UTF-8"));
 
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));                    //сделать фильтр
-        headers.setAccept(type);
+        headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));                    //сделать фильтр
+      //  headers.setAccept(type);
+
+           // String filen = URLEncoder.encode(fileName, "UTF-8");
+
 
         headers.add("Access-Control-Allow-Headers", "Content-Type");
-        headers.add("Content-Disposition", "attachment; filename=" + fileName);
+        headers.add("Content-Disposition", "attachment; filename=*=\"utf-8'" + fileName + "\"");
+
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
