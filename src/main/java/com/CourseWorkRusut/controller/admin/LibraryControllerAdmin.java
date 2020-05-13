@@ -100,7 +100,13 @@ public class LibraryControllerAdmin {
 
         HttpHeaders headers = new HttpHeaders();
 
+        List<MediaType> type = new ArrayList<>();
+        type.add(MediaType.parseMediaType("application/pdf"));
+        type.add(MediaType.parseMediaType("UTF-8"));
+
         headers.setContentType(MediaType.parseMediaType("application/pdf"));                    //сделать фильтр
+        headers.setAccept(type);
+
         headers.add("Access-Control-Allow-Headers", "Content-Type");
         headers.add("Content-Disposition", "attachment; filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
