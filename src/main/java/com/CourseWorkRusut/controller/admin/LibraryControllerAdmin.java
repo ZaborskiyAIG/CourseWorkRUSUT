@@ -64,7 +64,7 @@ public class LibraryControllerAdmin {
 
             if(s.length>2) {
            //     String s2 = new String(s[2].getBytes(), "UTF-8");
-                author.setMiddlename(s[2]);
+                author.setMiddlename(new String (s[2].getBytes ("iso-8859-1"), "UTF-8"));
             }
 
             list.add(author);
