@@ -51,8 +51,6 @@ public class LibraryControllerAdmin {
     @PostMapping(value = "/library/{specialty}",produces = "application/pdf")
     public ResponseEntity addLibrary(@PathVariable String specialty, @RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
-
-
         Set<Author> list = new HashSet<>();
 
         for(int i = 0; i<authors.length; i++){
