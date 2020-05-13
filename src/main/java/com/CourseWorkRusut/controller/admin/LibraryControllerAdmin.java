@@ -64,7 +64,7 @@ public class LibraryControllerAdmin {
             String[] s = authors[i].split(" ");
           //  String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
          //   String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
-            author.setName(s[0]);
+            author.setName(IOUtils.toString(s[0].getBytes(), "UTF-8"));
             author.setSurname(s[1]);
 
             if(s.length>2) {
