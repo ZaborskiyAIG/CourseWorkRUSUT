@@ -105,7 +105,7 @@ public class LibraryControllerAdmin {
         headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));                    //сделать фильтр
       //  headers.setAccept(type);
 
-            String filen = URLEncoder.encode(fileName, "UTF-8");
+            String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
 
 
         headers.add("Access-Control-Allow-Headers", "Content-Type");
