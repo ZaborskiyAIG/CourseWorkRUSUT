@@ -49,6 +49,7 @@ public class LibraryControllerAdmin {
     @PostMapping(value = "/library",produces = "application/pdf")
     public ResponseEntity addLibrary(@RequestParam MultipartFile file, String name, String[] authors) throws IOException {
 
+        String nameFile = new String(name.getBytes(), "UTF-8");
 
         System.out.println(name);
 
@@ -60,12 +61,15 @@ public class LibraryControllerAdmin {
             Author author = new Author();
 
             String[] s = authors[i].split(" ");
+            String s0 = new String(s[0].getBytes(), "UTF-8");
+            String s1 = new String(s[1].getBytes(), "UTF-8");
+            author.setName(s0);
+            author.setSurname(s1);
 
-            author.setName(s[0]);
-            author.setSurname(s[1]);
-
-            if(s.length>2)
-                author.setMiddlename(s[2]);
+            if(s.length>2) {
+                String s2 = new String(s[2].getBytes(), "UTF-8");
+                author.setMiddlename(s2);
+            }
 
             list.add(author);
         }
@@ -76,7 +80,7 @@ public class LibraryControllerAdmin {
         Library library = new Library();
         library.setAuthors(list);
 
-        library.setName(name);
+        library.setName(nameFile);
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         library.setBook(bytes);
         libraryService.save(library);
@@ -99,7 +103,6 @@ public class LibraryControllerAdmin {
         String fileName = library.getName()+".pdf";
 
         HttpHeaders headers = new HttpHeaders();
-
 
         headers.setContentType(MediaType.parseMediaType("application/pdf"));                    //сделать фильтр
         headers.add("Access-Control-Allow-Headers", "Content-Type");
