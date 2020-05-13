@@ -109,8 +109,8 @@ public class LibraryControllerAdmin {
 
 
         headers.add("Access-Control-Allow-Headers", "Content-Type");
-        headers.add("Content-Disposition", "attachment; filename*=\"UTF-8'" + filen + "\""+".pdf");
-
+      //  headers.add("Content-Disposition", "attachment; filename*=\"UTF-8'" + filen + "\""+".pdf");
+        headers.add("Content-Disposition", "attachment; filename=" + filen +".pdf");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
