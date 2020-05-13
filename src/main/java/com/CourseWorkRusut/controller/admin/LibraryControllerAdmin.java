@@ -94,7 +94,7 @@ public class LibraryControllerAdmin {
 
         InputStream inputStream = new ByteArrayInputStream(library.getBook());
 
-        String fileName = library.getName()+".pdf";
+        String fileName = library.getName();
 
         HttpHeaders headers = new HttpHeaders();
 
@@ -105,11 +105,11 @@ public class LibraryControllerAdmin {
         headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));                    //сделать фильтр
       //  headers.setAccept(type);
 
-           // String filen = URLEncoder.encode(fileName, "UTF-8");
+            String filen = URLEncoder.encode(fileName, "UTF-8");
 
 
         headers.add("Access-Control-Allow-Headers", "Content-Type");
-        headers.add("Content-Disposition", "attachment; filename*=\"utf-8'" + fileName + "\"");
+        headers.add("Content-Disposition", "attachment; filename*=\"UTF-8'" + filen + "\""+".pdf");
 
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
