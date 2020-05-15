@@ -11,4 +11,6 @@ public interface LearningActivitiesDAO {
 
     void delete(LearningActivities learningActivities);
 
+    List<String> getTypeLearning();
+
 }

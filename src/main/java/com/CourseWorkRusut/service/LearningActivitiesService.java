@@ -10,4 +10,6 @@ public interface LearningActivitiesService {
 
     void delete(Long id);
 
+    List<String> getTypeLearning();
+
 }

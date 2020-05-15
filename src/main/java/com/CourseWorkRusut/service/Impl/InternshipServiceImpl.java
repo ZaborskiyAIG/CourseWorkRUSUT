@@ -3,6 +3,7 @@ package com.CourseWorkRusut.service.Impl;
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.PlacePractice;
 import com.CourseWorkRusut.service.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,43 @@ public class InternshipServiceImpl implements InternshipService {
         internship.setInternshipId(id);
         internshipDAO.delete(internship);
     }
+
+    @Override
+    public void deletePlace(Long id) {
+        PlacePractice placePractice = new PlacePractice();
+        placePractice.setPlacePracticeId(id);
+        internshipDAO.deletePlace(placePractice);
+    }
+
+    @Override
+    @Transactional
+    public void save(Internship internship) {
+        internshipDAO.save(internship);
+    }
+
+    @Override
+    @Transactional
+    public void save(PlacePractice placePractice) {
+        internshipDAO.save(placePractice);
+    }
+
+    @Override
+    @Transactional
+    public List<PlacePractice> getAllPlace(String offset) {
+        return internshipDAO.getAllPlace(offset);
+    }
+
+    @Override
+    @Transactional
+    public PlacePractice getPlace(Long id) {
+        return internshipDAO.getPlace(id);
+    }
+
+    @Override
+    @Transactional
+    public void updatePlace(PlacePractice placePractice) {
+         internshipDAO.updatePlace(placePractice);
+    }
+
 
 }

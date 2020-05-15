@@ -70,4 +70,11 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
         Session session = sessionFactory.getCurrentSession();
         session.delete(learningActivities);
     }
+
+    @Override
+    public List<String> getTypeLearning() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<String> query = session.createQuery("select l.nameType from LearningActivitiesType l", String.class );
+        return   query.list();
+    }
 }

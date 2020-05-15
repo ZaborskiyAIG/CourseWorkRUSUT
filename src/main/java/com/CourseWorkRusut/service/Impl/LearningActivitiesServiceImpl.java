@@ -33,4 +33,9 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
         learningActivities.setLearningId(id);
         learningActivitiesDAO.delete(learningActivities);
     }
+
+    @Override
+    public List<String> getTypeLearning() {
+        return learningActivitiesDAO.getTypeLearning();
+    }
 }

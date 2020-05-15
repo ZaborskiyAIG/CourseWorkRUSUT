@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.PlacePractice;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -78,4 +79,49 @@ public class InternshipDAOImpl implements InternshipDAO {
         Session session = sessionFactory.getCurrentSession();
         session.delete(internship);
     }
+
+    @Override
+    public void save(Internship internship) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(internship);
+    }
+
+    @Override
+    public void save(PlacePractice placePractice) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(placePractice);
+    }
+
+    @Override
+    public List<PlacePractice> getAllPlace(String offset) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<PlacePractice> query = session.createQuery("select place  from PlacePractice place ",PlacePractice.class );
+
+        query.setFirstResult(Integer.valueOf(offset));
+
+        int quantityUsersForPagination = 25;
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
+        return query.list();
+    }
+
+    @Override
+    public PlacePractice getPlace(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+       return session.get(PlacePractice.class, id);
+    }
+
+    @Override
+    public void updatePlace(PlacePractice placePractice) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(placePractice);
+    }
+
+    @Override
+    public void deletePlace(PlacePractice placePractice) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(placePractice);
+    }
+
+
 }

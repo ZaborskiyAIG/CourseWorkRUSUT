@@ -4,6 +4,7 @@ import com.CourseWorkRusut.DAO.ExamDAO;
 import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DTO.ExamGroupDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
+import com.CourseWorkRusut.DTO.StudentExamsDTO;
 import com.CourseWorkRusut.model.Exam;
 import com.CourseWorkRusut.model.Semester;
 import com.CourseWorkRusut.model.StudyGroup;
@@ -115,6 +116,17 @@ public class ExamServiceImpl implements ExamService {
           //  exam.setMarkExam();
         }
 
+    }
+
+    @Override
+    @Transactional
+    public List<StudentExamsDTO> getStudentExams(Long id, String semester) {
+        return examDAO.getStudentExams(id, semester);
+    }
+
+    @Override
+    public Semester getSemesterByIdStudentAndNumber(Long id, String semester) {
+        return examDAO.getSemesterByIdStudentAndNumber(id, semester);
     }
 
 

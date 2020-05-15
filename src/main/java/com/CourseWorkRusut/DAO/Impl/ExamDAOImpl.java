@@ -3,7 +3,9 @@ package com.CourseWorkRusut.DAO.Impl;
 import com.CourseWorkRusut.DAO.ExamDAO;
 import com.CourseWorkRusut.DTO.ExamGroupDTO;
 import com.CourseWorkRusut.DTO.StudentExamDTO;
+import com.CourseWorkRusut.DTO.StudentExamsDTO;
 import com.CourseWorkRusut.model.Exam;
+import com.CourseWorkRusut.model.Semester;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -117,6 +119,24 @@ public class ExamDAOImpl implements ExamDAO {
         query.setParameter("subject",subject);
         query.setParameter("semester",semester);
         return  query.list();
+    }
+
+    @Override
+    public List<StudentExamsDTO> getStudentExams(Long id, String semester) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select  new com.CourseWorkRusut.DTO.StudentExamsDTO(exam.subject.nameSubject, exam.semester.numberSemester, exam.markExam, exam.typeExam) from Exam exam where exam.semester.student.userId =:Id and  exam.semester.numberSemester =:semester "  );
+        query.setParameter("Id",id);
+        query.setParameter("semester",semester);
+        return  query.list();
+    }
+
+    @Override
+    public Semester getSemesterByIdStudentAndNumber(Long id, String semester) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<Semester> query = session.createQuery("from Semester sem where sem.student.userId =:Id and  sem.numberSemester =:semester ", Semester.class  );
+        query.setParameter("Id",id);
+        query.setParameter("semester",semester);
+        return  query.uniqueResult();
     }
 
 }

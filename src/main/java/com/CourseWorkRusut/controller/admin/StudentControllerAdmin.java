@@ -5,9 +5,11 @@ import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.DTO.UserCounterDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.model.PlacePractice;
 import com.CourseWorkRusut.service.InternshipService;
 import com.CourseWorkRusut.service.LearningActivitiesService;
 import com.CourseWorkRusut.service.StudentService;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,4 +76,31 @@ public class StudentControllerAdmin {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/place_practice")
+    public ResponseEntity addPlacePractice(@RequestBody PlacePractice placePractice){
+            internshipService.save(placePractice);
+            return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/place_practice")
+    public ResponseEntity<List<PlacePractice>> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset){
+        return new ResponseEntity<>(internshipService.getAllPlace(offset), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/place_practice/{id}")
+    public ResponseEntity<PlacePractice> getPlacePractice(@PathVariable Long id){
+        return new ResponseEntity<>(internshipService.getPlace(id), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/place_practice")
+    public ResponseEntity updatePlacePractice(@RequestBody PlacePractice placePractice){
+        internshipService.updatePlace(placePractice);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/place_practice/{id}")
+    public ResponseEntity deletePlacePractice(@PathVariable Long id){
+        internshipService.deletePlace(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
