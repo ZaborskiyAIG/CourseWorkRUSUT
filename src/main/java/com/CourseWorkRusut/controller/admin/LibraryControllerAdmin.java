@@ -121,7 +121,7 @@ public class LibraryControllerAdmin {
         return  response ;
     }
 
-    @DeleteMapping(value = "/library/delete/{id}")
+    @DeleteMapping(value = "/library/{id}")
     public ResponseEntity deleteLibrary(@PathVariable Long id){
 
         libraryService.delete(id);
