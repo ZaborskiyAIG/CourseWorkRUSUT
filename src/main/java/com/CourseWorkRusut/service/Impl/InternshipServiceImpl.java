@@ -73,5 +73,10 @@ public class InternshipServiceImpl implements InternshipService {
          internshipDAO.updatePlace(placePractice);
     }
 
+    @Override
+    public Long counterPlace() {
+        return internshipDAO.counterPlace();
+    }
+
 
 }

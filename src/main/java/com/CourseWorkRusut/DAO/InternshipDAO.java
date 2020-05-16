@@ -24,4 +24,6 @@ public interface InternshipDAO {
 
     void deletePlace(PlacePractice placePractice);
 
+    Long counterPlace();
+
 }

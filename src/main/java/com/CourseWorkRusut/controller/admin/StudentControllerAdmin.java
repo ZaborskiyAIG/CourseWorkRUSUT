@@ -15,7 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -43,11 +45,8 @@ public class StudentControllerAdmin {
 
         UserCounterDTO userDTOS;
         if(search!=null){
-            System.out.println("sss");
             userDTOS = studentService.searchStudentByFullName(search);
         } else {
-            System.out.println("спец"+specialty);
-            System.out.println("group"+group);
             userDTOS = studentService.getStudentsByParameters(offset, group, specialty);
         }
 
@@ -83,8 +82,11 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/place_practice")
-    public ResponseEntity<List<PlacePractice>> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset){
-        return new ResponseEntity<>(internshipService.getAllPlace(offset), HttpStatus.OK);
+    public ResponseEntity<Map> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset){
+        Map<String, Object> map = new HashMap<>();
+        map.put("count",internshipService.counterPlace());
+        map.put("content",internshipService.getAllPlace(offset));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping(value = "/place_practice/{id}")

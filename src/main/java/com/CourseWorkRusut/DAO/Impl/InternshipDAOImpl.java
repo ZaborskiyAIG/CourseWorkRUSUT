@@ -123,5 +123,12 @@ public class InternshipDAOImpl implements InternshipDAO {
         session.delete(placePractice);
     }
 
+    public Long counterPlace() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count (place.placePracticeId) from PlacePractice place ");
+
+        return (Long) query.uniqueResult();
+    }
+
 
 }

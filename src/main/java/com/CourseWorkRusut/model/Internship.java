@@ -18,6 +18,9 @@ public class Internship {
     @Column(name = "internship_scientific_director")
     private String internshipScientificDirector;
 
+    @Column(name = "internship_director")
+    private String internshipDirector;
+
     @ManyToOne
     @JoinColumn(name = "Semester_id")
     private Semester semester;
@@ -83,5 +86,11 @@ public class Internship {
         this.embeddableLearningInternship = embeddableLearningInternship;
     }
 
+    public String getInternshipDirector() {
+        return internshipDirector;
+    }
 
+    public void setInternshipDirector(String internshipDirector) {
+        this.internshipDirector = internshipDirector;
+    }
 }

@@ -24,4 +24,6 @@ public interface InternshipService {
 
     void updatePlace(PlacePractice placePractice);
 
+    Long counterPlace();
+
 }

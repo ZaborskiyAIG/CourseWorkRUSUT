@@ -17,9 +17,6 @@ public class PlacePractice {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "internship_director")
-    private String internshipDirector;
-
     @Column(name = "phone")
     private String phone;
 
@@ -45,14 +42,6 @@ public class PlacePractice {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getInternshipDirector() {
-        return internshipDirector;
-    }
-
-    public void setInternshipDirector(String internshipDirector) {
-        this.internshipDirector = internshipDirector;
     }
 
     public String getPhone() {
