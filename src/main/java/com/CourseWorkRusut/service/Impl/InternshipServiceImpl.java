@@ -74,6 +74,7 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @Transactional
     public Long counterPlace() {
         return internshipDAO.counterPlace();
     }
