@@ -2,6 +2,7 @@ package com.CourseWorkRusut.service;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
 
 import java.util.List;
@@ -25,5 +26,9 @@ public interface InternshipService {
     void updatePlace(PlacePractice placePractice);
 
     Long counterPlace();
+
+    List<Internship> getInternshipsByStudent(Long id);
+
+    List<LearningActivities> getLearningsByStudent(Long id);
 
 }

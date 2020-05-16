@@ -3,6 +3,7 @@ package com.CourseWorkRusut.service.Impl;
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
 import com.CourseWorkRusut.service.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,18 @@ public class InternshipServiceImpl implements InternshipService {
     @Transactional
     public Long counterPlace() {
         return internshipDAO.counterPlace();
+    }
+
+    @Override
+    @Transactional
+    public List<Internship> getInternshipsByStudent(Long id) {
+        return internshipDAO.getInternshipsByStudent(id);
+    }
+
+    @Override
+    @Transactional
+    public List<LearningActivities> getLearningsByStudent(Long id) {
+        return internshipDAO.getLearningsByStudent(id);
     }
 
 

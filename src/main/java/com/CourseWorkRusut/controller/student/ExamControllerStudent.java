@@ -64,11 +64,14 @@ public class ExamControllerStudent {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/internship/{id}")
+    public ResponseEntity<List<Internship>> addInternship(@PathVariable Long id )  {
+        return new ResponseEntity<>(internshipService.getInternshipsByStudent(id), HttpStatus.OK);
+    }
 
-
-//    @GetMapping(value = "/learning-activities")
-//    public ResponseEntity<List<LearningActivitiesDTO>> getActivities()  {
-//        return new ResponseEntity<>(learningActivitiesService.getAllLearningActivities(), HttpStatus.OK);
-//    }
+    @GetMapping(value = "/learning-activities/{id}")
+    public ResponseEntity<List<LearningActivities>> getActivities(@PathVariable Long id )  {
+        return new ResponseEntity<>(internshipService.getLearningsByStudent(id), HttpStatus.OK);
+    }
 
 }

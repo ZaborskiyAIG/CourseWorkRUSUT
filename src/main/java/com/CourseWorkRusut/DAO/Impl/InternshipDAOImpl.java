@@ -3,8 +3,11 @@ package com.CourseWorkRusut.DAO.Impl;
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
 
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
+import com.CourseWorkRusut.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -130,5 +133,22 @@ public class InternshipDAOImpl implements InternshipDAO {
         return (Long) query.uniqueResult();
     }
 
+    @Override
+    public List<Internship> getInternshipsByStudent(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<Internship> query = session.createQuery(" From Internship internship where internship.semester.student.userId =:id  ", Internship.class);
+        query.setParameter("id",id);
+
+        return query.list();
+    }
+
+    @Override
+    public List<LearningActivities> getLearningsByStudent(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<LearningActivities> query = session.createQuery(" From LearningActivities learn where learn.semester.student.userId =:id  ", LearningActivities.class);
+        query.setParameter("id",id);
+
+        return query.list();
+    }
 
 }

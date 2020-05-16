@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
 import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
 
 import java.util.List;
@@ -25,5 +26,9 @@ public interface InternshipDAO {
     void deletePlace(PlacePractice placePractice);
 
     Long counterPlace();
+
+    List<Internship> getInternshipsByStudent(Long id);
+
+    List<LearningActivities> getLearningsByStudent(Long id);
 
 }
