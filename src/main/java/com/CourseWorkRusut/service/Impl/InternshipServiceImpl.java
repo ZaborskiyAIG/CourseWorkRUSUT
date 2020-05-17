@@ -100,11 +100,13 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @Transactional
     public Internship getInternshipsById(Long id) {
         return internshipDAO.getInternshipsById(id);
     }
 
     @Override
+    @Transactional
     public LearningActivities getLearningById(Long id) {
         return internshipDAO.getLearningById(id);
     }
