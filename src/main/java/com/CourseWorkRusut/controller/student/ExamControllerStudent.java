@@ -47,7 +47,7 @@ public class ExamControllerStudent {
 
 
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity addInternship(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, PlacePractice place, TeacherNameDTO dto) throws IOException {
+    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, PlacePractice place, TeacherNameDTO dto) throws IOException {
 
         Internship internship = new Internship();
 
@@ -80,8 +80,8 @@ public class ExamControllerStudent {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity addLearning(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
+    @PostMapping(value = "/learning-activities/{id}",produces = "application/pdf")
+    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
 
         LearningActivities len = new LearningActivities();
 
@@ -105,7 +105,7 @@ public class ExamControllerStudent {
     }
 
     @GetMapping(value = "/internship/{id}")
-    public ResponseEntity<List<InternshipDTO>> addInternship(@PathVariable Long id )  {
+    public ResponseEntity<List<InternshipDTO>> adddInternship(@PathVariable Long id )  {
         return new ResponseEntity<>(internshipService.getInternshipsByStudent(id), HttpStatus.OK);
     }
 
