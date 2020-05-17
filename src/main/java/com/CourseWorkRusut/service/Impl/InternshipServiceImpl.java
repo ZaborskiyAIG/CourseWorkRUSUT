@@ -64,6 +64,12 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
+    public List<PlacePractice> getAllPlace() {
+        return internshipDAO.getAllPlace();
+    }
+
+    @Override
+    @Transactional
     public PlacePractice getPlace(Long id) {
         return internshipDAO.getPlace(id);
     }

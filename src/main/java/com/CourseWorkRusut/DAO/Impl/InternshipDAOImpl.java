@@ -109,6 +109,13 @@ public class InternshipDAOImpl implements InternshipDAO {
     }
 
     @Override
+    public List<PlacePractice> getAllPlace() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<PlacePractice> query = session.createQuery("select place  from PlacePractice place ",PlacePractice.class );
+        return query.list();
+    }
+
+    @Override
     public PlacePractice getPlace(Long id) {
         Session session = sessionFactory.getCurrentSession();
        return session.get(PlacePractice.class, id);

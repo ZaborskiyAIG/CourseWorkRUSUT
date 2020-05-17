@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.TeacherDAO;
+import com.CourseWorkRusut.DTO.TeacherNameDTO;
 import com.CourseWorkRusut.model.*;
 
 import org.hibernate.Session;
@@ -93,6 +94,14 @@ public class TeacherDAOImpl implements TeacherDAO {
         query.setParameter("id",id);
 
         return  query.list();
+    }
+
+    @Override
+    public List<TeacherNameDTO> getFullNameTeachers() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<TeacherNameDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.UserDTO(tech.name, tech.surname, tech.middlename, tech.userId) From Teacher tech ", TeacherNameDTO.class);
+
+        return query.list();
     }
 
 }

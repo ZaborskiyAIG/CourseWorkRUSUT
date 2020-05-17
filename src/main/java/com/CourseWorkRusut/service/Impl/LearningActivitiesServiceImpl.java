@@ -28,6 +28,7 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         LearningActivities learningActivities = new LearningActivities();
         learningActivities.setLearningId(id);
@@ -35,6 +36,7 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     }
 
     @Override
+    @Transactional
     public List<String> getTypeLearning() {
         return learningActivitiesDAO.getTypeLearning();
     }

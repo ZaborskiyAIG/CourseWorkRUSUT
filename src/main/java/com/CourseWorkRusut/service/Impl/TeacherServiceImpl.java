@@ -203,6 +203,12 @@ public class TeacherServiceImpl implements TeacherService {
         }
     }
 
+    @Override
+    @Transactional
+    public List<TeacherNameDTO> getFullNameTeachers() {
+        return teacherDAO.getFullNameTeachers();
+    }
+
 
 //    @Override
 //    @Transactional

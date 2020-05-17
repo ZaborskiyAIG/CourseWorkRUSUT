@@ -21,6 +21,8 @@ public interface InternshipService {
 
     List<PlacePractice> getAllPlace(String offset);
 
+    List<PlacePractice> getAllPlace();
+
     PlacePractice getPlace(Long id);
 
     void updatePlace(PlacePractice placePractice);
