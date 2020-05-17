@@ -47,12 +47,11 @@ public class ExamControllerStudent {
 
 
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, PlacePractice place, TeacherNameDTO dto) throws IOException {
+    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, PlacePractice place, TeacherNameDTO dto) throws IOException {
 
         Internship internship = new Internship();
 
         EmbeddableLearningInternship emb = new EmbeddableLearningInternship();
-        emb.setMark(mark);
 
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         emb.setReport(bytes);
@@ -81,12 +80,12 @@ public class ExamControllerStudent {
     }
 
     @PostMapping(value = "/learning-activities/{id}",produces = "application/pdf")
-    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
+    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
 
         LearningActivities len = new LearningActivities();
 
         EmbeddableLearningInternship emb = new EmbeddableLearningInternship();
-        emb.setMark(mark);
+       // emb.setMark(mark);
 
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         emb.setReport(bytes);
