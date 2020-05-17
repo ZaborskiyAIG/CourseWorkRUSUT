@@ -1,6 +1,9 @@
 package com.CourseWorkRusut.controller.teacher;
 
+import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.*;
+import com.CourseWorkRusut.model.Internship;
+import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +41,12 @@ public class StudentControllerTeacher {
 
     @Autowired
     private StudyGroupService studyGroupService;
+
+    @Autowired
+    private InternshipService internshipService;
+
+    @Autowired
+    private LearningActivitiesService learningActivitiesService;
 
 
     @GetMapping(value = "/classifiers")
@@ -106,4 +115,19 @@ public class StudentControllerTeacher {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PutMapping(value = "/internship/{id}")
+    public ResponseEntity updateInternsip(@PathVariable Long id, @RequestBody String mark) {
+        Internship internship = internshipService.getInternshipsById(id);
+        internship.getEmbeddableLearningInternship().setMark(mark);
+        internshipService.update(internship);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/learning-activities/{id}")
+    public ResponseEntity updateLearn(@PathVariable Long id, @RequestBody String mark) {
+        LearningActivities learningActivities = internshipService.getLearningById(id);
+        learningActivities.getEmbeddableLearningInternship().setMark(mark);
+        internshipService.update(learningActivities);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -111,5 +111,17 @@ public class InternshipServiceImpl implements InternshipService {
         return internshipDAO.getLearningById(id);
     }
 
+    @Override
+    @Transactional
+    public void update(Internship internship) {
+        internshipDAO.update(internship);
+    }
+
+    @Override
+    @Transactional
+    public void update(LearningActivities learningActivities) {
+        internshipDAO.update(learningActivities);
+    }
+
 
 }

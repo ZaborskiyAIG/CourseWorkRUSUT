@@ -38,5 +38,9 @@ public interface InternshipService {
 
     LearningActivities getLearningById(Long id);
 
+    void update(Internship internship);
+
+    void update(LearningActivities learningActivities);
+
 
 }

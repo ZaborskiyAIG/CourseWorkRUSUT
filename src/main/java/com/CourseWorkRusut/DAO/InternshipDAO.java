@@ -36,6 +36,10 @@ public interface InternshipDAO {
 
     Internship getInternshipsById(Long id);
 
+    void update(Internship internship);
+
+    void update(LearningActivities learningActivities);
+
     LearningActivities getLearningById(Long id);
 
 }
