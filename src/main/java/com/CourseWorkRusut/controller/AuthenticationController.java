@@ -115,7 +115,7 @@ public class AuthenticationController {
 
         User user = userService.getUserrById(id);
 
-        if(!bCryptPasswordEncoder.matches( dto.getOldPassword(),user.getPassword())){
+        if(bCryptPasswordEncoder.matches(dto.getOldPassword(), user.getPassword())){
             user.setPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
             userService.update(user);
             return new ResponseEntity( HttpStatus.OK);
