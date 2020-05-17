@@ -15,9 +15,13 @@ public interface UserService {
 
     UserDTO update(UserDTO userDTO);
 
+    void update(User user);
+
     User getUserByLogin(String login);  //подгружать только юзера и его роль
 
     UserDTO getUserById(Long id);
+
+    User getUserrById(Long id);
 
     UserDTO getUserByLog(String login);
 

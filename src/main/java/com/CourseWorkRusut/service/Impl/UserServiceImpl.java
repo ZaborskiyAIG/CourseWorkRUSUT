@@ -88,6 +88,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDTO(modifiedUser);
     }
 
+    @Override
+    @Transactional
+    public void update(User user) {
+        userDAO.update(user);
+    }
+
 
     @Override
     @Transactional
@@ -116,6 +122,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDTO;
+    }
+
+    @Override
+    @Transactional
+    public User getUserrById(Long id) {
+        return userDAO.getUserById(id);
     }
 
     @Override

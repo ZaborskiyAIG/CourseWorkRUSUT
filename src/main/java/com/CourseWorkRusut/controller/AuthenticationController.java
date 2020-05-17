@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.PasswordDTO;
 import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
@@ -107,5 +108,19 @@ public class AuthenticationController {
     @PutMapping(value = "/self")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/self/password/{id}")
+    public ResponseEntity updatePassword(@PathVariable Long id, @RequestBody PasswordDTO dto ){
+
+        User user = userService.getUserrById(id);
+
+        if(bCryptPasswordEncoder.matches( dto.getOldPassword(),user.getPassword())){
+            user.setPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
+            userService.update(user);
+            return new ResponseEntity( HttpStatus.OK);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad password");
     }
 }

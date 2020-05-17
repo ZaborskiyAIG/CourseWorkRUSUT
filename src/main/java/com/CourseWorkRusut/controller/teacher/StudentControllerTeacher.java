@@ -116,7 +116,7 @@ public class StudentControllerTeacher {
     }
 
     @PutMapping(value = "/internship/{id}")
-    public ResponseEntity updateInternsip(@PathVariable Long id, @RequestBody String mark) {
+    public ResponseEntity updateInternsip(@PathVariable Long id, @RequestParam String mark) {
         Internship internship = internshipService.getInternshipsById(id);
         internship.getEmbeddableLearningInternship().setMark(mark);
         internshipService.update(internship);
@@ -124,7 +124,7 @@ public class StudentControllerTeacher {
     }
 
     @PutMapping(value = "/learning-activities/{id}")
-    public ResponseEntity updateLearn(@PathVariable Long id, @RequestBody String mark) {
+    public ResponseEntity updateLearn(@PathVariable Long id, @RequestParam String mark) {
         LearningActivities learningActivities = internshipService.getLearningById(id);
         learningActivities.getEmbeddableLearningInternship().setMark(mark);
         internshipService.update(learningActivities);
