@@ -1,5 +1,6 @@
 package com.CourseWorkRusut.controller;
 
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
 import com.CourseWorkRusut.service.UserService;
@@ -101,5 +102,10 @@ public class AuthenticationController {
     @GetMapping(value = "/self/{login}")
     public ResponseEntity getMyself(@PathVariable String login){
         return new ResponseEntity<>(userService.getUserByLog(login), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/self")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ){
+        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 }
