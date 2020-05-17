@@ -47,7 +47,7 @@ public class ExamControllerStudent {
 
 
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher) throws IOException {
+    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher, String placeDirector) throws IOException {
 
         Internship internship = new Internship();
 
@@ -71,13 +71,15 @@ public class ExamControllerStudent {
         teac.setUserId(teacher);
         internship.setTeacher(teac);
 
+        internship.setInternshipDirector(placeDirector);
+
         internshipService.save(internship);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value = "/learning-activities/{id}",produces = "application/pdf")
-    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
+    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long teacher, String type) throws IOException {
 
         LearningActivities len = new LearningActivities();
 
@@ -93,9 +95,9 @@ public class ExamControllerStudent {
         len.setLearningActivitiesType(learningActivitiesService.getLearningByType(type));
         len.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
 
-        Teacher teacher = new Teacher();
-        teacher.setUserId(dto.getId());
-        len.setTeacher(teacher);
+        Teacher teac = new Teacher();
+        teac.setUserId(teacher);
+        len.setTeacher(teac);
 
         return new ResponseEntity(HttpStatus.OK);
     }
