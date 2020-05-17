@@ -119,8 +119,10 @@ public class AuthenticationController {
             user.setPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
             userService.update(user);
             return new ResponseEntity( HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad password");
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad password");
+
     }
 }
