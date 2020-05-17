@@ -99,5 +99,15 @@ public class InternshipServiceImpl implements InternshipService {
         return internshipDAO.getLearningsByStudent(id);
     }
 
+    @Override
+    public Internship getInternshipsById(Long id) {
+        return internshipDAO.getInternshipsById(id);
+    }
+
+    @Override
+    public LearningActivities getLearningById(Long id) {
+        return internshipDAO.getLearningById(id);
+    }
+
 
 }

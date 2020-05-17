@@ -34,4 +34,9 @@ public interface InternshipService {
 
     List<LearningActivitiesDTO> getLearningsByStudent(Long id);
 
+    Internship getInternshipsById(Long id);
+
+    LearningActivities getLearningById(Long id);
+
+
 }

@@ -237,4 +237,16 @@ public class InternshipDAOImpl implements InternshipDAO {
         return query.list();
     }
 
+    @Override
+    public Internship getInternshipsById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Internship.class,id);
+    }
+
+    @Override
+    public LearningActivities getLearningById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(LearningActivities.class,id);
+    }
+
 }

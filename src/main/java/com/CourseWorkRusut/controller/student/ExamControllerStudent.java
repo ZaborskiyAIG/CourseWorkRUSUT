@@ -8,12 +8,19 @@ import com.CourseWorkRusut.service.LearningActivitiesService;
 import com.CourseWorkRusut.service.TeacherService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @CrossOrigin
@@ -117,5 +124,54 @@ public class ExamControllerStudent {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/internship/file/{id}", produces = "application/pdf")
+    public ResponseEntity<InputStreamResource> internship(@PathVariable Long id) throws UnsupportedEncodingException {
+
+        Internship internship = internshipService.getInternshipsById(id) ;
+        InputStream inputStream = new ByteArrayInputStream(internship.getEmbeddableLearningInternship().getReport());
+        String fileName = internship.getEmbeddableLearningInternship().getTopic();
+        HttpHeaders headers = new HttpHeaders();
+
+
+        headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));
+        String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
+        headers.add("Access-Control-Allow-Headers", "Content-Type");
+        headers.add("Content-Disposition", "attachment; filename=" + filen +".pdf");
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
+
+        ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
+                new InputStreamResource(inputStream), headers, HttpStatus.OK);
+
+        return  response ;
+    }
+
+    @GetMapping(value = "/learning-activities/file/{id}", produces = "application/pdf")
+    public ResponseEntity<InputStreamResource> learningActivities(@PathVariable Long id) throws UnsupportedEncodingException {
+
+        LearningActivities len = internshipService.getLearningById(id);
+        InputStream inputStream = new ByteArrayInputStream(len.getEmbeddableLearningInternship().getReport());
+        String fileName = len.getEmbeddableLearningInternship().getTopic();
+        HttpHeaders headers = new HttpHeaders();
+
+
+        headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));
+        String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
+        headers.add("Access-Control-Allow-Headers", "Content-Type");
+        headers.add("Content-Disposition", "attachment; filename=" + filen +".pdf");
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
+
+        ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
+                new InputStreamResource(inputStream), headers, HttpStatus.OK);
+
+        return  response ;
+    }
+
 
 }
