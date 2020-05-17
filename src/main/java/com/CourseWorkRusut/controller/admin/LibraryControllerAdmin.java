@@ -90,25 +90,15 @@ public class LibraryControllerAdmin {
     public ResponseEntity<InputStreamResource> library(@PathVariable Long id) throws UnsupportedEncodingException {
 
         Library library = libraryService.getLibraryById(id);
-
         InputStream inputStream = new ByteArrayInputStream(library.getBook());
-
         String fileName = library.getName();
-
         HttpHeaders headers = new HttpHeaders();
 
-     //   List<MediaType> type = new ArrayList<>();
-      //  type.add(MediaType.parseMediaType("application/pdf"));
-        //type.add(MediaType.parseMediaType("UTF-8"));
-
         headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));                    //сделать фильтр
-      //  headers.setAccept(type);
 
-            String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
-
+        String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
 
         headers.add("Access-Control-Allow-Headers", "Content-Type");
-      //  headers.add("Content-Disposition", "attachment; filename*=\"UTF-8'" + filen + "\""+".pdf");
         headers.add("Content-Disposition", "attachment; filename=" + filen +".pdf");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");

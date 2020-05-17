@@ -3,11 +3,13 @@ package com.CourseWorkRusut.DAO.Impl;
 import com.CourseWorkRusut.DAO.LearningActivitiesDAO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.LearningActivities;
+import com.CourseWorkRusut.model.LearningActivitiesType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -76,5 +78,13 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
         Session session = this.sessionFactory.getCurrentSession();
         Query<String> query = session.createQuery("select l.nameType from LearningActivitiesType l", String.class );
         return   query.list();
+    }
+
+    @Override
+    public LearningActivitiesType getLearningByType(String type) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" from LearningActivitiesType l where l.learningActivitiesType.nameType=:typ" );
+        query.setParameter("typ",type);
+        return (LearningActivitiesType) query.uniqueResult();
     }
 }

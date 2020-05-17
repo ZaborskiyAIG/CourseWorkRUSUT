@@ -3,6 +3,7 @@ package com.CourseWorkRusut.service.Impl;
 import com.CourseWorkRusut.DAO.LearningActivitiesDAO;
 import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.LearningActivities;
+import com.CourseWorkRusut.model.LearningActivitiesType;
 import com.CourseWorkRusut.service.LearningActivitiesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     @Transactional
     public List<String> getTypeLearning() {
         return learningActivitiesDAO.getTypeLearning();
+    }
+
+    @Override
+    @Transactional
+    public LearningActivitiesType getLearningByType(String type) {
+        return learningActivitiesDAO.getLearningByType(type);
     }
 }

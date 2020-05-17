@@ -1,7 +1,6 @@
 package com.CourseWorkRusut.controller.student;
 
-import com.CourseWorkRusut.DTO.ExamGroupDTO;
-import com.CourseWorkRusut.DTO.StudentExamsDTO;
+import com.CourseWorkRusut.DTO.*;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.ExamService;
 import com.CourseWorkRusut.service.InternshipService;
@@ -41,7 +40,7 @@ public class ExamControllerStudent {
 
 
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity addInternship(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, PlacePractice place ) throws IOException {
+    public ResponseEntity addInternship(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, PlacePractice place, TeacherNameDTO dto) throws IOException {
 
         Internship internship = new Internship();
 
@@ -65,18 +64,46 @@ public class ExamControllerStudent {
 
         internship.setPlacePractice(place);
 
+        Teacher teacher = new Teacher();
+        teacher.setUserId(dto.getId());
+        internship.setTeacher(teacher);
+
         internshipService.save(internship);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/internship/{id}",produces = "application/pdf")
+    public ResponseEntity addLearning(@PathVariable Long id, @RequestParam MultipartFile file, String mark, String topic, String semester, TeacherNameDTO dto, String type) throws IOException {
+
+        LearningActivities len = new LearningActivities();
+
+        EmbeddableLearningInternship emb = new EmbeddableLearningInternship();
+        emb.setMark(mark);
+
+        byte[] bytes = IOUtils.toByteArray(file.getInputStream());
+        emb.setReport(bytes);
+
+        emb.setTopic(topic);
+
+        len.setEmbeddableLearningInternship(emb);
+        len.setLearningActivitiesType(learningActivitiesService.getLearningByType(type));
+        len.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
+
+        Teacher teacher = new Teacher();
+        teacher.setUserId(dto.getId());
+        len.setTeacher(teacher);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping(value = "/internship/{id}")
-    public ResponseEntity<List<Internship>> addInternship(@PathVariable Long id )  {
+    public ResponseEntity<List<InternshipDTO>> addInternship(@PathVariable Long id )  {
         return new ResponseEntity<>(internshipService.getInternshipsByStudent(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/learning-activities/{id}")
-    public ResponseEntity<List<LearningActivities>> getActivities(@PathVariable Long id )  {
+    public ResponseEntity<List<LearningActivitiesDTO>> getActivities(@PathVariable Long id )  {
         return new ResponseEntity<>(internshipService.getLearningsByStudent(id), HttpStatus.OK);
     }
 

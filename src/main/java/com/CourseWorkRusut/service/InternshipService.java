@@ -1,6 +1,7 @@
 package com.CourseWorkRusut.service;
 
 import com.CourseWorkRusut.DTO.InternshipDTO;
+import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.Internship;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
@@ -29,8 +30,8 @@ public interface InternshipService {
 
     Long counterPlace();
 
-    List<Internship> getInternshipsByStudent(Long id);
+    List<InternshipDTO> getInternshipsByStudent(Long id);
 
-    List<LearningActivities> getLearningsByStudent(Long id);
+    List<LearningActivitiesDTO> getLearningsByStudent(Long id);
 
 }

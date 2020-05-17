@@ -2,6 +2,7 @@ package com.CourseWorkRusut.service.Impl;
 
 import com.CourseWorkRusut.DAO.InternshipDAO;
 import com.CourseWorkRusut.DTO.InternshipDTO;
+import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.Internship;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;
@@ -88,13 +89,13 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
-    public List<Internship> getInternshipsByStudent(Long id) {
+    public List<InternshipDTO> getInternshipsByStudent(Long id) {
         return internshipDAO.getInternshipsByStudent(id);
     }
 
     @Override
     @Transactional
-    public List<LearningActivities> getLearningsByStudent(Long id) {
+    public List<LearningActivitiesDTO> getLearningsByStudent(Long id) {
         return internshipDAO.getLearningsByStudent(id);
     }
 
