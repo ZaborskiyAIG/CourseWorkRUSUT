@@ -125,6 +125,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    @Transactional
     public Semester getSemesterByIdStudentAndNumber(Long id, String semester) {
         return examDAO.getSemesterByIdStudentAndNumber(id, semester);
     }
