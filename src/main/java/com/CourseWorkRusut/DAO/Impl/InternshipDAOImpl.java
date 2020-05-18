@@ -280,7 +280,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "internship.embeddableLearningInternship.mark, " +
                         "internship.semester.student.userId, " +
                         "internship.placePractice.placePracticeId, " +
-                        "internship.embeddableLearningInternship.topic, internship.student.name, internship.student.surname, internship.student.middlename " +
+                        "internship.embeddableLearningInternship.topic, internship.semester.student.name, internship.semester.student.surname, internship.semester.student.middlename " +
                         "From Internship internship where internship.teacher.userId =:id")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
@@ -332,7 +332,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "learningActivities.teacher.middlename," +
                         "learningActivities.embeddableLearningInternship.mark," +
                         "learningActivities.semester.student.userId, " +
-                        "learningActivities.embeddableLearningInternship.topic + learningActivities.student.name, learningActivities.student.surname, learningActivities.student.middlename  From LearningActivities learningActivities where learningActivities.semester.student.userId =:id")
+                        "learningActivities.embeddableLearningInternship.topic + learningActivities.semester.student.name, learningActivities.semester.student.surname, learningActivities.semester.student.middlename  From LearningActivities learningActivities where learningActivities.semester.student.userId =:id")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
