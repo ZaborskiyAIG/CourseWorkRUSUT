@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LearningActivitiesDAO {
 
-    List<LearningActivitiesDTO> getAllLearningActivities();
+    List<LearningActivitiesDTO> getAllLearningActivities(String offset);
 
     void delete(LearningActivities learningActivities);
 

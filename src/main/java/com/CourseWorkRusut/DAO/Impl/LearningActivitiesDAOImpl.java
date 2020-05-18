@@ -24,7 +24,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
 
     @Override
     @Deprecated
-    public List<LearningActivitiesDTO> getAllLearningActivities() {
+    public List<LearningActivitiesDTO> getAllLearningActivities(String offset) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(
                 "select " +
@@ -62,6 +62,10 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                         return list;
                     }
                 });
+        query.setFirstResult(Integer.valueOf(offset));
+
+        int quantityUsersForPagination = 25;
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
 
 
         return query.getResultList();

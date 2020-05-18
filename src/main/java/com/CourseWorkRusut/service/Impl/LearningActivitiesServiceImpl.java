@@ -25,7 +25,7 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     @Override
     @Transactional
     public List<LearningActivitiesDTO> getAllLearningActivities(String offset) {
-        return learningActivitiesDAO.getAllLearningActivities();
+        return learningActivitiesDAO.getAllLearningActivities(offset);
     }
 
     @Override

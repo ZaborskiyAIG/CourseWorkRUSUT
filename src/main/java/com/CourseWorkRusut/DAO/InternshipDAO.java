@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface InternshipDAO {
 
-    List<InternshipDTO> getAllInternships();
+    List<InternshipDTO> getAllInternships(String offset);
 
     void delete(Internship internship);
 

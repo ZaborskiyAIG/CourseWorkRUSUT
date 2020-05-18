@@ -27,7 +27,7 @@ public class InternshipServiceImpl implements InternshipService {
     @Override
     @Transactional
     public List<InternshipDTO> getAllInternships(String offset) {
-        return internshipDAO.getAllInternships();
+        return internshipDAO.getAllInternships(offset);
     }
 
     @Override

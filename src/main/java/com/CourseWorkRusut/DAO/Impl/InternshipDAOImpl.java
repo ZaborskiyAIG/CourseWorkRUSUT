@@ -31,7 +31,7 @@ public class InternshipDAOImpl implements InternshipDAO {
 
     @Override
     @Deprecated
-    public List<InternshipDTO> getAllInternships() {
+    public List<InternshipDTO> getAllInternships(String offset) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(
                 "select " +
@@ -74,6 +74,10 @@ public class InternshipDAOImpl implements InternshipDAO {
                     }
                 });
 
+        query.setFirstResult(Integer.valueOf(offset));
+
+        int quantityUsersForPagination = 25;
+        query.setMaxResults(Integer.valueOf(offset)+quantityUsersForPagination);
 
         return query.getResultList();
     }
