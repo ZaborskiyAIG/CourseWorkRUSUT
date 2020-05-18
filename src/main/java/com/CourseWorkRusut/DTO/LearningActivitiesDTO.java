@@ -16,6 +16,8 @@ public class LearningActivitiesDTO {
 
     private String topic;
 
+    private String student;
+
     public LearningActivitiesDTO(Long learningActivitiesId,
                                  String nameType,
                                  String numberSemester,
@@ -32,10 +34,35 @@ public class LearningActivitiesDTO {
         this.topic =topic;
     }
 
+    public LearningActivitiesDTO(Long learningActivitiesId,
+                                 String nameType,
+                                 String numberSemester,
+                                 String nameTeacher,
+                                 String mark,
+                                 Long userId,
+                                 String topic,
+                                 String student) {
+        this.learningActivitiesId = learningActivitiesId;
+        this.mark = mark;
+        this.numberSemester = numberSemester;
+        this.nameType = nameType;
+        this.nameTeacher = nameTeacher;
+        this.userId = userId;
+        this.topic =topic;
+        this.student=student;
+    }
+
     public LearningActivitiesDTO(){
 
     }
 
+    public String getStudent() {
+        return student;
+    }
+
+    public void setStudent(String student) {
+        this.student = student;
+    }
 
     public Long getUserId() {
         return userId;

@@ -26,7 +26,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
-    public List<InternshipDTO> getAllInternships() {
+    public List<InternshipDTO> getAllInternships(String offset) {
         return internshipDAO.getAllInternships();
     }
 
@@ -121,6 +121,18 @@ public class InternshipServiceImpl implements InternshipService {
     @Transactional
     public void update(LearningActivities learningActivities) {
         internshipDAO.update(learningActivities);
+    }
+
+    @Override
+    @Transactional
+    public List<InternshipDTO> getInternshipsByTeacher(Long id) {
+        return internshipDAO.getInternshipsByTeacher(id);
+    }
+
+    @Override
+    @Transactional
+    public List<LearningActivitiesDTO> getLearningsByTeacher(Long id) {
+        return internshipDAO.getLearningsByTeacher(id);
     }
 
 

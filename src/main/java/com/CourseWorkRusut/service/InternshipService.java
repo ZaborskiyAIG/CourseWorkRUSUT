@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface InternshipService {
 
-    List<InternshipDTO> getAllInternships();
+    List<InternshipDTO> getAllInternships(String offset);
 
     void delete(Long id);
 
@@ -42,5 +42,8 @@ public interface InternshipService {
 
     void update(LearningActivities learningActivities);
 
+    List<InternshipDTO> getInternshipsByTeacher(Long id);
+
+    List<LearningActivitiesDTO> getLearningsByTeacher(Long id);
 
 }

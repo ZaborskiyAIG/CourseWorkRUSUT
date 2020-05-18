@@ -22,6 +22,8 @@ public class InternshipDTO {
 
     private String topic;
 
+    private String student;
+
     public InternshipDTO(Long internshipId,
                          String director,
                          String numberSemester,
@@ -38,6 +40,27 @@ public class InternshipDTO {
         this.userId = userId;
         this.placePracticeId= placePracticeId;
         this.topic = topic;
+
+    }
+
+    public InternshipDTO(Long internshipId,
+                         String director,
+                         String numberSemester,
+                         String nameTeacher,
+                         String mark,
+                         Long userId,
+                         Long placePracticeId,
+                         String topic,
+                         String student) {
+        this.internshipId = internshipId;
+        this.director = director;
+        this.numberSemester = numberSemester;
+        this.nameTeacher = nameTeacher;
+        this.mark = mark;
+        this.userId = userId;
+        this.placePracticeId= placePracticeId;
+        this.topic = topic;
+        this.student = student;
     }
 
     public InternshipDTO() {
@@ -105,5 +128,13 @@ public class InternshipDTO {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public String getStudent() {
+        return student;
+    }
+
+    public void setStudent(String student) {
+        this.student = student;
     }
 }

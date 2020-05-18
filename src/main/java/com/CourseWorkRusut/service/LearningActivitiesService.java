@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LearningActivitiesService {
 
-    List<LearningActivitiesDTO> getAllLearningActivities();
+    List<LearningActivitiesDTO> getAllLearningActivities(String offset);
 
     void delete(Long id);
 

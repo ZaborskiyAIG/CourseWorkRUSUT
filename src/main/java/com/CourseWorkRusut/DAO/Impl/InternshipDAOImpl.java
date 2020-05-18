@@ -261,4 +261,106 @@ public class InternshipDAOImpl implements InternshipDAO {
         return session.get(LearningActivities.class,id);
     }
 
+    @Override
+    @Deprecated
+    public List<InternshipDTO> getInternshipsByTeacher(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(
+                "select " +
+                        "internship.internshipId, " +
+                        "internship.internshipScientificDirector, " +
+                        "internship.semester.numberSemester, " +
+                        "internship.teacher.name, " +
+                        "internship.teacher.surname, " +
+                        "internship.teacher.middlename, " +
+                        "internship.embeddableLearningInternship.mark, " +
+                        "internship.semester.student.userId, " +
+                        "internship.placePractice.placePracticeId, " +
+                        "internship.embeddableLearningInternship.topic, internship.teacher.name, internship.teacher.surname, internship.teacher.middlename " +
+                        "From Internship internship where internship.teacher.userId =:id")
+                .unwrap(Query.class)
+                .setResultTransformer(new ResultTransformer() {
+
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+
+                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+
+                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+
+                        InternshipDTO internshipDTO = new InternshipDTO(
+                                (Long)objects[0],
+                                (String)objects[1],
+                                (String)objects[2],
+                                teacher,
+                                (String)objects[6],
+                                (Long) objects[7],
+                                (Long) objects[8],
+                                (String) objects[9],
+                                student
+
+                        );
+                        return internshipDTO;
+                    }
+
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                });
+
+        query.setParameter("id",id);
+
+        return query.list();
+    }
+
+    @Override
+    @Deprecated
+    public List<LearningActivitiesDTO> getLearningsByTeacher(Long id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(
+                "select " +
+                        "learningActivities.learningId," +
+                        "learningActivities.learningActivitiesType.nameType," +
+                        "learningActivities.semester.numberSemester," +
+                        "learningActivities.teacher.name," +
+                        "learningActivities.teacher.surname," +
+                        "learningActivities.teacher.middlename," +
+                        "learningActivities.embeddableLearningInternship.mark," +
+                        "learningActivities.semester.student.userId, " +
+                        "learningActivities.embeddableLearningInternship.topic + learningActivities.student.name, learningActivities.student.surname, learningActivities.student.middlename  From LearningActivities learningActivities where learningActivities.semester.student.userId =:id")
+                .unwrap(Query.class)
+                .setResultTransformer(new ResultTransformer() {
+
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+
+                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+
+                        String student =  objects[9]+" "+objects[10]+" "+objects[11];
+
+                        LearningActivitiesDTO learningActivitiesDTO = new LearningActivitiesDTO(
+                                (Long)objects[0],
+                                (String)objects[1],
+                                (String)objects[2],
+                                teacher,
+                                (String)objects[6],
+                                (Long)objects[7],
+                                (String) objects[8],
+                                student
+                        );
+                        return learningActivitiesDTO;
+                    }
+
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                });
+
+        query.setParameter("id",id);
+
+        return query.list();
+    }
+
 }

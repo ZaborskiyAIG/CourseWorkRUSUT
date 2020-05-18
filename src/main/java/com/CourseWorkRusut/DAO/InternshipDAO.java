@@ -42,4 +42,8 @@ public interface InternshipDAO {
 
     LearningActivities getLearningById(Long id);
 
+    List<InternshipDTO> getInternshipsByTeacher(Long id);
+
+    List<LearningActivitiesDTO> getLearningsByTeacher(Long id);
+
 }

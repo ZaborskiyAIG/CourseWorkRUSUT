@@ -37,16 +37,11 @@ public class StudentControllerTeacher {
 
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private StudyGroupService studyGroupService;
 
     @Autowired
     private InternshipService internshipService;
 
-    @Autowired
-    private LearningActivitiesService learningActivitiesService;
 
 
     @GetMapping(value = "/classifiers")
@@ -129,5 +124,15 @@ public class StudentControllerTeacher {
         learningActivities.getEmbeddableLearningInternship().setMark(mark);
         internshipService.update(learningActivities);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/internship/{id}")
+    public ResponseEntity<List<InternshipDTO>> adddInternship(@PathVariable Long id )  {
+        return new ResponseEntity<>(internshipService.getInternshipsByTeacher(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/learning-activities/{id}")
+    public ResponseEntity<List<LearningActivitiesDTO>> getActivities(@PathVariable Long id )  {
+        return new ResponseEntity<>(internshipService.getLearningsByTeacher(id), HttpStatus.OK);
     }
 }
