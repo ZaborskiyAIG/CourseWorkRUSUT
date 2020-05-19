@@ -242,7 +242,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                     }
                 });
 
-      //  query.setParameter("id",id);
+       query.setParameter("id",id);
 
         return query.list();
     }
