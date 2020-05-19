@@ -28,10 +28,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @CrossOrigin
@@ -81,8 +78,17 @@ public class LibraryControllerAdmin {
     }
 
     @GetMapping(value = "/library")
-    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
-         return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
+    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset, @RequestParam(required = false) String search)  {
+
+        LibraryCounterDTO library;
+
+        if(search!=null){
+            library = libraryService.getAllLibrary(offset);
+        } else {
+            library = libraryService.getAllLibrary(offset, search);
+        }
+
+         return new ResponseEntity<>(library, HttpStatus.OK);
     }
 
 

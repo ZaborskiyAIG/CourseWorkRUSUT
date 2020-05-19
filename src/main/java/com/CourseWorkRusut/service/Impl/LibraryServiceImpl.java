@@ -45,6 +45,16 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     @Transactional
+    public LibraryCounterDTO getAllLibrary(String offset, String search) {
+        List<LibraryDTO> libraryDTOS =  libraryDAO.getLibraryBySearch(offset, search);
+
+        Long count = libraryDAO.countLibraryBySearch(search);
+
+        return new LibraryCounterDTO(libraryDTOS,count);
+    }
+
+    @Override
+    @Transactional
     public void save(Library library) {
         libraryDAO.save(library);
     }

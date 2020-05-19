@@ -17,4 +17,8 @@ public interface LibraryDAO {
     void save(Library library);
 
     void delete(Library library);
+
+    List getLibraryBySearch(String offset, String search);
+
+    Long countLibraryBySearch(String search);
 }

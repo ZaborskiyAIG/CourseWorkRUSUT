@@ -96,7 +96,6 @@ public class TeacherServiceImpl implements TeacherService {
         return new UserCounterDTO(userDTOS,counter);
     }
 
-
     @Override
     @Transactional
     public List<SubjectTeacherGroupDTO> getSubjectTeacherGroupDTO(Long teacherId) {
