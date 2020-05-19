@@ -18,4 +18,6 @@ public interface LearningActivitiesService {
 
     Long counterLearning();
 
+    void save(LearningActivities learningActivities);
+
 }

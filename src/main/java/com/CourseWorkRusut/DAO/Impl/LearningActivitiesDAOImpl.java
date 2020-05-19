@@ -99,4 +99,10 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
 
         return (Long) query.uniqueResult();
     }
+
+    @Override
+    public void save(LearningActivities learningActivities) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(learningActivities);
+    }
 }

@@ -99,6 +99,8 @@ public class ExamControllerStudent {
         teac.setUserId(teacher);
         len.setTeacher(teac);
 
+        learningActivitiesService.save(len);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 

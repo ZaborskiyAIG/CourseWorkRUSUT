@@ -53,4 +53,10 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     public Long counterLearning() {
         return learningActivitiesDAO.counterLearning();
     }
+
+    @Override
+    @Transactional
+    public void save(LearningActivities learningActivities) {
+        learningActivitiesDAO.save(learningActivities);
+    }
 }
