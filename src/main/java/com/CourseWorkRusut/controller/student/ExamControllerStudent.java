@@ -92,7 +92,12 @@ public class ExamControllerStudent {
         emb.setTopic(topic);
 
         len.setEmbeddableLearningInternship(emb);
-        len.setLearningActivitiesType(learningActivitiesService.getLearningByType(type));
+
+        LearningActivitiesType ler = learningActivitiesService.getLearningByType(type);
+
+        System.out.println(ler.getLearningActivitiesIdType());
+
+        len.setLearningActivitiesType(ler);
         len.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
 
         Teacher teac = new Teacher();
@@ -124,7 +129,5 @@ public class ExamControllerStudent {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
 
 }
