@@ -95,7 +95,7 @@ public class ExamControllerStudent {
 
         LearningActivitiesType ler = learningActivitiesService.getLearningByType(type);
 
-        System.out.println(ler.getLearningActivitiesIdType());
+       // System.out.println(ler.getLearningActivitiesIdType());
 
         len.setLearningActivitiesType(ler);
         len.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
