@@ -87,7 +87,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
     @Override
     public LearningActivitiesType getLearningByType(String type) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" from LearningActivitiesType l where l.learningActivitiesType.nameType=:typ" );
+        Query query = session.createQuery(" from LearningActivitiesType l where l.nameType=:typ" );
         query.setParameter("typ",type);
         return (LearningActivitiesType) query.uniqueResult();
     }
