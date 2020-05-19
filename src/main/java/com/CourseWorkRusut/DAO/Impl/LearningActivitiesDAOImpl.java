@@ -95,7 +95,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
     @Override
     public Long counterLearning() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning ", );
+        Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning ");
 
         return (Long) query.uniqueResult();
     }
