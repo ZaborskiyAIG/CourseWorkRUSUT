@@ -209,7 +209,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "learningActivities.teacher.middlename," +
                         "learningActivities.embeddableLearningInternship.mark," +
                         "learningActivities.semester.student.userId, " +
-                        "learningActivities.embeddableLearningInternship.topic   From LearningActivities learningActivities where learningActivities..semester.student.userId =:id")
+                        "learningActivities.embeddableLearningInternship.topic   From LearningActivities learningActivities where learningActivities.semester.student.userId =:id")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
