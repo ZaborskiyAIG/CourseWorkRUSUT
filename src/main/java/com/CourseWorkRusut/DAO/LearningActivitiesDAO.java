@@ -15,4 +15,6 @@ public interface LearningActivitiesDAO {
     List<String> getTypeLearning();
 
     LearningActivitiesType getLearningByType(String type);
+
+    Long counterLearning();
 }

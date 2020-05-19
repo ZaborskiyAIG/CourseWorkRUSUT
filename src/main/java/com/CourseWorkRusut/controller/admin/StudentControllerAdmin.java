@@ -54,13 +54,23 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/internships")
-    public ResponseEntity<List<InternshipDTO>> getInternships(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
-        return new ResponseEntity<>(internshipService.getAllInternships(offset), HttpStatus.OK);
+    public ResponseEntity<Map> getInternships(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+
+        Map map = new HashMap();
+        map.put("content",internshipService.getAllInternships(offset) );
+        map.put("amount",internshipService.counterInternship());
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping(value = "/learning-activities")
-    public ResponseEntity<List<LearningActivitiesDTO>> getActivities(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
-        return new ResponseEntity<>(learningActivitiesService.getAllLearningActivities(offset), HttpStatus.OK);
+    public ResponseEntity<Map> getActivities(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+
+        Map map = new HashMap();
+        map.put("content",learningActivitiesService.getAllLearningActivities(offset) );
+        map.put("amount",learningActivitiesService.counterLearning());
+
+        return new ResponseEntity<>(map , HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/internships/{id}")

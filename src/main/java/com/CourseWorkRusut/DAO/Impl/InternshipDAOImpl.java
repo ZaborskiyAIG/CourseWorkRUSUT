@@ -367,4 +367,12 @@ public class InternshipDAOImpl implements InternshipDAO {
         return query.list();
     }
 
+    @Override
+    public Long counterInternship() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count (inter.internshipId) from Internship inter ");
+
+        return (Long) query.uniqueResult();
+    }
+
 }

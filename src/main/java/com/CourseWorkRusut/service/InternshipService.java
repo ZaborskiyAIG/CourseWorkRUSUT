@@ -30,6 +30,8 @@ public interface InternshipService {
 
     Long counterPlace();
 
+    Long counterInternship();
+
     List<InternshipDTO> getInternshipsByStudent(Long id);
 
     List<LearningActivitiesDTO> getLearningsByStudent(Long id);

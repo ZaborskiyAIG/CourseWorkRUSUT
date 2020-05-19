@@ -89,6 +89,12 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
+    public Long counterInternship() {
+        return internshipDAO.counterInternship();
+    }
+
+    @Override
+    @Transactional
     public List<InternshipDTO> getInternshipsByStudent(Long id) {
         return internshipDAO.getInternshipsByStudent(id);
     }

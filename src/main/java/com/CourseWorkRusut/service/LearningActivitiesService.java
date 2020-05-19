@@ -16,4 +16,6 @@ public interface LearningActivitiesService {
 
     LearningActivitiesType getLearningByType(String type);
 
+    Long counterLearning();
+
 }

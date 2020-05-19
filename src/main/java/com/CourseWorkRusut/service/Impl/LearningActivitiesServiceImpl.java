@@ -47,4 +47,10 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
     public LearningActivitiesType getLearningByType(String type) {
         return learningActivitiesDAO.getLearningByType(type);
     }
+
+    @Override
+    @Transactional
+    public Long counterLearning() {
+        return learningActivitiesDAO.counterLearning();
+    }
 }

@@ -46,4 +46,6 @@ public interface InternshipDAO {
 
     List<LearningActivitiesDTO> getLearningsByTeacher(Long id);
 
+    Long counterInternship();
+
 }
