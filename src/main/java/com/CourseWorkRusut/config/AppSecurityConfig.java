@@ -50,7 +50,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
                     .antMatchers("/registration").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/teacher/**").hasRole("TEACHER")
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/login", "/ping").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

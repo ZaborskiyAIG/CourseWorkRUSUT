@@ -126,4 +126,10 @@ public class AuthenticationController {
 
 
     }
+
+    @GetMapping(value = "/ping")
+    public ResponseEntity ping(){
+        return ResponseEntity.status(HttpStatus.OK).body("Ok");
+
+    }
 }
