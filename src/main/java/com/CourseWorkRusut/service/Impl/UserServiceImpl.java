@@ -84,6 +84,21 @@ public class UserServiceImpl implements UserService {
 
         }
 
+            if(modifiedUser.getRole().getNameRole().equals("ROLE_USER") ){
+                userDAO.delete(user);
+                modifiedUser.setUserId(null);
+                userDAO.save(modifiedUser);
+
+                return userMapper.userToUserDTO(modifiedUser);
+            }
+
+        if(modifiedUser.getRole().getNameRole().equals("ROLE_ADMIN") ){
+            userDAO.delete(user);
+            modifiedUser.setUserId(null);
+            userDAO.save(modifiedUser);
+
+            return userMapper.userToUserDTO(modifiedUser);
+        }
 
         userDAO.update(modifiedUser);
 
