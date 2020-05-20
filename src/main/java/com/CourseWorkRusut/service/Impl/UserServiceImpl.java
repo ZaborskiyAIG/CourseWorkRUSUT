@@ -78,6 +78,8 @@ public class UserServiceImpl implements UserService {
                 userDAO.delete(user);
                 modifiedUser.setUserId(null);
                 userDAO.save(modifiedUser);
+
+                return userMapper.userToUserDTO(modifiedUser);
             }
 
         }
