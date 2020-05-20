@@ -47,7 +47,7 @@ public class ExamControllerStudent {
 
 
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher, String placeDirector) throws IOException {
+    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher, String director) throws IOException {
 
         Internship internship = new Internship();
 
@@ -71,7 +71,7 @@ public class ExamControllerStudent {
         teac.setUserId(teacher);
         internship.setTeacher(teac);
 
-        internship.setInternshipDirector(new String (placeDirector.getBytes ("iso-8859-1"), "UTF-8"));
+        internship.setInternshipDirector(new String (director.getBytes ("iso-8859-1"), "UTF-8"));
 
         internshipService.save(internship);
 
