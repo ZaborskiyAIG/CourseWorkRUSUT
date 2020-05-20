@@ -83,9 +83,10 @@ public class LibraryControllerAdmin {
         LibraryCounterDTO library;
 
         if(search!=null){
-            library = libraryService.getAllLibrary(offset);
-        } else {
             library = libraryService.getAllLibrary(offset, search);
+
+        } else {
+            library = libraryService.getAllLibrary(offset);
         }
 
          return new ResponseEntity<>(library, HttpStatus.OK);

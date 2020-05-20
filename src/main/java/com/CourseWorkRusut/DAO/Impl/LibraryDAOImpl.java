@@ -70,7 +70,7 @@ public class LibraryDAOImpl implements LibraryDAO {
     public List getLibraryBySearch(String offset, String search) {
         Session session = this.sessionFactory.getCurrentSession();                          //попробоавать определить явно, как в тырнете советуют with element property reference, illegal attempt to dereference collection ключевые слова ошибки
         Query query = session.createQuery(                                                  //делает копии, похоже нужен все таки set
-                "select library From Library library join fetch library.authors aut where library.topic  LIKE :words")    //дуплитакаты это проблема manyToMany? эх, проверить бы на остальных
+                "select library From Library library join fetch library.authors aut where library.name  LIKE :words")    //дуплитакаты это проблема manyToMany? эх, проверить бы на остальных
                 .unwrap(Query.class)                                                                //попробовать с переопределнной set и иквл в модели проверить ЗАНОГО
                 .setResultTransformer(new ResultTransformer() {
 
