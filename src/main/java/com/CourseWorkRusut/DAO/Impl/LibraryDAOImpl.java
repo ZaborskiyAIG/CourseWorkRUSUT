@@ -114,7 +114,7 @@ public class LibraryDAOImpl implements LibraryDAO {
     @Override
     public Long countLibraryBySearch(String search) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count(*) From Library library where library.libraryId in (select library.libraryId From Library library join library.authors aut where library.topic  LIKE :words)");
+        Query query = session.createQuery("select count(*) From Library library where library.libraryId in (select library.libraryId From Library library join library.authors aut where library.name  LIKE :words)");
         query.setParameter("words", "%"+search+"%");
         return (Long)  query.uniqueResult();
     }
