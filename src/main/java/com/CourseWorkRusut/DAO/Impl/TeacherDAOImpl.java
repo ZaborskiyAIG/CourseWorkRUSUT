@@ -99,7 +99,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public List<TeacherNameDTO> getFullNameTeachers() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<TeacherNameDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.TeacherNameDTO(tech.name, tech.surname, IFNULL(tech.middlename,''), tech.userId) From Teacher tech ", TeacherNameDTO.class);
+        Query<TeacherNameDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.TeacherNameDTO(tech.name, tech.surname, tech.middlename, tech.userId) From Teacher tech ", TeacherNameDTO.class);
 
         return query.list();
     }
