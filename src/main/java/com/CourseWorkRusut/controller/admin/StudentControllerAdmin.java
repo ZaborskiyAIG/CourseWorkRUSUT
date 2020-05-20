@@ -58,7 +58,7 @@ public class StudentControllerAdmin {
 
         Map map = new HashMap();
         map.put("content",internshipService.getAllInternships(offset) );
-        map.put("amount",internshipService.counterInternship());
+        map.put("count",internshipService.counterInternship());
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
@@ -68,7 +68,7 @@ public class StudentControllerAdmin {
 
         Map map = new HashMap();
         map.put("content",learningActivitiesService.getAllLearningActivities(offset) );
-        map.put("amount",learningActivitiesService.counterLearning());
+        map.put("count",learningActivitiesService.counterLearning());
 
         return new ResponseEntity<>(map , HttpStatus.OK);
     }
@@ -94,7 +94,7 @@ public class StudentControllerAdmin {
     @GetMapping(value = "/place_practice")
     public ResponseEntity<Map> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset){
         Map<String, Object> map = new HashMap<>();
-        map.put("amount",internshipService.counterPlace());
+        map.put("count",internshipService.counterPlace());
         map.put("content",internshipService.getAllPlace(offset));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
