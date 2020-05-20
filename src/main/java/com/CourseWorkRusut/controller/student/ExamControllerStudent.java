@@ -56,7 +56,7 @@ public class ExamControllerStudent {
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         emb.setReport(bytes);
 
-        emb.setTopic(topic);
+        emb.setTopic(new String (topic.getBytes ("iso-8859-1"), "UTF-8"));
 
         internship.setEmbeddableLearningInternship(emb);
 
@@ -71,7 +71,7 @@ public class ExamControllerStudent {
         teac.setUserId(teacher);
         internship.setTeacher(teac);
 
-        internship.setInternshipDirector(placeDirector);
+        internship.setInternshipDirector(new String (placeDirector.getBytes ("iso-8859-1"), "UTF-8"));
 
         internshipService.save(internship);
 
@@ -89,11 +89,11 @@ public class ExamControllerStudent {
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         emb.setReport(bytes);
 
-        emb.setTopic(topic);
+        emb.setTopic(new String (topic.getBytes ("iso-8859-1"), "UTF-8") );
 
         len.setEmbeddableLearningInternship(emb);
 
-        LearningActivitiesType ler = learningActivitiesService.getLearningByType(type);
+        LearningActivitiesType ler = learningActivitiesService.getLearningByType(new String (type.getBytes ("iso-8859-1"), "UTF-8") );
 
        // System.out.println(ler.getLearningActivitiesIdType());
 
