@@ -53,9 +53,23 @@ public class LibraryController {
         return  response ;
     }
 
+//    @GetMapping(value = "/library")
+//    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+//        return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
+//    }
+
     @GetMapping(value = "/library")
-    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
-        return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
+    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset, @RequestParam(required = false) String search)  {
+
+        LibraryCounterDTO library;
+
+        if(search!=null){
+            library = libraryService.getAllLibrary(offset);
+        } else {
+            library = libraryService.getAllLibrary(offset, search);
+        }
+
+        return new ResponseEntity<>(library, HttpStatus.OK);
     }
 
 

@@ -98,7 +98,7 @@ public class AuthenticationController {
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
         }
-    }
+}
 
     @GetMapping(value = "/self/{login}")
     public ResponseEntity getMyself(@PathVariable String login){
