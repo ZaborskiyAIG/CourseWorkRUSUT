@@ -22,7 +22,7 @@ public class Semester {
     @OneToMany(mappedBy = "semester", fetch=FetchType.LAZY)
     private List<Internship> internships;
 
-    @OneToMany(mappedBy = "semester", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "semester", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Exam> exam;
 
     @ManyToOne

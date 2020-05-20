@@ -57,6 +57,16 @@ public class UserController {
         return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/students")
+    public ResponseEntity<UserDTO> updateStudent(@RequestBody UserDTO userDTO ){
+        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/teachers")
+    public ResponseEntity<UserDTO> updateTeacher(@RequestBody UserDTO userDTO ){
+        return new ResponseEntity<>(userService.update(userDTO), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);

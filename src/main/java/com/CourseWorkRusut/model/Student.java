@@ -34,7 +34,7 @@ public class Student extends User {
     private StudyGroup studyGroup;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "student", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "student", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Semester> semester;
 
     public String getNumberBook() {
