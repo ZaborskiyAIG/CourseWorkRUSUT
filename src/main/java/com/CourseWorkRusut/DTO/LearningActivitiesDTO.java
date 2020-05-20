@@ -2,7 +2,7 @@ package com.CourseWorkRusut.DTO;
 
 public class LearningActivitiesDTO {
 
-    private Long learningActivitiesId;
+    private Long id;
 
     private String mark;
 
@@ -25,7 +25,7 @@ public class LearningActivitiesDTO {
                                  String mark,
                                  Long userId,
                                  String topic) {
-        this.learningActivitiesId = learningActivitiesId;
+        this.id = learningActivitiesId;
         this.mark = mark;
         this.numberSemester = numberSemester;
         this.nameType = nameType;
@@ -42,7 +42,7 @@ public class LearningActivitiesDTO {
                                  Long userId,
                                  String topic,
                                  String student) {
-        this.learningActivitiesId = learningActivitiesId;
+        this.id = learningActivitiesId;
         this.mark = mark;
         this.numberSemester = numberSemester;
         this.nameType = nameType;
@@ -80,12 +80,12 @@ public class LearningActivitiesDTO {
         this.topic = topic;
     }
 
-    public Long getLearningActivitiesId() {
-        return learningActivitiesId;
+    public Long getId() {
+        return id;
     }
 
-    public void setLearningActivitiesId(Long learningActivitiesId) {
-        this.learningActivitiesId = learningActivitiesId;
+    public void setId(Long learningActivitiesId) {
+        this.id = learningActivitiesId;
     }
 
     public String getMark() {

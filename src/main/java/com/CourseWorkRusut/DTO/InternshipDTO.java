@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class InternshipDTO {
 
-    private Long internshipId;
+    private Long id;
 
     private String director;
 
@@ -32,7 +32,7 @@ public class InternshipDTO {
                          Long userId,
                          Long placePracticeId,
                          String topic) {
-        this.internshipId = internshipId;
+        this.id = internshipId;
         this.director = director;
         this.numberSemester = numberSemester;
         this.nameTeacher = nameTeacher;
@@ -52,7 +52,7 @@ public class InternshipDTO {
                          Long placePracticeId,
                          String topic,
                          String student) {
-        this.internshipId = internshipId;
+        this.id = internshipId;
         this.director = director;
         this.numberSemester = numberSemester;
         this.nameTeacher = nameTeacher;
@@ -90,12 +90,12 @@ public class InternshipDTO {
         this.placePracticeId = placePracticeId;
     }
 
-    public Long getInternshipId() {
-        return internshipId;
+    public Long getId() {
+        return id;
     }
 
-    public void setInternshipId(Long internshipId) {
-        this.internshipId = internshipId;
+    public void setId(Long internshipId) {
+        this.id = internshipId;
     }
 
     public String getDirector() {
