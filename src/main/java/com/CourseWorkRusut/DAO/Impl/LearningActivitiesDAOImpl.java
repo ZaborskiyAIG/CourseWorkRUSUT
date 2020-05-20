@@ -36,7 +36,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                         "learningActivities.teacher.middlename," +
                         "learningActivities.embeddableLearningInternship.mark," +
                         "learningActivities.semester.student.userId, " +
-                        "learningActivities.embeddableLearningInternship.topic   From LearningActivities learningActivities ")
+                        "learningActivities.embeddableLearningInternship.topic, learningActivities.semester.student.name, learningActivities.semester.student.surname, learningActivities.semester.student.middlename From LearningActivities learningActivities ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
@@ -45,6 +45,8 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
 
                         String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
 
+                        String student =  objects[9]+" "+objects[10]+" "+objects[11];
+
                         LearningActivitiesDTO learningActivitiesDTO = new LearningActivitiesDTO(
                                 (Long)objects[0],
                                 (String)objects[1],
@@ -52,7 +54,8 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                                 teacher,
                                 (String)objects[6],
                                 (Long)objects[7],
-                                (String) objects[8]
+                                (String) objects[8],
+                                student
                         );
                         return learningActivitiesDTO;
                     }
