@@ -48,4 +48,8 @@ public interface InternshipDAO {
 
     Long counterInternship();
 
+    List<InternshipDTO> getInternshipsBySearch(String search);
+
+    Long counterInternshipBySearch(String search);
+
 }

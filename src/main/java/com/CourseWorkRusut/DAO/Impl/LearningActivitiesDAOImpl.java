@@ -111,7 +111,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
 
     @Override
     @Deprecated
-    public List<LearningActivities> getLearningActivitiesBySearch(String search) {
+    public List<LearningActivitiesDTO> getLearningActivitiesBySearch(String search) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(
                 "select " +
@@ -154,7 +154,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                 });
 
 
-        query.setParameter("search", search);
+        query.setParameter("search", "%"+search+"%");
 
         return query.getResultList();
     }
@@ -163,6 +163,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
     public Long counterLearningBySearch(String search) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning where learning.embeddableLearningInternship.topic =: search ");
+        query.setParameter("search", "%"+search+"%");
 
         return (Long) query.uniqueResult();
     }

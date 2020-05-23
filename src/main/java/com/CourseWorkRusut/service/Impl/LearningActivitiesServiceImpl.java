@@ -50,7 +50,7 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
 
     @Override
     @Transactional
-    public List<LearningActivities> getLearningActivitiesBySearch(String search) {
+    public List<LearningActivitiesDTO> getLearningActivitiesBySearch(String search) {
         return learningActivitiesDAO.getLearningActivitiesBySearch(search);
     }
 

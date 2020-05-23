@@ -16,7 +16,7 @@ public interface LearningActivitiesService {
 
     LearningActivitiesType getLearningByType(String type);
 
-    List<LearningActivities> getLearningActivitiesBySearch(String search);
+    List<LearningActivitiesDTO> getLearningActivitiesBySearch(String search);
 
     Long counterLearning();
 

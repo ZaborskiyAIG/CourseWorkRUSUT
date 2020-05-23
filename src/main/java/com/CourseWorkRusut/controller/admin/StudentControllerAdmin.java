@@ -54,11 +54,18 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/internships")
-    public ResponseEntity<Map> getInternships(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+    public ResponseEntity<Map> getInternships(@RequestParam(value = "offset", defaultValue = "0" )String offset,@RequestParam(required = false) String search )  {
 
         Map map = new HashMap();
-        map.put("content",internshipService.getAllInternships(offset) );
-        map.put("count",internshipService.counterInternship());
+
+
+        if(search!=null){
+            map.put("content",internshipService.getInternshipsBySearch(search) );
+            map.put("count",internshipService.counterInternshipBySearch(search));
+        } else {
+            map.put("content",internshipService.getAllInternships(offset) );
+            map.put("count",internshipService.counterInternship());
+        }
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

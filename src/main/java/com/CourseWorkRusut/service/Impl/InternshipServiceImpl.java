@@ -83,6 +83,18 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
+    public List<InternshipDTO> getInternshipsBySearch(String search) {
+        return internshipDAO.getInternshipsBySearch(search);
+    }
+
+    @Override
+    @Transactional
+    public Long counterInternshipBySearch(String search) {
+        return internshipDAO.counterInternshipBySearch(search);
+    }
+
+    @Override
+    @Transactional
     public Long counterPlace() {
         return internshipDAO.counterPlace();
     }

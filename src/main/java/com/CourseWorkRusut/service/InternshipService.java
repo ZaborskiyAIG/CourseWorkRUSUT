@@ -28,6 +28,10 @@ public interface InternshipService {
 
     void updatePlace(PlacePractice placePractice);
 
+    List<InternshipDTO> getInternshipsBySearch(String search);
+
+    Long counterInternshipBySearch(String search);
+
     Long counterPlace();
 
     Long counterInternship();

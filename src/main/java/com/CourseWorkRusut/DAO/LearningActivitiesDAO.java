@@ -20,7 +20,7 @@ public interface LearningActivitiesDAO {
 
     void save(LearningActivities learningActivities);
 
-    List<LearningActivities> getLearningActivitiesBySearch(String search);
+    List<LearningActivitiesDTO> getLearningActivitiesBySearch(String search);
 
     Long counterLearningBySearch(String search);
 }

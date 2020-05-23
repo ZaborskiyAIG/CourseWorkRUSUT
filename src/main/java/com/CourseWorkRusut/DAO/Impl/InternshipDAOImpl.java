@@ -384,4 +384,65 @@ public class InternshipDAOImpl implements InternshipDAO {
         return (Long) query.uniqueResult();
     }
 
+    @Override
+    @Deprecated
+    public List<InternshipDTO> getInternshipsBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(
+                "select " +
+                        "internship.internshipId, " +
+                        "internship.internshipScientificDirector, " +
+                        "internship.semester.numberSemester, " +
+                        "internship.teacher.name, " +
+                        "internship.teacher.surname, " +
+                        "internship.teacher.middlename, " +
+                        "internship.embeddableLearningInternship.mark, " +
+                        "internship.semester.student.userId, " +
+                        "internship.placePractice.placePracticeId, " +
+                        "internship.embeddableLearningInternship.topic, internship.semester.student.name, internship.semester.student.surname, internship.semester.student.middlename  " +
+                        "From Internship internship where inter.embeddableLearningInternship.topic =:search ")
+                .unwrap(Query.class)
+                .setResultTransformer(new ResultTransformer() {
+
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+
+                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+
+                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+
+                        InternshipDTO internshipDTO = new InternshipDTO(
+                                (Long)objects[0],
+                                (String)objects[1],
+                                (String)objects[2],
+                                teacher,
+                                (String)objects[6],
+                                (Long) objects[7],
+                                (Long) objects[8],
+                                (String) objects[9],
+                                student
+
+                        );
+                        return internshipDTO;
+                    }
+
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                });
+        query.setParameter("search","%"+ search+"%");
+
+        return query.getResultList();
+    }
+
+    @Override
+    public Long counterInternshipBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count (inter.internshipId) from Internship inter where inter.embeddableLearningInternship.topic =:search ");
+
+        query.setParameter("search", "%"+search+"%");
+        return (Long) query.uniqueResult();
+    }
+
 }
