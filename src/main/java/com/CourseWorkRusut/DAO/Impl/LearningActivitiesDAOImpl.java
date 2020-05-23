@@ -123,7 +123,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
                         "learningActivities.teacher.middlename," +
                         "learningActivities.embeddableLearningInternship.mark," +
                         "learningActivities.semester.student.userId, " +
-                        "learningActivities.embeddableLearningInternship.topic, learningActivities.semester.student.name, learningActivities.semester.student.surname, learningActivities.semester.student.middlename From LearningActivities learningActivities where learningActivities.embeddableLearningInternship.topic =: search")
+                        "learningActivities.embeddableLearningInternship.topic, learningActivities.semester.student.name, learningActivities.semester.student.surname, learningActivities.semester.student.middlename From LearningActivities learningActivities where learningActivities.embeddableLearningInternship.topic LIKE : search")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
@@ -162,7 +162,7 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
     @Override
     public Long counterLearningBySearch(String search) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning where learning.embeddableLearningInternship.topic =: search ");
+        Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning where learning.embeddableLearningInternship.topic LIKE : search ");
         query.setParameter("search", "%"+search+"%");
 
         return (Long) query.uniqueResult();
