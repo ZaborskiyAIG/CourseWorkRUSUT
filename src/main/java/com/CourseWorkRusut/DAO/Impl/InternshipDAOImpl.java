@@ -400,7 +400,7 @@ public class InternshipDAOImpl implements InternshipDAO {
                         "internship.semester.student.userId, " +
                         "internship.placePractice.placePracticeId, " +
                         "internship.embeddableLearningInternship.topic, internship.semester.student.name, internship.semester.student.surname, internship.semester.student.middlename  " +
-                        "From Internship internship where inter.embeddableLearningInternship.topic =:search ")
+                        "From Internship internship where internship.embeddableLearningInternship.topic =:search ")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
 
