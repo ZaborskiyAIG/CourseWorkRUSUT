@@ -64,11 +64,19 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/learning-activities")
-    public ResponseEntity<Map> getActivities(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
+    public ResponseEntity<Map> getActivities(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                             @RequestParam(required = false) String search )  {
 
         Map map = new HashMap();
-        map.put("content",learningActivitiesService.getAllLearningActivities(offset) );
-        map.put("count",learningActivitiesService.counterLearning());
+
+
+        if(search!=null){
+            map.put("content",learningActivitiesService.getLearningActivitiesBySearch(search) );
+            map.put("count",learningActivitiesService.counterLearningBySearch(search));
+        } else {
+            map.put("content",learningActivitiesService.getAllLearningActivities(offset) );
+            map.put("count",learningActivitiesService.counterLearning());
+        }
 
         return new ResponseEntity<>(map , HttpStatus.OK);
     }

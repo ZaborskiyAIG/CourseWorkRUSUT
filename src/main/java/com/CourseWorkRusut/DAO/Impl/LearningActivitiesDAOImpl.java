@@ -108,4 +108,62 @@ public class LearningActivitiesDAOImpl implements LearningActivitiesDAO {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(learningActivities);
     }
+
+    @Override
+    @Deprecated
+    public List<LearningActivities> getLearningActivitiesBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(
+                "select " +
+                        "learningActivities.learningId," +
+                        "learningActivities.learningActivitiesType.nameType," +
+                        "learningActivities.semester.numberSemester," +
+                        "learningActivities.teacher.name," +
+                        "learningActivities.teacher.surname," +
+                        "learningActivities.teacher.middlename," +
+                        "learningActivities.embeddableLearningInternship.mark," +
+                        "learningActivities.semester.student.userId, " +
+                        "learningActivities.embeddableLearningInternship.topic, learningActivities.semester.student.name, learningActivities.semester.student.surname, learningActivities.semester.student.middlename From LearningActivities learningActivities where learningActivities.embeddableLearningInternship.topic =: search")
+                .unwrap(Query.class)
+                .setResultTransformer(new ResultTransformer() {
+
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+
+                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+
+                        String student =  objects[9]+" "+objects[10]+" "+objects[11];
+
+                        LearningActivitiesDTO learningActivitiesDTO = new LearningActivitiesDTO(
+                                (Long)objects[0],
+                                (String)objects[1],
+                                (String)objects[2],
+                                teacher,
+                                (String)objects[6],
+                                (Long)objects[7],
+                                (String) objects[8],
+                                student
+                        );
+                        return learningActivitiesDTO;
+                    }
+
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                });
+
+
+        query.setParameter("search", search);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public Long counterLearningBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count (learning.learningId) from LearningActivities learning where learning.embeddableLearningInternship.topic =: search ");
+
+        return (Long) query.uniqueResult();
+    }
 }

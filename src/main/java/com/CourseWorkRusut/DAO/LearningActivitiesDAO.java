@@ -19,4 +19,8 @@ public interface LearningActivitiesDAO {
     Long counterLearning();
 
     void save(LearningActivities learningActivities);
+
+    List<LearningActivities> getLearningActivitiesBySearch(String search);
+
+    Long counterLearningBySearch(String search);
 }

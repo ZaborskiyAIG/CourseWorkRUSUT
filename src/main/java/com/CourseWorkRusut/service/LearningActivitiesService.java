@@ -16,7 +16,11 @@ public interface LearningActivitiesService {
 
     LearningActivitiesType getLearningByType(String type);
 
+    List<LearningActivities> getLearningActivitiesBySearch(String search);
+
     Long counterLearning();
+
+    Long counterLearningBySearch(String search);
 
     void save(LearningActivities learningActivities);
 

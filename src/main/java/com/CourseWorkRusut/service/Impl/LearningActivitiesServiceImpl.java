@@ -50,8 +50,20 @@ public class LearningActivitiesServiceImpl implements LearningActivitiesService 
 
     @Override
     @Transactional
+    public List<LearningActivities> getLearningActivitiesBySearch(String search) {
+        return learningActivitiesDAO.getLearningActivitiesBySearch(search);
+    }
+
+    @Override
+    @Transactional
     public Long counterLearning() {
         return learningActivitiesDAO.counterLearning();
+    }
+
+    @Override
+    @Transactional
+    public Long counterLearningBySearch(String search) {
+        return learningActivitiesDAO.counterLearningBySearch(search);
     }
 
     @Override
