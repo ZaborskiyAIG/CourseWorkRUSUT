@@ -439,7 +439,7 @@ public class InternshipDAOImpl implements InternshipDAO {
     @Override
     public Long counterInternshipBySearch(String search) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select count (inter.internshipId) from Internship inter where inter.topic LIKE :search ");
+        Query query = session.createQuery("select count (inter.internshipId) from Internship inter where inter.embeddableLearningInternship.topic LIKE :search ");
 
         query.setParameter("search", "%"+search+"%");
         return (Long) query.uniqueResult();
