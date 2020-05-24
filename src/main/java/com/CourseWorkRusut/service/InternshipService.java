@@ -22,6 +22,8 @@ public interface InternshipService {
 
     List<PlacePractice> getAllPlace(String offset);
 
+    List<PlacePractice> getPlaceBySearch(String search);
+
     List<PlacePractice> getAllPlace();
 
     PlacePractice getPlace(Long id);
@@ -33,6 +35,8 @@ public interface InternshipService {
     Long counterInternshipBySearch(String search);
 
     Long counterPlace();
+
+    Long counterPlaceBySearch(String search);
 
     Long counterInternship();
 

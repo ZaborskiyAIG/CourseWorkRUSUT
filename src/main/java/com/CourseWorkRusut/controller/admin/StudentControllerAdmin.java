@@ -107,10 +107,19 @@ public class StudentControllerAdmin {
     }
 
     @GetMapping(value = "/place_practice")
-    public ResponseEntity<Map> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset){
+    public ResponseEntity<Map> getPlacePractice(@RequestParam(value = "offset", defaultValue = "0" )String offset,
+                                                @RequestParam(required = false) String search ){
         Map<String, Object> map = new HashMap<>();
-        map.put("count",internshipService.counterPlace());
-        map.put("content",internshipService.getAllPlace(offset));
+
+        if(search!=null){
+            map.put("count",internshipService.counterPlaceBySearch(search));
+            map.put("content",internshipService.getPlaceBySearch(search));
+        } else {
+            map.put("count",internshipService.counterPlace());
+            map.put("content",internshipService.getAllPlace(offset));
+        }
+
+
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

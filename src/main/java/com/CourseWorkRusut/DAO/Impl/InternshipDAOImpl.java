@@ -445,4 +445,26 @@ public class InternshipDAOImpl implements InternshipDAO {
         return (Long) query.uniqueResult();
     }
 
+    @Override
+    public List<PlacePractice> getPlaceBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        Query<PlacePractice> query = session.createQuery("select place  from PlacePractice place where place.companyName LIKE :search",PlacePractice.class );
+
+        query.setParameter("search","%"+search+"%");
+
+
+        return query.list();
+    }
+
+    @Override
+    public Long counterPlaceBySearch(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select count (place.placePracticeId) from PlacePractice place where place.companyName LIKE :search");
+
+        query.setParameter("search","%"+search+"%");
+
+        return (Long) query.uniqueResult();
+    }
+
 }

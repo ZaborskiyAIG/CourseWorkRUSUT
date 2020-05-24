@@ -65,6 +65,12 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     @Transactional
+    public List<PlacePractice> getPlaceBySearch(String search) {
+        return internshipDAO.getPlaceBySearch(search);
+    }
+
+    @Override
+    @Transactional
     public List<PlacePractice> getAllPlace() {
         return internshipDAO.getAllPlace();
     }
@@ -97,6 +103,12 @@ public class InternshipServiceImpl implements InternshipService {
     @Transactional
     public Long counterPlace() {
         return internshipDAO.counterPlace();
+    }
+
+    @Override
+    @Transactional
+    public Long counterPlaceBySearch(String search) {
+        return internshipDAO.counterPlaceBySearch(search);
     }
 
     @Override

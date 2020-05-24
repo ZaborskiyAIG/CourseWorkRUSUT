@@ -52,4 +52,8 @@ public interface InternshipDAO {
 
     Long counterInternshipBySearch(String search);
 
+    List<PlacePractice> getPlaceBySearch(String search);
+
+    Long counterPlaceBySearch(String search);
+
 }
