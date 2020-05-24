@@ -18,7 +18,7 @@ public class StudentExamDTO {
             middlename = " ";
         }
 
-        this.nameStudent = name +" "+Surname+" "+middlename;
+        this.nameStudent = Surname  +" "+name+" "+middlename;
         this.numberBook = numberBook;
         this.userId = userId;
         this.mark = mark;

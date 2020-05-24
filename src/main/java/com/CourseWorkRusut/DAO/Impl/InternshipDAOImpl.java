@@ -52,9 +52,9 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                     String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+                        String student =  objects[11]+" "+objects[10]+" "+objects[12];
 
                         InternshipDTO internshipDTO = new InternshipDTO(
                                 (Long)objects[0],
@@ -171,9 +171,9 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+                        String student =  objects[11]+" "+objects[10]+" "+objects[12];
 
                         InternshipDTO internshipDTO = new InternshipDTO(
                                 (Long)objects[0],
@@ -222,9 +222,9 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[9]+" "+objects[10]+" "+objects[11];
+                        String student =  objects[10]+" "+objects[9]+" "+objects[11];
 
                         LearningActivitiesDTO learningActivitiesDTO = new LearningActivitiesDTO(
                                 (Long)objects[0],
@@ -297,9 +297,10 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+                        String student =  objects[11]+" "+objects[10]+" "+objects[12];
+
 
                         InternshipDTO internshipDTO = new InternshipDTO(
                                 (Long)objects[0],
@@ -348,9 +349,10 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[9]+" "+objects[10]+" "+objects[11];
+                        String student =  objects[10]+" "+objects[9]+" "+objects[11];
+
 
                         LearningActivitiesDTO learningActivitiesDTO = new LearningActivitiesDTO(
                                 (Long)objects[0],
@@ -407,9 +409,9 @@ public class InternshipDAOImpl implements InternshipDAO {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
 
-                        String teacher =  objects[3]+" "+objects[4]+" "+objects[5];
+                        String teacher =  objects[4]+" "+objects[3]+" "+objects[5];
 
-                        String student =  objects[10]+" "+objects[11]+" "+objects[12];
+                        String student =  objects[11]+" "+objects[10]+" "+objects[12];
 
                         InternshipDTO internshipDTO = new InternshipDTO(
                                 (Long)objects[0],
@@ -452,7 +454,6 @@ public class InternshipDAOImpl implements InternshipDAO {
         Query<PlacePractice> query = session.createQuery("select place  from PlacePractice place where place.companyName LIKE :search",PlacePractice.class );
 
         query.setParameter("search","%"+search+"%");
-
 
         return query.list();
     }

@@ -119,7 +119,6 @@ public class StudentControllerAdmin {
             map.put("content",internshipService.getAllPlace(offset));
         }
 
-
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
