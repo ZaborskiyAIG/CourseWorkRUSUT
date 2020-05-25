@@ -208,6 +208,21 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherDAO.getFullNameTeachers();
     }
 
+    @Override
+    @Transactional
+    public UserCounterDTO searchTeacherByFullName(String search) {
+        Long count = teacherDAO.counterTeacherByFullName(search);
+        List<User> users = teacherDAO.searchTeacherByFullName(search.replace("+", " "));
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for (User user : users) {
+            userDTOS.add(userMapper.userToUserDTO(user));
+        }
+
+        return new UserCounterDTO(userDTOS,count );
+    }
+
 
 //    @Override
 //    @Transactional

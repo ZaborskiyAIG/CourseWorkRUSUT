@@ -2,6 +2,7 @@ package com.CourseWorkRusut.DAO.Impl;
 
 import com.CourseWorkRusut.DAO.TeacherDAO;
 import com.CourseWorkRusut.DTO.TeacherNameDTO;
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.*;
 
 import org.hibernate.Session;
@@ -100,6 +101,39 @@ public class TeacherDAOImpl implements TeacherDAO {
     public List<TeacherNameDTO> getFullNameTeachers() {
         Session session = this.sessionFactory.getCurrentSession();
         Query<TeacherNameDTO> query = session.createQuery(" select new com.CourseWorkRusut.DTO.TeacherNameDTO(tech.name, tech.surname, tech.middlename, tech.userId) From Teacher tech ", TeacherNameDTO.class);
+
+        return query.list();
+    }
+
+    @Override
+    public Long counterTeacherByFullName(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select count (user.userId) from User user where (type(user) in :types) and " +
+                "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
+                "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
+                "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +
+                "(concat(user.surname,' ',user.name,' ',IFNULL(user.middlename,'')) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.name,' ',user.surname) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.surname,' ',user.name) LIKE :words) )");
+        query.setParameter("words","%"+search+"%");
+        query.setParameter("types", Teacher.class);
+
+        return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<User> searchTeacherByFullName(String search) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery(" select user  from User user left join fetch user.positions pos left join fetch user.scienceDegrees sci " +
+                "where (type(user) in :types) and (:position is null or pos.namePosition = :position) and (:degree is null or sci.nameScienceDegree = :degree) and " +
+                "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
+                "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
+                "(concat(user.surname,' ',IFNULL(user.middlename,''),' ',user.name) LIKE :words) or" +
+                "(concat(user.surname,' ',user.name,' ',IFNULL(user.middlename,'')) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.name,' ',user.surname) LIKE :words) or" +
+                "(concat(IFNULL(user.middlename,''),' ',user.surname,' ',user.name) LIKE :words) )");
+        query.setParameter("words","%"+search+"%");
+        query.setParameter("types", Teacher.class);
 
         return query.list();
     }

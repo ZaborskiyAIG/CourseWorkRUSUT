@@ -1,6 +1,8 @@
 package com.CourseWorkRusut.DAO;
 
 import com.CourseWorkRusut.DTO.TeacherNameDTO;
+import com.CourseWorkRusut.DTO.UserCounterDTO;
+import com.CourseWorkRusut.DTO.UserDTO;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.model.Subject;
 import com.CourseWorkRusut.model.SubjectTeacherGroup;
@@ -25,4 +27,8 @@ public interface TeacherDAO {
     List<String> getNumberGroupByTeacherId(Long id);
 
     List<TeacherNameDTO> getFullNameTeachers();
+
+    Long counterTeacherByFullName(String search);
+
+    List<User> searchTeacherByFullName(String search);
 }

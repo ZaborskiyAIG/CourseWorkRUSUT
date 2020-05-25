@@ -27,8 +27,17 @@ public class TeacherControllerAdmin {
     @GetMapping(value = "/teachers")
     public ResponseEntity<UserCounterDTO> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset, //requestBody? HttpServletRequest? чек поле consumer
                                                         @RequestParam(required = false) String position,
-                                                        @RequestParam(required = false) String degree) {
-        return new ResponseEntity<>(teacherService.getTeachersByParameters(offset, position, degree), HttpStatus.OK);
+                                                        @RequestParam(required = false) String degree,
+                                                        @RequestParam(required = false) String search) {
+
+        UserCounterDTO userDTOS;
+        if(search!=null){
+            userDTOS = teacherService.searchTeacherByFullName(search);
+        } else {
+            userDTOS = teacherService.getTeachersByParameters(offset, position, degree);
+        }
+
+        return new ResponseEntity<>( userDTOS, HttpStatus.OK);
     }
 
 //    @DeleteMapping(value = "/delete/stg")

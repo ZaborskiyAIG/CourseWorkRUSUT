@@ -21,4 +21,5 @@ public interface TeacherService {
 
     List<TeacherNameDTO> getFullNameTeachers();
 
+    UserCounterDTO searchTeacherByFullName(String search);
 }
