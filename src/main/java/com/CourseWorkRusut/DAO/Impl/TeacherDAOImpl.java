@@ -124,7 +124,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public List<User> searchTeacherByFullName(String search) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery(" select user  from User user left join fetch user.positions pos left join fetch user.scienceDegrees sci " +
+        Query query = session.createQuery(" select distinct user  from User user left join fetch user.positions pos left join fetch user.scienceDegrees sci " +
                 "where (type(user) in :types)  and " +
                 "((concat(user.name,' ',user.surname,' ', IFNULL(user.middlename,'') ) LIKE :words) or " +
                 "(concat(user.name,' ', IFNULL(user.middlename,''),' ',user.surname) LIKE :words) or " +
