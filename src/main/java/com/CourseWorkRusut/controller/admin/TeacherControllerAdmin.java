@@ -1,9 +1,6 @@
 package com.CourseWorkRusut.controller.admin;
 
-import com.CourseWorkRusut.DTO.SubjectTeacherGroupDTO;
-import com.CourseWorkRusut.DTO.TeacherDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.UserCounterDTO;
 import com.CourseWorkRusut.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +22,7 @@ public class TeacherControllerAdmin {
     }
 
     @GetMapping(value = "/teachers")
-    public ResponseEntity<UserCounterDTO> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset, //requestBody? HttpServletRequest? чек поле consumer
+    public ResponseEntity<UserCounterDTO> getAllTeacher(@RequestParam(value = "offset", defaultValue = "0" )String offset,
                                                         @RequestParam(required = false) String position,
                                                         @RequestParam(required = false) String degree,
                                                         @RequestParam(required = false) String search) {
@@ -40,14 +37,5 @@ public class TeacherControllerAdmin {
         return new ResponseEntity<>( userDTOS, HttpStatus.OK);
     }
 
-//    @DeleteMapping(value = "/delete/stg")
-//    public ResponseEntity deleteSubjectStudyTeacher(@RequestBody TeacherDTO teacherDTO) {
-//
-//        teacherService.deleteSubjectTeacherGroup(teacherDTO.getStg());
-//
-//
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
 }

@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.TeacherDTO;
+import com.CourseWorkRusut.dto.TeacherDTO;
 import com.CourseWorkRusut.model.Teacher;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

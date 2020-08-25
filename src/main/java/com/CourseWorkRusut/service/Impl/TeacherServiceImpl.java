@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.*;
-import com.CourseWorkRusut.DTO.*;
+import com.CourseWorkRusut.dao.*;
+import com.CourseWorkRusut.dto.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.StudentService;
@@ -9,15 +9,9 @@ import com.CourseWorkRusut.service.StudyGroupService;
 import com.CourseWorkRusut.service.SubjectService;
 import com.CourseWorkRusut.service.TeacherService;
 
-import org.hibernate.annotations.AttributeAccessor;
-import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,9 +71,6 @@ public class TeacherServiceImpl implements TeacherService {
         return teacher;
     }
 
-
-
-
     @Override
     @Transactional
     public UserCounterDTO getTeachersByParameters(String offset,String position, String degree) {
@@ -112,7 +103,6 @@ public class TeacherServiceImpl implements TeacherService {
                 numberStudyGroup.add(StudyGroup.getNumberGroup());
             }
 
-
             List<String> sem = studentDAO.getSemesterByExam(teacherId, sb.getNameSubject());
 
             Set<String> set = new HashSet<>(sem);
@@ -130,8 +120,6 @@ public class TeacherServiceImpl implements TeacherService {
                 subjectTeacherGroupDTO.setSemesters(s);
                 list.add(subjectTeacherGroupDTO);
             }
-
-
         }
         return list;
     }
@@ -139,12 +127,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional
     public SubjectTeacherGroupDTO updateSubjectTeacherGroup(SubjectTeacherGroupDTO stg, Long id) {
+        Teacher teacher = (Teacher) userDAO.getUserById(id);
 
-    //    List<SubjectTeacherGroup> subjectTeacherGroups = new ArrayList<>();
-
-        Teacher teacher = (Teacher) userDAO.getUserById(id);       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
-
-        //    for (SubjectTeacherGroupDTO ss : stg) {
                 for (String str : stg.getGroups()) {
                     SubjectTeacherGroup s = new SubjectTeacherGroup();
                     StudyGroup studyGroup = studyGroupService.getStudyGroupByNumberGroup(str);
@@ -156,22 +140,11 @@ public class TeacherServiceImpl implements TeacherService {
                     s.setTeacher(teacher);
                     teacherDAO.saveSubjectTeacherGroup(s);
 
-             //       subjectTeacherGroups.add(s);
-
                     List<StudentExamDTO> list = studentService.getStudentsByNumberGroup(str);
 
                     for(StudentExamDTO dto: list){
-                        System.out.println("пройтись по листу и получить всех его студентов:"+dto.getUserId());
-                    }
-
-                    for(StudentExamDTO dto: list){
-                        System.out.println("ID:"+dto.getUserId());
-                                                                                                                //я буду себя люто не навижеть за эти строчки, особенно, когда
-                                                                                                                // буду фиксить все это говно, чтобы залить на гитхаб как портфолио, прости будущий я
                         List<Semester> semester =  studentDAO.getSemesterByUserAndAmountSemester(dto.getUserId(),stg.getSemesters());
-
                         for(Semester sem: semester){
-                            System.out.println("EXAM:"+sem.getSemesterId());
                             Exam exam = new Exam();
                             exam.setSemester(sem);
                             exam.setSubject(subject);
@@ -180,7 +153,6 @@ public class TeacherServiceImpl implements TeacherService {
                         }
                     }
                 }
-          //  }
 
         return stg;
     }
@@ -224,25 +196,6 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
-//    @Override
-//    @Transactional
-//    public void deleteSubjectTeacherGroup(List<SubjectTeacherGroupDTO> subjectTeacherGroupDTO) {
-//
-//        for(SubjectTeacherGroupDTO dto: subjectTeacherGroupDTO) {
-//            List<SubjectTeacherGroup> subjectTeacherGroup = teacherDAO.getSubjectTeacherGroupByNumberGroupBySubject(dto.getGroups(),dto.getSubject() );
-//
-//               for(SubjectTeacherGroup stg:subjectTeacherGroup)
-//                   teacherDAO.deleteSubjectTeacherGroup(stg);
-//        }
-//    }
-
-
-//    public List<ExamGroupDTO> getExamGroup(Long teacherId){
-//
-//    //    List<StudentExamDTO> list = teacherDAO.getExamBy
-//
-//        return null;
-//    }
 
 
 }

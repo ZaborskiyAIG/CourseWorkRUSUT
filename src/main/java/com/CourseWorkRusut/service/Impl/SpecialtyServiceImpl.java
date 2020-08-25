@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.SpecialtyDAO;
+import com.CourseWorkRusut.dao.SpecialtyDAO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.service.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;

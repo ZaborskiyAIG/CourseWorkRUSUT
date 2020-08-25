@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.service;
 
-import com.CourseWorkRusut.DTO.ExamGroupDTO;
-import com.CourseWorkRusut.DTO.StudentExamsDTO;
+import com.CourseWorkRusut.dto.ExamGroupDTO;
+import com.CourseWorkRusut.dto.StudentExamsDTO;
 import com.CourseWorkRusut.model.Semester;
 
 import java.util.List;

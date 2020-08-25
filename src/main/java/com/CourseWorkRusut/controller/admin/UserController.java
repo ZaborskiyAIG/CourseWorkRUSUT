@@ -1,8 +1,7 @@
 package com.CourseWorkRusut.controller.admin;
 
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
-import com.CourseWorkRusut.model.User;
+import com.CourseWorkRusut.dto.UserCounterDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 import com.CourseWorkRusut.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;

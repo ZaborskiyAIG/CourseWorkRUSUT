@@ -1,15 +1,11 @@
 package com.CourseWorkRusut.controller.admin;
 
 
-import com.CourseWorkRusut.DTO.InternshipDTO;
-import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.UserCounterDTO;
 import com.CourseWorkRusut.model.PlacePractice;
 import com.CourseWorkRusut.service.InternshipService;
 import com.CourseWorkRusut.service.LearningActivitiesService;
 import com.CourseWorkRusut.service.StudentService;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

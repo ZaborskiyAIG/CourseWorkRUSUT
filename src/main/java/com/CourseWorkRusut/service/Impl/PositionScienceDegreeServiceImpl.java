@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.PositionScienceDegreeDAO;
+import com.CourseWorkRusut.dao.PositionScienceDegreeDAO;
 import com.CourseWorkRusut.model.Position;
 import com.CourseWorkRusut.model.ScienceDegree;
 import com.CourseWorkRusut.service.PositionScienceDegreeService;

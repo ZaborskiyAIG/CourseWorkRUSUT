@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.controller;
 
-import com.CourseWorkRusut.DTO.LibraryCounterDTO;
+import com.CourseWorkRusut.dto.LibraryCounterDTO;
 import com.CourseWorkRusut.model.Internship;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.Library;
@@ -52,11 +52,6 @@ public class LibraryController {
 
         return  response ;
     }
-
-//    @GetMapping(value = "/library")
-//    public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset)  {
-//        return new ResponseEntity<>(libraryService.getAllLibrary(offset), HttpStatus.OK);
-//    }
 
     @GetMapping(value = "/library")
     public ResponseEntity<LibraryCounterDTO> library(@RequestParam(value = "offset", defaultValue = "0" )String offset, @RequestParam(required = false) String search)  {

@@ -1,16 +1,14 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.ExamDAO;
-import com.CourseWorkRusut.DAO.TeacherDAO;
-import com.CourseWorkRusut.DTO.ExamGroupDTO;
-import com.CourseWorkRusut.DTO.StudentExamDTO;
-import com.CourseWorkRusut.DTO.StudentExamsDTO;
+import com.CourseWorkRusut.dao.ExamDAO;
+import com.CourseWorkRusut.dao.TeacherDAO;
+import com.CourseWorkRusut.dto.ExamGroupDTO;
+import com.CourseWorkRusut.dto.StudentExamDTO;
+import com.CourseWorkRusut.dto.StudentExamsDTO;
 import com.CourseWorkRusut.model.Exam;
 import com.CourseWorkRusut.model.Semester;
-import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.service.ExamService;
 import com.CourseWorkRusut.service.StudentService;
-import com.CourseWorkRusut.service.StudyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,11 +74,8 @@ public class ExamServiceImpl implements ExamService {
         examGroupDTO.setSubject(subject);
         examGroupDTO.setGroup(numberGroup);
         examGroupDTO.setSemester(semester);
-
         examGroupDTO.setStudents(examDAO.getStudentExamDTO(teacherId, numberGroup, subject, semester) );
-
         examGroupDTO.setHours(examDAO.getHoursExamByGroupAndTeacher(teacherId,numberGroup, subject, semester));
-
         examGroupDTO.setTypeExam(examDAO.getTypeExamByGroupAndTeacher(teacherId,numberGroup, subject, semester));
 
         return examGroupDTO;
@@ -89,33 +84,20 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional
-    public void saveExamGroup(ExamGroupDTO examGroupDTO, Long teacherId) {  //один селект или много селектов через какое нибудь кэширование
-
-        System.out.println("предмет"+examGroupDTO.getSubject());
-        System.out.println("Id"+teacherId);
-        System.out.println("id"+examGroupDTO.getGroup());
-        System.out.println("семестр"+examGroupDTO.getSemester());
+    public void saveExamGroup(ExamGroupDTO examGroupDTO, Long teacherId) {
 
         List<Exam> exams = examDAO.getExamBySubjectTeacherGroup(examGroupDTO.getSubject(),teacherId, examGroupDTO.getGroup(), examGroupDTO.getSemester());
-
-        System.out.println("массив:"+exams.size());
 
         for(Exam exam: exams){
             exam.setHours(examGroupDTO.getHours());
             exam.setTypeExam(examGroupDTO.getTypeExam());
-
             for(StudentExamDTO dto: examGroupDTO.getStudents()){
-                System.out.println("IdExamUS"+exam.getSemester().getStudent().getUserId());
-                System.out.println("IdUS"+dto.getUserId());
                 if(exam.getSemester().getStudent().getUserId().equals(dto.getUserId())){
-                    System.out.println("Работает"+dto.getMark());
                     exam.setMarkExam(dto.getMark());
                     examDAO.update(exam);
                 }
             }
-          //  exam.setMarkExam();
         }
-
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или WebSecurityConfiguration ?? чек разницу
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -32,21 +32,15 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
         this.userDetailsService = userDetailsService;
     }
 
-
-    // @Bean
-  //  public BCryptPasswordEncoder bCryptPasswordEncoder() {
-  //      return new BCryptPasswordEncoder();
-  //  }
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .cors().  //httpBasic и csrf почитать
+                .cors().
                 and()
                 .csrf()
                     .disable()
-                .authorizeRequests()//.sessionManagement //почитать, впринцыпе узнать про сессии в секьюрности
+                .authorizeRequests()
                     .antMatchers("/registration").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/teacher/**").hasRole("TEACHER")
@@ -59,12 +53,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter { //или W
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean(); //можно сделать через this.au..., но тогда нужно использовать конфигГлобал, в чем разница?
+        return super.authenticationManagerBean();
     }
 
-  //  @Autowired
-  //  protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-  //      auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-  //  }
 
 }

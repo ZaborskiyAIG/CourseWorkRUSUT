@@ -1,12 +1,11 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.ExamDAO;
-import com.CourseWorkRusut.DAO.StudentDAO;
-import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.DTO.StudentDTO;
-import com.CourseWorkRusut.DTO.StudentExamDTO;
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dao.ExamDAO;
+import com.CourseWorkRusut.dao.StudentDAO;
+import com.CourseWorkRusut.dao.UserDAO;
+import com.CourseWorkRusut.dto.StudentExamDTO;
+import com.CourseWorkRusut.dto.UserCounterDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 import com.CourseWorkRusut.model.Semester;
 import com.CourseWorkRusut.model.Student;
 import com.CourseWorkRusut.model.StudyGroup;
@@ -85,8 +84,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     public String generationNumberStudyBook(String entryDate, StudyGroup studyGroup) {
-
-        System.out.println("А?"+entryDate);
 
         Long number = studyGroupService.getCountStudentsInGroup(studyGroup) +1;
 

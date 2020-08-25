@@ -12,7 +12,7 @@ public interface StudyGroupService {
 
     Long getCountStudentsInGroup(StudyGroup studyGroup);
 
-    List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty); //getAllNUMBER изменить
+    List<String> getAllStudyGroupByNameSpecialty(String nameSpecialty);
 
     List<StudyGroup> getStudyGroupBySubject(String nameSubject, Long teacherId);
 }

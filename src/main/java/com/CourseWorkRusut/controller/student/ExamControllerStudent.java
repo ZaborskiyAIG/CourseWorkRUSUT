@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.controller.student;
 
-import com.CourseWorkRusut.DTO.*;
+import com.CourseWorkRusut.dto.*;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.ExamService;
 import com.CourseWorkRusut.service.InternshipService;
@@ -8,10 +8,7 @@ import com.CourseWorkRusut.service.LearningActivitiesService;
 import com.CourseWorkRusut.service.TeacherService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,25 +26,24 @@ import java.util.*;
 public class ExamControllerStudent {
 
     @Autowired
-    ExamService examService;
+    private ExamService examService;
 
     @Autowired
-    InternshipService internshipService;
+    private InternshipService internshipService;
 
     @Autowired
-    TeacherService teacherService;
+    private TeacherService teacherService;
 
     @Autowired
-    LearningActivitiesService learningActivitiesService;
+    private LearningActivitiesService learningActivitiesService;
 
     @GetMapping(value = "/exams/{id}")
     public ResponseEntity<List<StudentExamsDTO>> getExam(@PathVariable Long id, @RequestParam String semester ) {
         return new ResponseEntity<>(examService.getStudentExams(id, semester), HttpStatus.OK);
     }
 
-
     @PostMapping(value = "/internship/{id}",produces = "application/pdf")
-    public ResponseEntity adddddInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher, String director) throws IOException {
+    public ResponseEntity addInternship(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long placePractice, Long teacher, String director) throws IOException {
 
         Internship internship = new Internship();
 
@@ -62,7 +58,7 @@ public class ExamControllerStudent {
 
         internship.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
 
-        PlacePractice place = new PlacePractice(); //вообще этим админ должен заниматься, имхо
+        PlacePractice place = new PlacePractice();
         place.setPlacePracticeId(placePractice);
 
         internship.setPlacePractice(place);
@@ -79,12 +75,11 @@ public class ExamControllerStudent {
     }
 
     @PostMapping(value = "/learning-activities/{id}",produces = "application/pdf")
-    public ResponseEntity addddLearning(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long teacher, String type) throws IOException {
+    public ResponseEntity addLearning(@PathVariable Long id, @RequestParam MultipartFile file, String topic, String semester, Long teacher, String type) throws IOException {
 
         LearningActivities len = new LearningActivities();
 
         EmbeddableLearningInternship emb = new EmbeddableLearningInternship();
-       // emb.setMark(mark);
 
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         emb.setReport(bytes);
@@ -94,8 +89,6 @@ public class ExamControllerStudent {
         len.setEmbeddableLearningInternship(emb);
 
         LearningActivitiesType ler = learningActivitiesService.getLearningByType(new String (type.getBytes ("iso-8859-1"), "UTF-8") );
-
-       // System.out.println(ler.getLearningActivitiesIdType());
 
         len.setLearningActivitiesType(ler);
         len.setSemester(examService.getSemesterByIdStudentAndNumber(id, semester));
@@ -110,7 +103,7 @@ public class ExamControllerStudent {
     }
 
     @GetMapping(value = "/internship/{id}")
-    public ResponseEntity<List<InternshipDTO>> adddInternship(@PathVariable Long id )  {
+    public ResponseEntity<List<InternshipDTO>> getInternship(@PathVariable Long id )  {
         return new ResponseEntity<>(internshipService.getInternshipsByStudent(id), HttpStatus.OK);
     }
 

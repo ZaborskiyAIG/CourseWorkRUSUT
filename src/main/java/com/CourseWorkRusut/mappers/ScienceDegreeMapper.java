@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.ScienceDegreeDTO;
+import com.CourseWorkRusut.dto.ScienceDegreeDTO;
 import com.CourseWorkRusut.model.ScienceDegree;
 import org.mapstruct.Mapper;
 

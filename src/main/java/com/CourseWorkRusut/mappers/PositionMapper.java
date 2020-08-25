@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.PositionDTO;
+import com.CourseWorkRusut.dto.PositionDTO;
 import com.CourseWorkRusut.model.Position;
 import org.mapstruct.Mapper;
 

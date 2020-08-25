@@ -2,5 +2,5 @@ package com.CourseWorkRusut.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-public class SecurityInit extends AbstractSecurityWebApplicationInitializer { //регистрация springSecurityFilterChai фильтра? а?
+public class SecurityInit extends AbstractSecurityWebApplicationInitializer {
 }

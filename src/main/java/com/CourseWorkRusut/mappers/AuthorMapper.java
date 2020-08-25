@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.AuthorDTO;
+import com.CourseWorkRusut.dto.AuthorDTO;
 import com.CourseWorkRusut.model.Author;
 import org.mapstruct.Mapper;
 

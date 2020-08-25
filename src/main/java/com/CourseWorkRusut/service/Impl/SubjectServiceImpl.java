@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.SubjectDAO;
+import com.CourseWorkRusut.dao.SubjectDAO;
 import com.CourseWorkRusut.model.Subject;
 import com.CourseWorkRusut.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;

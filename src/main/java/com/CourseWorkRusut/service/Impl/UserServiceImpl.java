@@ -1,8 +1,8 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.TeacherDAO;
-import com.CourseWorkRusut.DAO.UserDAO;
-import com.CourseWorkRusut.DTO.*;
+import com.CourseWorkRusut.dao.TeacherDAO;
+import com.CourseWorkRusut.dao.UserDAO;
+import com.CourseWorkRusut.dto.*;
 import com.CourseWorkRusut.mappers.UserMapper;
 import com.CourseWorkRusut.model.*;
 import com.CourseWorkRusut.service.*;
@@ -57,14 +57,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO update(UserDTO userDTO) {   //что происходит, когда из одного метода помеченым @транзакция вызывают другой метод c @транзакция
+    public UserDTO update(UserDTO userDTO) {
 
-        User user = userDAO.getUserById(userDTO.getUserId());       //метод работает так, что в конце вернет либо модифайнд, либо юзера, надо пофиксить
-                                                                    //либо сохраняет модифайнд, либо обновляет юзера, надо пофиксить
-        User modifiedUser =  userMapper.userDTOToUser(userDTO);    //предпологается, что вместе с модифайндом придет намббербук, надо проверить
+        User user = userDAO.getUserById(userDTO.getUserId());
+
+        User modifiedUser =  userMapper.userDTOToUser(userDTO);
         modifiedUser.setLogin(user.getLogin());
         modifiedUser.setPassword(user.getPassword());
-        modifiedUser.setRole(roleService.getRoleByName(userDTO.getNameRole())); //чекнуть почему именно так
+        modifiedUser.setRole(roleService.getRoleByName(userDTO.getNameRole()));
 
         if(userDTO.getClass() == StudentDTO.class) {
          modifiedUser = studentService.updateStudent((Student) modifiedUser, user);
@@ -81,7 +81,6 @@ public class UserServiceImpl implements UserService {
 
                 return userMapper.userToUserDTO(modifiedUser);
             }
-
         }
 
             if(modifiedUser.getRole().getNameRole().equals("ROLE_USER") ){
@@ -134,10 +133,9 @@ public class UserServiceImpl implements UserService {
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
 
-        if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+        if(user.getClass()==Teacher.class){
             ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(id));
         }
-
         return userDTO;
     }
 
@@ -157,12 +155,9 @@ public class UserServiceImpl implements UserService {
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
 
-        if(user.getClass()==Teacher.class){  //написать свой мапперт вместой вот это хуеты
+        if(user.getClass()==Teacher.class){
             ((TeacherDTO)userDTO).setStg(teacherService.getSubjectTeacherGroupDTO(user.getUserId()));
         }
-
-
-      //  System.out.println("ss"+userDTO.getName());
 
         return userDTO;
     }
@@ -181,30 +176,11 @@ public class UserServiceImpl implements UserService {
 
         return new UserCounterDTO(list,count);
     }
-//
-//    @Override
-//    @Transactional
-//    public Long contUsers(String nameRole) {
-//        nameRole = convertRoles(nameRole);
-//        return userDAO.contUsers(nameRole);
-//    }
 
-//    private String convertRoles(String nameRole){
-//        if(nameRole.equals("students") || nameRole.equals("student"))
-//            return "ROLE_STUDENT";
-//
-//        if(nameRole.equals("teachers") || nameRole.equals("teacher"))
-//            return "ROLE_TEACHER";
-//
-//        if(nameRole.equals("admins") || nameRole.equals("admin"))
-//            return "ROLE_ADMIN";
-//
-//        return "ROLE_USER";
-//    }
 
     @Override
     @Transactional
-    public UserCounterDTO searchUsers(String search) {  //чет хуита какаита
+    public UserCounterDTO searchUsers(String search) {
         Long count = userDAO.contUsersByFullName(search);
         List<UserDTO> list = userDAO.searchUsersByWords(search.replace("+", " "));
 

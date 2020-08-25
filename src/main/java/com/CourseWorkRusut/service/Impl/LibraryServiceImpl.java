@@ -1,11 +1,10 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.LibraryDAO;
-import com.CourseWorkRusut.DTO.LibraryCounterDTO;
-import com.CourseWorkRusut.DTO.LibraryDTO;
+import com.CourseWorkRusut.dao.LibraryDAO;
+import com.CourseWorkRusut.dto.LibraryCounterDTO;
+import com.CourseWorkRusut.dto.LibraryDTO;
 import com.CourseWorkRusut.model.Library;
 import com.CourseWorkRusut.service.LibraryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

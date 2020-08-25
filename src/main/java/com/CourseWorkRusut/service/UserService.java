@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.service;
 
-import com.CourseWorkRusut.DTO.UserCounterDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.UserCounterDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 
 import com.CourseWorkRusut.model.User;
 
@@ -17,7 +17,7 @@ public interface UserService {
 
     void update(User user);
 
-    User getUserByLogin(String login);  //подгружать только юзера и его роль
+    User getUserByLogin(String login);
 
     UserDTO getUserById(Long id);
 
@@ -25,11 +25,9 @@ public interface UserService {
 
     UserDTO getUserByLog(String login);
 
-    User getUserByEmail(String email); //подумать можно ли вернуть тру/фолс если есть такой емэйл
+    User getUserByEmail(String email);
 
     void delete(Long id);
-
-///    Long contUsers(String nameRole);
 
     UserCounterDTO getAllUser(String offset);
 

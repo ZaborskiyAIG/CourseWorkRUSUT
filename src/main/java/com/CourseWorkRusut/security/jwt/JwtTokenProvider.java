@@ -28,11 +28,6 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
-
-  //  public JwtTokenProvider(UserDetailsService userDetailsService) {
-  //      this.userDetailsService = userDetailsService;
-  //  }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

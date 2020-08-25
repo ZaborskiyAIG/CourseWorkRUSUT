@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 import com.CourseWorkRusut.model.User;
 
 

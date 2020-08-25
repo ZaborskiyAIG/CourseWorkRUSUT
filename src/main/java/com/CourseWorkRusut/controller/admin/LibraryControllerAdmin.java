@@ -1,18 +1,11 @@
 package com.CourseWorkRusut.controller.admin;
 
-import com.CourseWorkRusut.DTO.InternshipDTO;
-import com.CourseWorkRusut.DTO.LibraryCounterDTO;
-import com.CourseWorkRusut.DTO.LibraryDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.LibraryCounterDTO;
 import com.CourseWorkRusut.model.Author;
 import com.CourseWorkRusut.model.Library;
-import com.CourseWorkRusut.model.Specialty;
-import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.service.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 import java.net.URLEncoder;
@@ -54,13 +46,10 @@ public class LibraryControllerAdmin {
             Author author = new Author();
 
             String[] s = authors[i].split(" ");
-          //  String s0 = new String(s[0].getBytes(), StandardCharsets.UTF_8);
-         //   String s1 = new String(s[1].getBytes(), StandardCharsets.UTF_8);
             author.setName(new String (s[0].getBytes ("iso-8859-1"), "UTF-8"));
             author.setSurname(new String (s[1].getBytes ("iso-8859-1"), "UTF-8"));
 
             if(s.length>2) {
-           //     String s2 = new String(s[2].getBytes(), "UTF-8");
                 author.setMiddlename(new String (s[2].getBytes ("iso-8859-1"), "UTF-8"));
             }
             list.add(author);
@@ -101,7 +90,7 @@ public class LibraryControllerAdmin {
         String fileName = library.getName();
         HttpHeaders headers = new HttpHeaders();
 
-        headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));                    //сделать фильтр
+        headers.setContentType(MediaType.parseMediaType("application/pdf; charset=UTF-8"));
 
         String filen = URLEncoder.encode(fileName.replace(" ", "_"), "UTF-8");
 

@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.mappers;
 
-import com.CourseWorkRusut.DTO.AdminDTO;
+import com.CourseWorkRusut.dto.AdminDTO;
 import com.CourseWorkRusut.model.Admin;
 
 import org.mapstruct.Mapper;

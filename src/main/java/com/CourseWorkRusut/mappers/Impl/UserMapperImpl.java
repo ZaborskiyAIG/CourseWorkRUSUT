@@ -1,9 +1,9 @@
 package com.CourseWorkRusut.mappers.Impl;
 
-import com.CourseWorkRusut.DTO.AdminDTO;
-import com.CourseWorkRusut.DTO.StudentDTO;
-import com.CourseWorkRusut.DTO.TeacherDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.AdminDTO;
+import com.CourseWorkRusut.dto.StudentDTO;
+import com.CourseWorkRusut.dto.TeacherDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 import com.CourseWorkRusut.mappers.AdminMapper;
 import com.CourseWorkRusut.mappers.StudentMapper;
 import com.CourseWorkRusut.mappers.TeacherMapper;

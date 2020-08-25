@@ -79,7 +79,7 @@ public class HibernateConfig {
         };
     }
 
-    @Bean(name = "multipartResolver")                   //пока так
+    @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(1000000);

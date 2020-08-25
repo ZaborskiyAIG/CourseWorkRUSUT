@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.LearningActivitiesDAO;
-import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
+import com.CourseWorkRusut.dao.LearningActivitiesDAO;
+import com.CourseWorkRusut.dto.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.LearningActivitiesType;
 import com.CourseWorkRusut.service.LearningActivitiesService;

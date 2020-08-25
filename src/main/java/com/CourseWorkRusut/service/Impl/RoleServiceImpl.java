@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.RoleDAO;
+import com.CourseWorkRusut.dao.RoleDAO;
 import com.CourseWorkRusut.model.Role;
 import com.CourseWorkRusut.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

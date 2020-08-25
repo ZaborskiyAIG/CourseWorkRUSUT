@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.service;
 
-import com.CourseWorkRusut.DTO.InternshipDTO;
-import com.CourseWorkRusut.DTO.LearningActivitiesDTO;
+import com.CourseWorkRusut.dto.InternshipDTO;
+import com.CourseWorkRusut.dto.LearningActivitiesDTO;
 import com.CourseWorkRusut.model.Internship;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.model.PlacePractice;

@@ -1,7 +1,6 @@
 package com.CourseWorkRusut.service;
 
-import com.CourseWorkRusut.DTO.*;
-import com.CourseWorkRusut.model.SubjectTeacherGroup;
+import com.CourseWorkRusut.dto.*;
 import com.CourseWorkRusut.model.Teacher;
 import com.CourseWorkRusut.model.User;
 

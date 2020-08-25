@@ -1,7 +1,6 @@
 package com.CourseWorkRusut.controller.teacher;
 
-import com.CourseWorkRusut.DAO.InternshipDAO;
-import com.CourseWorkRusut.DTO.*;
+import com.CourseWorkRusut.dto.*;
 import com.CourseWorkRusut.model.Internship;
 import com.CourseWorkRusut.model.LearningActivities;
 import com.CourseWorkRusut.service.*;

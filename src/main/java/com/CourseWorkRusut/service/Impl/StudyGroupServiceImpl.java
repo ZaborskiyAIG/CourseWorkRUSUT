@@ -1,6 +1,6 @@
 package com.CourseWorkRusut.service.Impl;
 
-import com.CourseWorkRusut.DAO.StudyGroupDAO;
+import com.CourseWorkRusut.dao.StudyGroupDAO;
 import com.CourseWorkRusut.model.Specialty;
 import com.CourseWorkRusut.model.StudyGroup;
 import com.CourseWorkRusut.service.SpecialtyService;
@@ -54,11 +54,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 
         String studyGroup;
 
-        Iterator<String> iter = studyGroups.iterator();  //чекнуть iterator vs listIterator разницу и for vs iterator, что лушче
+        Iterator<String> iter = studyGroups.iterator();
 
         while(iter.hasNext()){
             studyGroup = iter.next();
-            if(studyGroupDAO.getCountStudentsInGroup(studyGroup)<=25){ //25 максимальное число учеников в группе, надо пофиксить, но пока так
+            if(studyGroupDAO.getCountStudentsInGroup(studyGroup)<=25){ //25 максимальное число учеников в группе
             return studyGroupDAO.getStudyGroupByNumberGroup(studyGroup) ;
             }
         }
@@ -76,7 +76,7 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 
 
     //группа будет генериться так *#-*порядковый_номер_группы* , где * это id специальности, #-последняя цифра этого года
-    private String generatedNumberGroup(long specialtyId, String entryYear, int lastNumberGroup){   //над подумать как лучше сделать
+    private String generatedNumberGroup(long specialtyId, String entryYear, int lastNumberGroup){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(specialtyId)

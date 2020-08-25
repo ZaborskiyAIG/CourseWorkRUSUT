@@ -1,7 +1,7 @@
 package com.CourseWorkRusut.controller;
 
-import com.CourseWorkRusut.DTO.PasswordDTO;
-import com.CourseWorkRusut.DTO.UserDTO;
+import com.CourseWorkRusut.dto.PasswordDTO;
+import com.CourseWorkRusut.dto.UserDTO;
 import com.CourseWorkRusut.model.User;
 import com.CourseWorkRusut.security.jwt.JwtTokenProvider;
 import com.CourseWorkRusut.service.UserService;
@@ -40,7 +40,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/registration")
-    public ResponseEntity registrationUser(@RequestBody User user) { //requestBody? HttpServletRequest? чек поле consumer
+    public ResponseEntity registrationUser(@RequestBody User user) {
 
         if(userService.getUserByLogin(user.getLogin())!=null || userService.getUserByEmail(user.getEmail())!=null ){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Such user already exists");
@@ -48,26 +48,11 @@ public class AuthenticationController {
 
         userService.register(user);
 
-        //надо сделать авторизацию сразу после регистрации
-
-        /*String token = jwtTokenProvider.createToken(user.getLogin(), Student.getNameRole());
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword());
-        request.getSession();
-        authToken.setDetails(new WebAuthenticationDetails(request));
-        Authentication authentication = authenticationManager.authenticate(authToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        Map<Object, Object> response = new HashMap<>();
-        response.put("role", Student.getNameRole());
-        response.put("token", token);*/
-        //String token = jwtTokenProvider.createToken(user.getLogin(), String.valueOf(user.getAuthorities().iterator().next()));
         String token = jwtTokenProvider.createToken(user.getLogin(), user.getRole().getNameRole());
-        // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
         Map<String, String> response = new HashMap<>();
-        //  response.put("role", String.valueOf(validUser.getAuthorities().iterator().next()));
         response.put("token", token);
         return new ResponseEntity<>(response, HttpStatus.OK);
-     //   return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/login")
@@ -94,7 +79,7 @@ public class AuthenticationController {
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 
-        } catch (AuthenticationException e){  //разобрать обработку ошибок в контроллере
+        } catch (AuthenticationException e){
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
         }
@@ -120,7 +105,7 @@ public class AuthenticationController {
             userService.update(user);
             return new ResponseEntity( HttpStatus.OK);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad password");  //а если без else??
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad password");
 
         }
 
